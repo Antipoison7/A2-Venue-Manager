@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.BookingManagerController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="831.399951171875" minWidth="10.0" prefWidth="731.2" />
     <ColumnConstraints maxWidth="276.79999999999995" minWidth="168.00004882812505" prefWidth="268.79999999999995" />
@@ -78,12 +78,12 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="27.0" />
          </GridPane.margin>
          <children>
-            <Button mnemonicParsing="false" text="Show More Request Details">
+            <Button fx:id="moreRequestDetails" mnemonicParsing="false" text="Show More Request Details">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <CheckBox mnemonicParsing="false" text="Available Time / Date">
+            <CheckBox fx:id="checkTime" mnemonicParsing="false" text="Available Time / Date">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -91,17 +91,17 @@
                   <Font size="13.0" />
                </font>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Sufficient Capacity">
+            <CheckBox fx:id="checkCapacity" mnemonicParsing="false" text="Sufficient Capacity">
                <font>
                   <Font size="13.0" />
                </font>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Suitable Gig Type">
+            <CheckBox fx:id="checkGig" mnemonicParsing="false" text="Suitable Gig Type">
                <font>
                   <Font size="13.0" />
                </font>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Indoor / Outdoor Type">
+            <CheckBox fx:id="checkInOut" mnemonicParsing="false" text="Indoor / Outdoor Type">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
@@ -109,17 +109,17 @@
                   <Font size="13.0" />
                </font>
             </CheckBox>
-            <Button mnemonicParsing="false" text="Filter Venues For Selected Booking">
+            <Button fx:id="filterVenues" mnemonicParsing="false" text="Filter Venues For Selected Booking">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Auto Match">
+            <Button fx:id="autoMatch" mnemonicParsing="false" text="Auto Match">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Manually Add Booking">
+            <Button fx:id="newBooking" mnemonicParsing="false" onAction="#addNewBooking" text="Add New Booking To List">
                <font>
                   <Font size="13.0" />
                </font>
@@ -131,10 +131,10 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="27.0" />
          </GridPane.margin>
          <children>
-            <Button mnemonicParsing="false" text="Add New Venue" />
-            <CheckBox mnemonicParsing="false" text="Group Booking Discount" />
-            <Button mnemonicParsing="false" text="Show More Venue Details" />
-            <Button mnemonicParsing="false" text="Book Selected Venue">
+            <Button fx:id="addVenue" mnemonicParsing="false" onAction="#addNewVenue" text="Add New Venue" />
+            <CheckBox fx:id="bookingDiscount" mnemonicParsing="false" text="Group Booking Discount" />
+            <Button fx:id="moreVenueDetails" mnemonicParsing="false" text="Show More Venue Details" />
+            <Button fx:id="bookVenue" mnemonicParsing="false" text="Book Selected Venue">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
@@ -151,10 +151,10 @@
       </VBox>
       <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="226.0" text="Menu Options" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
         <items>
-          <MenuItem mnemonicParsing="false" text="Customise Your Profile" />
-          <MenuItem mnemonicParsing="false" text="Backup Manager" />
-            <MenuItem mnemonicParsing="false" text="Manager Stats" />
-            <MenuItem mnemonicParsing="false" text="Add Employees" />
+          <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
+          <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
+            <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
+            <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
         </items>
          <font>
             <Font size="19.0" />
