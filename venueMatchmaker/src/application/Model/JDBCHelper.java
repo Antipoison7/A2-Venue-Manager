@@ -1,8 +1,10 @@
-package application;
+package application.Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import application.View.ErrorGenerator;
 
 public abstract class JDBCHelper 
 {

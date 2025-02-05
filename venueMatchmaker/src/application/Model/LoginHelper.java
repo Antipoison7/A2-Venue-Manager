@@ -1,9 +1,11 @@
-package application;
+package application.Model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import application.View.ErrorGenerator;
 
 public class LoginHelper extends JDBCHelper
 {

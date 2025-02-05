@@ -5,25 +5,12 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
+import application.View.*;
 
 
-public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
-		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setTitle("Event Manager Login");
-			primaryStage.setResizable(false);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+public class Main {
+
 	public static void main(String[] args) {
-		launch(args);
+	LoginView loginv = new LoginView();
 	}
 }

@@ -1,4 +1,4 @@
-package application;
+package application.View;
 	
 import java.io.FileInputStream;
 
@@ -35,6 +35,7 @@ public class ErrorGenerator{
 		try {
 			Stage errorStage = new Stage();
 			
+			
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("errorPage.fxml"));
 			
 			GridPane titleBox = new GridPane();
@@ -67,7 +68,6 @@ public class ErrorGenerator{
 			root.setCenter(bodyText);	
 			
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			errorStage.setTitle("Event Manager Login");
 			errorStage.setResizable(false);
 			errorStage.setScene(scene);
