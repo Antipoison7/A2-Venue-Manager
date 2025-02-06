@@ -1,5 +1,6 @@
 package application.Controller;
 
+import application.View.NewVenueView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -62,7 +63,8 @@ public class BookingManagerController
     @FXML
     public void addNewVenue(ActionEvent e) 
     {
-    	System.out.println("Add New Venue Button");
+    	NewVenueView window = new NewVenueView();
+    	window.openNewVenueWindow();
     }
     
     @FXML
