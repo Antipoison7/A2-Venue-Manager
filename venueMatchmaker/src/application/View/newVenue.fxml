@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.NewVenueController">
    <children>
       <Label text="New Venue">
          <font>
@@ -62,22 +62,22 @@
       </Label>
       <VBox fx:id="typeVBox" spacing="5.0">
          <children>
-            <CheckBox mnemonicParsing="false" text="Gig">
+            <CheckBox fx:id="checkGig" mnemonicParsing="false" text="Gig">
                <font>
                   <Font size="14.0" />
                </font>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Disco">
+            <CheckBox fx:id="checkDisco" mnemonicParsing="false" text="Disco">
                <font>
                   <Font size="14.0" />
                </font>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Large Live Concert">
+            <CheckBox fx:id="checkLLC" mnemonicParsing="false" text="Large Live Concert">
                <font>
                   <Font size="14.0" />
                </font>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Festival">
+            <CheckBox fx:id="checkFestival" mnemonicParsing="false" text="Festival">
                <font>
                   <Font size="14.0" />
                </font>
@@ -93,7 +93,7 @@
          </VBox.margin>
       </Label>
       <ComboBox fx:id="venueCondition" prefHeight="26.0" prefWidth="198.0" promptText="Category Conditions" />
-      <Button fx:id="createVenue" mnemonicParsing="false" text="Create Venue">
+      <Button fx:id="createVenue" mnemonicParsing="false" onAction="#createVenue" text="Create Venue">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
