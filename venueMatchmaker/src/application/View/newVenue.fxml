@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="New Venue">
@@ -22,7 +21,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField promptText="Name">
+      <TextField fx:id="venueName" promptText="Name">
          <font>
             <Font size="15.0" />
          </font>
@@ -35,7 +34,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField promptText="Price">
+      <TextField fx:id="venuePrice" promptText="Price">
          <font>
             <Font size="15.0" />
          </font>
@@ -48,7 +47,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField promptText="Number">
+      <TextField fx:id="venueCap" promptText="Number">
          <font>
             <Font size="15.0" />
          </font>
@@ -61,7 +60,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <VBox spacing="5.0">
+      <VBox fx:id="typeVBox" spacing="5.0">
          <children>
             <CheckBox mnemonicParsing="false" text="Gig">
                <font>
@@ -93,8 +92,8 @@
             <Insets top="5.0" />
          </VBox.margin>
       </Label>
-      <ComboBox prefHeight="26.0" prefWidth="198.0" promptText="Category Conditions" />
-      <Button mnemonicParsing="false" text="Create Venue">
+      <ComboBox fx:id="venueCondition" prefHeight="26.0" prefWidth="198.0" promptText="Category Conditions" />
+      <Button fx:id="createVenue" mnemonicParsing="false" text="Create Venue">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
