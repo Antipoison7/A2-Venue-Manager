@@ -1,11 +1,14 @@
 package application.Model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.Venue;
+import application.Model.ObjectClasses.VenueDump;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -85,6 +88,62 @@ public class TableListGenerator extends JDBCHelper{
 		}
 		catch(Exception e) 
 		{
+			return null;
+		}
+	}
+	
+	public ObservableList<VenueDump> getVenueDump()
+	{
+		try 
+		{
+			Connection jdbc =  connectDB();
+			
+			Statement statement = jdbc.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM venues");
+			
+			ObservableList<VenueDump> venues = FXCollections.observableArrayList();
+			
+			while(resultSet.next()) 
+			{
+				VenueDump newVenue = new VenueDump();
+				newVenue.setId(resultSet.getInt(1));
+				newVenue.setName(resultSet.getString(2));
+				newVenue.setHirePrice(resultSet.getDouble(3));
+				newVenue.setCapacity(resultSet.getInt(4));
+				newVenue.setCategory(resultSet.getString(5));
+				
+				if(resultSet.getInt(6) == 1) 
+				{
+					newVenue.setBookable(true);
+				}
+				else 
+				{
+					newVenue.setBookable(false);
+				}
+				
+				PreparedStatement query;
+				query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_id = ?;");
+				query.setInt(1, resultSet.getInt(1));
+				
+				ResultSet results = query.executeQuery();
+				
+				while(results.next()) 
+				{
+//					System.out.println("Ping");
+					newVenue.addToType(results.getString(1));
+				}
+				
+				venues.add(newVenue);
+			}
+			
+			jdbc.close();
+			statement.close();
+			
+			return venues;
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
 			return null;
 		}
 	}
