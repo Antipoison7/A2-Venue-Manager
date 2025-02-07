@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import application.Model.*;
 import application.Model.ObjectClasses.Venue;
+import application.View.BookingManagerView;
 import application.View.ErrorGenerator;
 
 public class NewVenueController {
@@ -112,7 +113,9 @@ public class NewVenueController {
         			//TODO: Make this update the bookingManagerView
         			System.out.println("Window Closed");
         	    	Stage stage = (Stage) createVenue.getScene().getWindow();
-        	    	stage.close();
+        	    	
+        	    	BookingManagerView view = new BookingManagerView();
+        	    	view.openBookingManager(stage);
         		}
         	}
         	else 
