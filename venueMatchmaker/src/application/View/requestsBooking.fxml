@@ -60,12 +60,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TableView>
+            <TableView fx:id="venueTable">
               <columns>
-                <TableColumn prefWidth="79.20001065731049" text="Venue ID" />
-                <TableColumn prefWidth="404.7999954223633" text="Venue Name" />
-                  <TableColumn prefWidth="105.59994506835938" text="Compatibility" />
-                  <TableColumn prefWidth="120.79998779296875" text="Capacity" />
+                <TableColumn fx:id="vID" prefWidth="79.20001065731049" text="Venue ID" />
+                <TableColumn fx:id="vName" prefWidth="404.7999954223633" text="Venue Name" />
+                  <TableColumn fx:id="vCompat" prefWidth="105.59994506835938" text="Compatibility" />
+                  <TableColumn fx:id="vCapac" prefWidth="120.79998779296875" text="Capacity" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -153,6 +153,7 @@
         <items>
             <MenuItem fx:id="ddBookingManager" mnemonicParsing="false" onAction="#openBookingManager" text="Booking Manager" />
           <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
+            <MenuItem fx:id="ddAllVenues" mnemonicParsing="false" onAction="#openAllVenues" text="All Venue Search" />
           <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
             <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
             <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
