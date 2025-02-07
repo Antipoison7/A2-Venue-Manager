@@ -10,7 +10,7 @@ import application.Model.ObjectClasses.Venue;
 
 public class NewStaffMembers extends JDBCHelper {
 	
-	private static int authPin = 909;
+	private final static int AUTH_PIN = 909;
 
 	public boolean isStaffValid(User user) 
 	{
@@ -76,7 +76,7 @@ public class NewStaffMembers extends JDBCHelper {
 				isValid = false;
 			}
 			
-			if(code != authPin) 
+			if(code != AUTH_PIN) 
 			{
 				System.out.println("Invalid Authpin");
 				isValid = false;
