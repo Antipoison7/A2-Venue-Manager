@@ -1,7 +1,10 @@
 package application.Controller;
 
+import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.User;
+import application.Model.ObjectClasses.Venue;
+import application.View.AllVenuesView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.NewVenueView;
@@ -10,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class BookingManagerController 
@@ -45,6 +51,9 @@ public class BookingManagerController
     
     //Dropdown Menu Items
     @FXML
+    private MenuItem ddAllVenues;
+    
+    @FXML
     private MenuItem ddBookingManager;
     
     @FXML
@@ -67,6 +76,22 @@ public class BookingManagerController
 
     @FXML
     private Button moreVenueDetails;
+    
+
+    @FXML
+    private TableColumn<Venue, Integer> vCapac;
+
+    @FXML
+    private TableColumn<Venue, String> vCompat; //Indoors vs outdoors
+
+    @FXML
+    private TableColumn<Venue, Integer> vID;
+
+    @FXML
+    private TableColumn<Venue, String> vName;
+
+    @FXML
+    private TableView<Venue> venueTable;
     
     @FXML
     public void addNewVenue(ActionEvent e) 
@@ -96,6 +121,16 @@ public class BookingManagerController
     public void openCustomiseProfile(ActionEvent e) 
     {
     	System.out.println("Open Customise Profile");
+    }
+    
+    @FXML
+    public void openAllVenues(ActionEvent event) {
+    	System.out.println("Open All Venues Menu");
+    	
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	
+    	AllVenuesView view = new AllVenuesView();
+    	view.openAllVenues(stage);
     }
     
     @FXML
@@ -154,6 +189,17 @@ public class BookingManagerController
     		    ddStats.setVisible(false);
 
     	}
+    	
+    	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+ 	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+ 	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+ 	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
+ 	    
+ 	    TableListGenerator mm = new TableListGenerator();
+ 	    venueTable.setItems(mm.getVenues());
     }
 
 }
