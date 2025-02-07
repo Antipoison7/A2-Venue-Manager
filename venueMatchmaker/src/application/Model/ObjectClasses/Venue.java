@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Venue {
 
-	private int id;
-	private String name;
-	private double hirePrice;
-	private int capacity;
-	private String category;
-	private boolean bookable = true;
-	private ArrayList<String> suitableType;
+	protected int id;
+	protected String name;
+	protected double hirePrice;
+	protected int capacity;
+	protected String category;
+	protected boolean bookable = true;
+	protected ArrayList<String> suitableType;
 	
 	public Venue() 
 	{
