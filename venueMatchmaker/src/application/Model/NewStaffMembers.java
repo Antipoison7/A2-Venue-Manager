@@ -109,6 +109,9 @@ public class NewStaffMembers extends JDBCHelper {
 			{
 				isSuccessful = true;
 			}
+			
+			jdbc.close();
+			query.close();
 		}
 		catch(Exception e) 
 		{

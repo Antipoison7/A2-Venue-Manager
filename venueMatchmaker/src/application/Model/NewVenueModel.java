@@ -87,10 +87,15 @@ public class NewVenueModel extends JDBCHelper {
 				typeQuery.setString(2, s);
 				
 				typeQuery.executeUpdate();
+				typeQuery.close();
 			}
+			
+			jdbc.close();
+			query.close();
 		}
 		catch(Exception e) 
 		{
+			System.out.println(e);
 			return false;
 		}
 		
