@@ -76,7 +76,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button fx:id="createAccount" mnemonicParsing="false" text="Create Account">
+      <Button fx:id="createAccount" mnemonicParsing="false" onAction="#addManager" text="Create Account">
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>

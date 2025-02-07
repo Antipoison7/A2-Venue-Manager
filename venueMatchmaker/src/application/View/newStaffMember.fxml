@@ -66,7 +66,7 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </TextField>
-      <Button fx:id="createAccount" mnemonicParsing="false" text="Create Account">
+      <Button fx:id="createAccount" mnemonicParsing="false" onAction="#addStaff" text="Create Account">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
