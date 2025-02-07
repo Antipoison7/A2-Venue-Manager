@@ -73,6 +73,11 @@
                   <Font size="14.0" />
                </font>
             </CheckBox>
+            <CheckBox fx:id="checkLive" mnemonicParsing="false" text="Live Concert">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </CheckBox>
             <CheckBox fx:id="checkLLC" mnemonicParsing="false" text="Large Live Concert">
                <font>
                   <Font size="14.0" />
