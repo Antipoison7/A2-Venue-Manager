@@ -1,11 +1,14 @@
 package application.Controller;
 
+import application.View.BookingManagerView;
+import application.View.EmployeeManagerView;
 import application.View.NewVenueView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 public class BookingManagerController 
 {
@@ -40,6 +43,9 @@ public class BookingManagerController
     
     //Dropdown Menu Items
     @FXML
+    private MenuItem ddBookingManager;
+    
+    @FXML
     private MenuItem ddCustomise;
 
     @FXML
@@ -64,13 +70,24 @@ public class BookingManagerController
     public void addNewVenue(ActionEvent e) 
     {
     	NewVenueView window = new NewVenueView();
-    	window.openNewVenueWindow();
+    	window.openVenueWindow((Stage) newBooking.getScene().getWindow());
     }
     
     @FXML
     public void addNewBooking(ActionEvent e) 
     {
     	System.out.println("Add New Booking Button");
+    }
+    
+    @FXML
+    public void openBookingManager(ActionEvent e) 
+    {
+    	System.out.println("Open Booking Manager");
+    	
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	
+    	BookingManagerView view = new BookingManagerView();
+    	view.openBookingManager(stage);
     }
     
     @FXML
@@ -95,6 +112,9 @@ public class BookingManagerController
     public void openAddEmployees(ActionEvent e) 
     {
     	System.out.println("Open Add Employees");
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	EmployeeManagerView empl = new EmployeeManagerView();
+    	empl.openManagerView(stage);
     }
     
     @FXML
@@ -119,6 +139,12 @@ public class BookingManagerController
     public void bookVenue(ActionEvent e) 
     {
     	System.out.println("Book Venue");
+    }
+    
+    
+    public void reloadPage() 
+    {
+    	
     }
 
 }
