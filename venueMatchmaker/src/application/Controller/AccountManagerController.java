@@ -1,7 +1,9 @@
 package application.Controller;
 
+import application.Model.EmployeeManagerModel;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.User;
+import application.Model.ObjectClasses.*;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.NewManagerView;
@@ -12,7 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class AccountManagerController 
@@ -60,6 +65,21 @@ public class AccountManagerController
     @FXML
     private TextField updateUsername;
     
+    
+    @FXML
+    private TableColumn<User, String> tFullName;
+
+    @FXML
+    private TableColumn<User, String> tPassword;
+
+    @FXML
+    private TableColumn<User, Integer> tSecurity;
+
+    @FXML
+    private TableColumn<User, String> tUsername;
+
+    @FXML
+    private TableView<User> table;
     
     @FXML
     public void openNewUser() 
@@ -127,6 +147,17 @@ public class AccountManagerController
     		    ddStats.setVisible(false);
 
     	}
+    	
+    	    tFullName.setCellValueFactory(new PropertyValueFactory<>("realName"));
+
+    	    tPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+
+    	    tSecurity.setCellValueFactory(new PropertyValueFactory<>("security"));
+
+    	    tUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+    	    
+    	    EmployeeManagerModel mm = new EmployeeManagerModel();
+    	    table.setItems(mm.getUsers());
     }
 
 }

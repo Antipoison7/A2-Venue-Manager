@@ -59,12 +59,12 @@
           <RowConstraints maxHeight="308.3999938964843" minHeight="10.0" prefHeight="302.79995727539057" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
+            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
               <columns>
-                <TableColumn prefWidth="206.39996945858002" text="Username" />
-                <TableColumn prefWidth="179.2000732421875" text="Full Name" />
-                  <TableColumn prefWidth="168.79995727539062" text="Password" />
-                  <TableColumn prefWidth="114.4000244140625" text="Security Level" />
+                <TableColumn fx:id="tUsername" prefWidth="206.39996945858002" text="Username" />
+                <TableColumn fx:id="tFullName" prefWidth="179.2000732421875" text="Full Name" />
+                  <TableColumn fx:id="tPassword" prefWidth="168.79995727539062" text="Password" />
+                  <TableColumn fx:id="tSecurity" prefWidth="114.4000244140625" text="Security Level" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" top="10.0" />
