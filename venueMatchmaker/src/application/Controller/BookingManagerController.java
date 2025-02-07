@@ -1,5 +1,7 @@
 package application.Controller;
 
+import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.User;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.NewVenueView;
@@ -142,9 +144,16 @@ public class BookingManagerController
     }
     
     
-    public void reloadPage() 
+    public void initialize()
     {
-    	
+    	User selectedUser = CurrentUser.getUser();
+    	if(selectedUser.getSecurity() <=0) 
+    	{
+    		    ddEmployees.setVisible(false);
+
+    		    ddStats.setVisible(false);
+
+    	}
     }
 
 }

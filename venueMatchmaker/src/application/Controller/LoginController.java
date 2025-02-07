@@ -1,6 +1,8 @@
 package application.Controller;
 
 import application.Model.LoginHelper;
+import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.User;
 import application.View.BookingManagerView;
 import application.View.ErrorGenerator;
 import javafx.event.ActionEvent;
@@ -38,6 +40,19 @@ public class LoginController {
     			System.out.println("Login Success");
     			
     			BookingManagerView manager = new BookingManagerView();
+    			
+    			User loginUser = new User();
+    			
+    			loginUser.setUsername(usernameField.getText());
+    			loginUser.setPassword(passwordField.getText());
+    			loginUser.setSecurity(0);
+    			
+    			if(loginHelper.doesPassSecurity(usernameField.getText(), passwordField.getText(), 1))
+    			{
+    				loginUser.setSecurity(1);
+    			}
+    			
+    			CurrentUser.setUser(loginUser);
     			
     			manager.openBookingManager((Stage) ((Node)e.getSource()).getScene().getWindow());
     		}

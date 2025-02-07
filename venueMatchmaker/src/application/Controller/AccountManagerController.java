@@ -1,5 +1,7 @@
 package application.Controller;
 
+import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.User;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.NewManagerView;
@@ -112,6 +114,19 @@ public class AccountManagerController
     	Stage stage = (Stage) deleteStaff.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    
+    public void initialize()
+    {
+    	User selectedUser = CurrentUser.getUser();
+    	if(selectedUser.getSecurity() <=0) 
+    	{
+    		    ddEmployees.setVisible(false);
+
+    		    ddStats.setVisible(false);
+
+    	}
     }
 
 }
