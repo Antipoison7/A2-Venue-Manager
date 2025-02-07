@@ -74,9 +74,6 @@ public class AccountManagerController
     private TableColumn<User, String> tFullName;
 
     @FXML
-    private TableColumn<User, String> tPassword;
-
-    @FXML
     private TableColumn<User, Integer> tSecurity;
 
     @FXML
@@ -163,8 +160,6 @@ public class AccountManagerController
     	}
     	
     	    tFullName.setCellValueFactory(new PropertyValueFactory<>("realName"));
-
-    	    tPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
 
     	    tSecurity.setCellValueFactory(new PropertyValueFactory<>("security"));
 
