@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,22 +19,32 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.AccountManagerController">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="closeButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Close">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
             <Label text="Account Manager">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Label>
+            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="226.0" text="Menu Options">
+               <items>
+                  <MenuItem fx:id="ddBookingManager" mnemonicParsing="false" onAction="#openBookingManager" text="Booking Manager" />
+                  <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
+                  <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
+                  <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
+                  <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
+               </items>
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="400.0" />
+               </HBox.margin>
+            </MenuButton>
          </children>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
       </HBox>
    </top>
    <center>
@@ -68,12 +80,12 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="staffTemplate" mnemonicParsing="false" prefWidth="230.0" text="Open new staff template">
+                  <Button fx:id="staffTemplate" mnemonicParsing="false" onAction="#openNewUser" prefWidth="230.0" text="Open new staff template">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="managerTemplate" mnemonicParsing="false" prefWidth="230.0" text="Open new manager template">
+                  <Button fx:id="managerTemplate" mnemonicParsing="false" onAction="#openNewManager" prefWidth="230.0" text="Open new manager template">
                      <font>
                         <Font size="16.0" />
                      </font>
