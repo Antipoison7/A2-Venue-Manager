@@ -31,6 +31,9 @@ public class NewVenueController {
 
     @FXML
     private CheckBox checkLLC;
+    
+    @FXML
+    private CheckBox checkLive;
 
     //Submit Button
     @FXML
@@ -90,8 +93,14 @@ public class NewVenueController {
         	
         	if(checkLLC.isSelected()) 
         	{
-        		System.out.println("Live");
+        		System.out.println("Large Live");
         		suitableTypes.add("large live concert");
+        	}
+        	
+        	if(checkLive.isSelected()) 
+        	{
+        		System.out.println("Live");
+        		suitableTypes.add("live concert");
         	}
         	
         	userVenue.setCapacity(Integer.parseInt(venueCap.getText()));
