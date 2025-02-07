@@ -10,7 +10,7 @@ public class Venue {
 	protected int capacity;
 	protected String category;
 	protected boolean bookable = true;
-	protected ArrayList<String> suitableType;
+	protected ArrayList<String> suitableType = new ArrayList<String>();
 	
 	public Venue() 
 	{
