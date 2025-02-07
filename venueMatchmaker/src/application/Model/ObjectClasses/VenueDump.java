@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class VenueDump extends Venue{
 	
-	private String type;
+	private String type = "";
 
 	public VenueDump() 
 	{
@@ -27,7 +27,7 @@ public class VenueDump extends Venue{
 	public void addToType(String type) 
 	{
 		suitableType.add(type);
-		type += (type + "; ");
+		this.type += (type + "; ");
 	}
 	
 	public String getType() 
