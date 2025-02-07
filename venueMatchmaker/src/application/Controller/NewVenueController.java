@@ -35,6 +35,10 @@ public class NewVenueController {
     //Submit Button
     @FXML
     private Button createVenue;
+    
+    //Discard Button
+    @FXML
+    private Button buttonDiscard;
 
     //vbox that contains the check boxes, could be useful if the product wants to create events dynamically
     @FXML
@@ -137,6 +141,15 @@ public class NewVenueController {
 	    	
 	    	errorThrow.throwError();
     	}
+    }
+    
+    @FXML
+    public void discard() 
+    {
+    	Stage stage = (Stage) buttonDiscard.getScene().getWindow();
+    	
+    	BookingManagerView view = new BookingManagerView();
+    	view.openBookingManager(stage);
     }
     
     @FXML

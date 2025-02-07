@@ -1,17 +1,29 @@
 package application.Controller;
 
+import java.util.ArrayList;
+
+import application.Model.AllVenuesSearchModel;
+import application.Model.TableListGenerator;
+import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.User;
+import application.Model.ObjectClasses.VenueDump;
 import application.View.AllVenuesView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class AllVenuesController {
+
+	private ArrayList<VenueDump> tableData = new ArrayList<VenueDump>();
 	
 	@FXML
     private MenuItem ddAllVenues;
@@ -33,27 +45,30 @@ public class AllVenuesController {
 
     @FXML
     private TextField searchBox;
+    
+    @FXML
+    private Button searchButton;
 
     @FXML
-    private TableColumn<?, ?> tCapacity;
+    private TableColumn<VenueDump, Integer> tCapacity;
 
     @FXML
-    private TableColumn<?, ?> tCategory;
+    private TableColumn<VenueDump, String> tCategory;
 
     @FXML
-    private TableColumn<?, ?> tID;
+    private TableColumn<VenueDump, Integer> tID;
 
     @FXML
-    private TableColumn<?, ?> tName;
+    private TableColumn<VenueDump, String> tName;
 
     @FXML
-    private TableColumn<?, ?> tPrice;
+    private TableColumn<VenueDump, Double> tPrice;
 
     @FXML
-    private TableColumn<?, ?> tSuitable;
+    private TableColumn<VenueDump, String> tSuitable;
 
     @FXML
-    private TableView<?> table;
+    private TableView<VenueDump> table;
     
 	
 	public void openBookingManager(ActionEvent e) 
@@ -101,5 +116,70 @@ public class AllVenuesController {
     	Stage stage = (Stage) searchBox.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void updateTableSearch(ActionEvent e) 
+    {
+//    	System.out.println("Update");
+    	
+    	if(searchBox.getText().length() == 0) 
+    	{
+    		tCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+    		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+    		tID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+    		tName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+    		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
+
+    		tSuitable.setCellValueFactory(new PropertyValueFactory<>("type"));
+        	
+        	    
+    		TableListGenerator mm = new TableListGenerator();
+    		table.setItems(mm.getVenueDump());
+    	}
+    	else 
+    	{
+    		AllVenuesSearchModel mm = new AllVenuesSearchModel();
+    		
+    		tCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+    		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+    		tID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+    		tName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+    		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
+
+    		tSuitable.setCellValueFactory(new PropertyValueFactory<>("type"));
+        	
+    		
+    		tableData = mm.getVenueDumpArrayList();
+    		
+    		table.setItems(mm.returnSearch(tableData, searchBox.getText()));
+    	}
+    }
+    
+    public void initialize()
+    {
+		tCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+		tID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+		tName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
+
+		tSuitable.setCellValueFactory(new PropertyValueFactory<>("type"));
+    	
+    	    
+		TableListGenerator mm = new TableListGenerator();
+		table.setItems(mm.getVenueDump());
     }
 }
