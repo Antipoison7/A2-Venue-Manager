@@ -17,12 +17,9 @@ import javafx.stage.Stage;
 
 public class NewVenueView 
 {	
-	public void openNewVenueWindow() 
+	public void openVenueWindow(Stage venueWindow) 
 	{
 		try {
-			Stage venueWindow = new Stage();
-			
-			
 			VBox root = (VBox)FXMLLoader.load(getClass().getResource("newVenue.fxml"));
 
 			Scene scene = new Scene(root);
