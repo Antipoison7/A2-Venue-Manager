@@ -10,6 +10,14 @@ public class User {
 	{
 		
 	}
+	
+	public User(User u) 
+	{
+		this.username = u.getUsername();
+		this.password = u.getPassword();
+		this.realName = u.getRealName();
+		this.security = u.getSecurity();
+	}
 
 	public User(int security) {
 		this.security = security;
