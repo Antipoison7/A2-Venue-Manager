@@ -8,6 +8,7 @@ import application.View.AllVenuesView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.NewVenueView;
+import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -121,6 +122,11 @@ public class BookingManagerController
     public void openCustomiseProfile(ActionEvent e) 
     {
     	System.out.println("Open Customise Profile");
+    	
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	
+    	UpdateStaffProfileView view = new UpdateStaffProfileView();
+    	view.openProfileCustomisation(stage);
     }
     
     @FXML
