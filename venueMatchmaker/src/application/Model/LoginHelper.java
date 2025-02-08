@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import application.Model.ObjectClasses.User;
 import application.View.ErrorGenerator;
 
 public class LoginHelper extends JDBCHelper
@@ -116,6 +117,39 @@ public class LoginHelper extends JDBCHelper
 	    	errorThrow.throwError();
 	    	
 	    	return false;
+		}
+	}
+	
+	public User getUserDetails(String s) 
+	{
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("SELECT * FROM users WHERE username = ?");
+			query.setString(1, s);
+			
+			User retUser = new User();
+			
+			ResultSet rs = query.executeQuery();
+			
+			while(rs.next()) 
+			{
+				retUser.setUsername(rs.getString(1));
+				retUser.setPassword(rs.getString(2));
+				retUser.setRealName(rs.getString(3));
+				retUser.setSecurity(rs.getInt(4));
+			}
+			
+			jdbc.close();
+			query.close();
+			
+			return retUser;
+		}
+		catch(Exception e) 
+		{
+			return null;
 		}
 	}
 }
