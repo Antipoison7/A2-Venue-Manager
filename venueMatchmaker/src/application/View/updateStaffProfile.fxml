@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.UpdateStaffProfileController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="979.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <children>
+            <Label fx:id="title" prefHeight="35.0" prefWidth="540.0" text="Update Profile: User Name Failed To Load">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="226.0" text="Menu Options">
+               <items>
+                  <MenuItem fx:id="ddBookingManager" mnemonicParsing="false" onAction="#openBookingManager" text="Booking Manager" />
+                  <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
+                  <MenuItem fx:id="ddAllVenues" mnemonicParsing="false" onAction="#openAllVenues" text="All Venue Search" />
+                  <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
+                  <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
+                  <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
+               </items>
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </MenuButton>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Full Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="fullName" promptText="Full Name">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label text="Password">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="password" promptText="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="updateDetailsButton" mnemonicParsing="false" onAction="#updateDetails" text="Update Details">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
