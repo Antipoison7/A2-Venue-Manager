@@ -43,9 +43,7 @@ public class LoginController {
     			
     			User loginUser = new User();
     			
-    			loginUser.setUsername(usernameField.getText());
-    			loginUser.setPassword(passwordField.getText());
-    			loginUser.setSecurity(0);
+    			loginUser = loginHelper.getUserDetails(usernameField.getText());
     			
     			if(loginHelper.doesPassSecurity(usernameField.getText(), passwordField.getText(), 1))
     			{
