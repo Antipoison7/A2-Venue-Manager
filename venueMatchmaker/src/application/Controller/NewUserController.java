@@ -65,7 +65,7 @@ public class NewUserController {
     			ErrorGenerator errorThrow = new ErrorGenerator();
     	    	
     	    	errorThrow.setErrorTitle("Entry Error");
-    	    	errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy. Thing");
+    	    	errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
     	    	
     	    	errorThrow.throwError();
     		}
