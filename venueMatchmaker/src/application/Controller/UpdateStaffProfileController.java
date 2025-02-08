@@ -142,9 +142,14 @@ public class UpdateStaffProfileController {
     	catch(Exception f) 
     	{
     		System.out.println(f);
-    	}
-    	
-    	
+    	}	
+    }
+    
+    public void initialize() 
+    {
+    	title.setText("Update Profile: " + CurrentUser.getUser().getUsername());
+    	fullName.setText(CurrentUser.getUser().getRealName());
+    	password.setText(CurrentUser.getUser().getPassword());
     }
 
 }
