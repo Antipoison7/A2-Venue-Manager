@@ -70,6 +70,9 @@ public class AccountManagerController
     @FXML
     private TextField updateUsername;
     
+    @FXML
+    private TextField updateCEOCode;
+    
     
     @FXML
     private TableColumn<User, String> tFullName;
