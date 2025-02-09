@@ -15,6 +15,25 @@ public class Request {
 	private String type;
 	private String category;
 
+	public Request() 
+	{
+		
+	}
+	
+	public Request(int requestID, String clientName, String title, String artist, LocalDate date, LocalTime time,
+			Double duration, int audienceNumber, String type, String category) {
+		this.requestID = requestID;
+		this.clientName = clientName;
+		this.title = title;
+		this.artist = artist;
+		this.date = date;
+		this.time = time;
+		this.duration = duration;
+		this.audienceNumber = audienceNumber;
+		this.type = type;
+		this.category = category;
+	}
+
 	public int getRequestID() {
 		return requestID;
 	}
