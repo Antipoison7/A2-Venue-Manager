@@ -28,6 +28,7 @@
                   <MenuItem fx:id="ddBookingManager" mnemonicParsing="false" onAction="#openBookingManager" text="Booking Manager" />
                   <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
                   <MenuItem fx:id="ddAllVenues" mnemonicParsing="false" onAction="#openAllVenues" text="All Venue Search" />
+                  <MenuItem fx:id="ddAllEvents" mnemonicParsing="false" onAction="#openAllEvents" text="All Events Search" />
                   <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
                   <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
                   <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />

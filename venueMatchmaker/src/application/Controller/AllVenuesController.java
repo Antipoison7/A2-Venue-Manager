@@ -7,6 +7,7 @@ import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.VenueDump;
+import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
@@ -28,6 +29,9 @@ public class AllVenuesController {
 	
 	@FXML
     private MenuItem ddAllVenues;
+	
+	@FXML
+    private MenuItem ddAllEvents;
 
     @FXML
     private MenuItem ddBackup;
@@ -101,6 +105,17 @@ public class AllVenuesController {
     	
     	AllVenuesView view = new AllVenuesView();
     	view.openAllVenues(stage);
+    }
+    
+    @FXML
+    public void openAllEvents(ActionEvent event) 
+    {
+    	System.out.println("Open All Events Menu");
+    	
+    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	
+    	AllEventsView view = new AllEventsView();
+    	view.openAllEvents(stage);
     }
     
     @FXML

@@ -4,6 +4,7 @@ import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.*;
+import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
@@ -26,6 +27,9 @@ public class AccountManagerController
 {
 	 @FXML
 	 private MenuItem ddAllVenues;
+	 
+	 @FXML
+	 private MenuItem ddAllEvents;
 	
 	@FXML
     private MenuItem ddBookingManager;
@@ -133,6 +137,17 @@ public class AccountManagerController
     	
     	AllVenuesView view = new AllVenuesView();
     	view.openAllVenues(stage);
+    }
+    
+    @FXML
+    public void openAllEvents(ActionEvent event) 
+    {
+    	System.out.println("Open All Events Menu");
+    	
+    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
+    	
+    	AllEventsView view = new AllEventsView();
+    	view.openAllEvents(stage);
     }
     
     @FXML
