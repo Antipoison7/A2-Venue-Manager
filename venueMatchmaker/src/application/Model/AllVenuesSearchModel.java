@@ -72,6 +72,6 @@ public class AllVenuesSearchModel extends JDBCHelper{
 	public ObservableList<VenueDump> returnSearch(ArrayList<VenueDump> VenueList, String searchString) 
 	{
 //		System.out.println("Ping");
-		return VenueList.stream().filter(e -> e.getName().contains(searchString)).collect(Collectors.toCollection(FXCollections::observableArrayList));
+		return VenueList.stream().filter(e -> e.getName().toLowerCase().contains(searchString.toLowerCase())).collect(Collectors.toCollection(FXCollections::observableArrayList));
 	}
 }
