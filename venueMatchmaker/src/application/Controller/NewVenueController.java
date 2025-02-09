@@ -112,24 +112,36 @@ public class NewVenueController {
         	
         	if(venueModel.isEntryValid(userVenue)) 
         	{
-        		if(!venueModel.addNewVenue(userVenue)) 
+        		if(venueModel.isDuplicateVenuename(venueName.getText())) 
         		{
-        			ErrorGenerator errorThrow = new ErrorGenerator();
-        	    	
-        	    	errorThrow.setErrorTitle("DB Error");
-        	    	errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
-        	    	
-        	    	errorThrow.throwError();
+        			if(!venueModel.addNewVenue(userVenue)) 
+            		{
+            			ErrorGenerator errorThrow = new ErrorGenerator();
+            	    	
+            	    	errorThrow.setErrorTitle("DB Error");
+            	    	errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
+            	    	
+            	    	errorThrow.throwError();
+            		}
+            		else 
+            		{
+            			System.out.println("Window Closed");
+            	    	Stage stage = (Stage) createVenue.getScene().getWindow();
+            	    	
+            	    	BookingManagerView view = new BookingManagerView();
+            	    	view.openBookingManager(stage);
+            		}
         		}
         		else 
         		{
-        			//TODO: Make this update the bookingManagerView
-        			System.out.println("Window Closed");
-        	    	Stage stage = (Stage) createVenue.getScene().getWindow();
+        			ErrorGenerator errorThrow = new ErrorGenerator();
         	    	
-        	    	BookingManagerView view = new BookingManagerView();
-        	    	view.openBookingManager(stage);
+        	    	errorThrow.setErrorTitle("Duplicate Error");
+        	    	errorThrow.setErrorBody("The entered Venue Name already exists");
+        	    	
+        	    	errorThrow.throwError();
         		}
+        		
         	}
         	else 
         	{
