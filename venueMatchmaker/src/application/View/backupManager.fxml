@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.BackupManagerController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Backup Manager">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="450.0" />
+               </HBox.margin>
+            </Label>
+            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="226.0" text="Menu Options">
+               <items>
+                  <MenuItem fx:id="ddBookingManager" mnemonicParsing="false" onAction="#openBookingManager" text="Booking Manager" />
+                  <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
+                  <MenuItem fx:id="ddAllVenues" mnemonicParsing="false" onAction="#openAllVenues" text="All Venue Search" />
+                  <MenuItem fx:id="ddAllEvents" mnemonicParsing="false" onAction="#openAllEvents" text="All Events Search" />
+                  <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
+                  <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
+                  <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
+               </items>
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </MenuButton>
+         </children>
+         <BorderPane.margin>
+            <Insets left="30.0" right="30.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <GridPane fx:id="staffBackupgrid" hgap="5.0" prefHeight="250.0" vgap="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Import Venues CSV">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="importVenuesButton" mnemonicParsing="false" onAction="#importVenues" text="Import CSV">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Import Requests CSV">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="importRequestsButton" mnemonicParsing="false" onAction="#importRequests" text="Import CSV">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+            <GridPane fx:id="managerBackupGrid" hgap="5.0" prefHeight="250.0" vgap="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Import transactiondata.lmvm">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="importTransactionButton" mnemonicParsing="false" onAction="#importTransactiondata" text="Import transaction data">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Import masterdata.lmvm">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="importMasterButton" mnemonicParsing="false" onAction="#importMasterdata" text="Import master data">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="Export transactiondata.lmvm">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="exportTransactionButton" mnemonicParsing="false" onAction="#exportTransactiondata" text="Export transaction data">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Export masterdata.lmvm">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="exportMasterButton" mnemonicParsing="false" onAction="#exportMasterdata" text="Export master data">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
