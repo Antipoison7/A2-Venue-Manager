@@ -53,6 +53,37 @@ public class NewVenueModel extends JDBCHelper {
 		return isValid;
 	}
 	
+	public boolean isDuplicateVenuename(String venueName) 
+	{
+		boolean isDuplicate = false;
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			Statement statement = jdbc.createStatement();
+			
+			ResultSet rs = statement.executeQuery("SELECT venue_name FROM venues;");
+			
+			while(rs.next()) 
+			{
+				if(rs.getString(1).equals(venueName)) 
+				{
+					isDuplicate = true;
+				}
+			}
+			
+			statement.close();
+			jdbc.close();
+		}
+		catch(Exception e) 
+		{
+			return true;
+		}
+		
+		return isDuplicate;
+	}
+	
 	public boolean addNewVenue(Venue userVenue) 
 	{
 		boolean isSuccessful = false;
