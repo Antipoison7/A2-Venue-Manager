@@ -20,7 +20,7 @@ public class TableListGenerator extends JDBCHelper{
 			Connection jdbc =  connectDB();
 			
 			Statement statement = jdbc.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE active = 1");
 			
 			ObservableList<User> users = FXCollections.observableArrayList();
 			

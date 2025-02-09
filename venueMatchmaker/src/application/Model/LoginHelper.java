@@ -17,7 +17,7 @@ public class LoginHelper extends JDBCHelper
 			Connection jdbc = connectDB();
 			
 			PreparedStatement query;
-			query = jdbc.prepareStatement("SELECT password FROM users WHERE username = ? AND security >= ?");
+			query = jdbc.prepareStatement("SELECT password FROM users WHERE username = ? AND security >= ? AND active = 1");
 			query.setString(1, username);
 			query.setInt(2, securityLevel);
 			
@@ -54,7 +54,7 @@ public class LoginHelper extends JDBCHelper
 			Connection jdbc = connectDB();
 			
 			PreparedStatement query;
-			query = jdbc.prepareStatement("SELECT password FROM users WHERE username = ?");
+			query = jdbc.prepareStatement("SELECT password FROM users WHERE username = ? AND active = 1");
 			query.setString(1, username);
 			
 			ResultSet results = query.executeQuery();
