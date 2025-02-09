@@ -11,6 +11,37 @@ import application.Model.ObjectClasses.Venue;
 public class NewStaffMembers extends JDBCHelper {
 	
 	private final static int AUTH_PIN = 909;
+	
+	public boolean isDuplicateUsername(String username) 
+	{
+		boolean isDuplicate = false;
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			Statement statement = jdbc.createStatement();
+			
+			ResultSet rs = statement.executeQuery("SELECT username FROM users;");
+			
+			while(rs.next()) 
+			{
+				if(rs.getString(1).equals(username)) 
+				{
+					isDuplicate = true;
+				}
+			}
+			
+			statement.close();
+			jdbc.close();
+		}
+		catch(Exception e) 
+		{
+			return true;
+		}
+		
+		return isDuplicate;
+	}
 
 	public boolean isStaffValid(User user) 
 	{

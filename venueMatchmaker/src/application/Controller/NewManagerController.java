@@ -55,22 +55,35 @@ public class NewManagerController {
     		
     		if(staff.isManagerValid(selectedUser, secretCode)) 
     		{
-    			if(!staff.addNewStaff(selectedUser, 1)) 
+    			if(!staff.isDuplicateUsername(newUsername.getText())) 
     			{
-    				ErrorGenerator errorThrow = new ErrorGenerator();
     				
-    				errorThrow.setErrorTitle("DB Error");
-        	    	errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
-        	    	
-        	    	errorThrow.throwError();
+    			
+					if(!staff.addNewStaff(selectedUser, 1)) 
+					{
+						ErrorGenerator errorThrow = new ErrorGenerator();
+						
+						errorThrow.setErrorTitle("DB Error");
+						errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
+						
+						errorThrow.throwError();
+					}
+					else 
+					{
+						Stage stage = (Stage) createAccount.getScene().getWindow();
+						EmployeeManagerView view = new EmployeeManagerView();
+						view.openManagerView(stage);
+					}
     			}
     			else 
     			{
-    				Stage stage = (Stage) createAccount.getScene().getWindow();
-    		    	EmployeeManagerView view = new EmployeeManagerView();
-    		    	view.openManagerView(stage);
+    				ErrorGenerator errorThrow = new ErrorGenerator();
+        	    	
+        	    	errorThrow.setErrorTitle("Duplicate Error");
+        	    	errorThrow.setErrorBody("The entered Username already exists");
+        	    	
+        	    	errorThrow.throwError();
     			}
-    			
     		}
     		else 
     		{
