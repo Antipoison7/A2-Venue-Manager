@@ -56,7 +56,7 @@ public class TableListGenerator extends JDBCHelper{
 			Connection jdbc =  connectDB();
 			
 			Statement statement = jdbc.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM venues");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM venues WHERE bookable = 1");
 			
 			ObservableList<Venue> venues = FXCollections.observableArrayList();
 			
