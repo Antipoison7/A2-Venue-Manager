@@ -3,27 +3,37 @@ package application.Controller;
 import java.util.ArrayList;
 
 import application.Model.AllVenuesSearchModel;
+import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
+import application.Model.ObjectClasses.Venue;
 import application.Model.ObjectClasses.VenueDump;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
+import application.View.ErrorGenerator;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AllVenuesController {
 
 	private ArrayList<VenueDump> tableData = new ArrayList<VenueDump>();
+	
+	private int selectedVenueID = -1;
 	
 	@FXML
     private MenuItem ddAllVenues;
@@ -69,9 +79,15 @@ public class AllVenuesController {
 
     @FXML
     private TableColumn<VenueDump, String> tSuitable;
+    
+    @FXML
+    private TableColumn<VenueDump, Boolean> tActive;
 
     @FXML
     private TableView<VenueDump> table;
+    
+    @FXML
+    private Label selected;
     
 	
 	public void openBookingManager(ActionEvent e) 
@@ -143,6 +159,29 @@ public class AllVenuesController {
     }
     
     @FXML
+    public void toggleDisabled(ActionEvent e) 
+    {
+    	if(selectedVenueID == -1) 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("No Venue Selected");
+	    	errorThrow.setErrorBody("Please select a valid venue and try again (Click on table row)");
+	    	
+	    	errorThrow.throwError();
+    	}
+    	else 
+    	{
+    		ObjectDBInterface db = new ObjectDBInterface();
+    		
+    		db.toggleVenueWhere(selectedVenueID);
+    		
+    		AllVenuesView venue = new AllVenuesView();
+    		venue.openAllVenues((Stage) ((Node)e.getSource()).getScene().getWindow());
+    	}
+    }
+    
+    @FXML
     public void updateTableSearch(ActionEvent e) 
     {
 //    	System.out.println("Update");
@@ -160,6 +199,8 @@ public class AllVenuesController {
     		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
 
     		tSuitable.setCellValueFactory(new PropertyValueFactory<>("type"));
+    		
+    		tActive.setCellValueFactory(new PropertyValueFactory<>("bookable"));
         	
         	    
     		TableListGenerator mm = new TableListGenerator();
@@ -180,6 +221,8 @@ public class AllVenuesController {
     		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
 
     		tSuitable.setCellValueFactory(new PropertyValueFactory<>("type"));
+    		
+    		tActive.setCellValueFactory(new PropertyValueFactory<>("bookable"));
         	
     		
     		tableData = mm.getVenueDumpArrayList();
@@ -201,9 +244,36 @@ public class AllVenuesController {
 		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
 
 		tSuitable.setCellValueFactory(new PropertyValueFactory<>("type"));
+		
+		tActive.setCellValueFactory(new PropertyValueFactory<>("bookable"));
     	
     	    
 		TableListGenerator mm = new TableListGenerator();
 		table.setItems(mm.getVenueDump());
+		
+		table.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getButton().equals(MouseButton.PRIMARY)) {
+	            int index = table.getSelectionModel().getSelectedIndex();
+	            Venue venue = table.getItems().get(index);
+	            selectedVenueID = venue.getId();
+	            selected.setText("Selected ID : " + selectedVenueID);
+	        }
+			
+	        if(event.getButton().equals(MouseButton.PRIMARY)){
+	            if(event.getClickCount() == 2){
+	                System.out.println("Double clicked");
+	                
+	                int index = table.getSelectionModel().getSelectedIndex();
+		            Venue venue = table.getItems().get(index);
+	               
+	                DetailsVenueView dvv = new DetailsVenueView();
+	                
+	                DetailsVenueController.setID(venue.getId());
+	                
+	                dvv.openNewVenueDetails();
+	                
+	            }
+	        }
+	    });
     }
 }
