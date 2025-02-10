@@ -2,6 +2,7 @@ package application.Controller;
 
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.Venue;
 import application.View.AllEventsView;
@@ -84,7 +85,25 @@ public class BookingManagerController
     @FXML
     private Button moreVenueDetails;
     
+    
+    //Requests Table
+    @FXML
+    private TableColumn<Request, String> rArtist;
 
+    @FXML
+    private TableColumn<Request, String> rClient;
+
+    @FXML
+    private TableColumn<Request, Integer> rID;
+
+    @FXML
+    private TableColumn<Request, String> rTitle;
+
+    @FXML
+    private TableView<Request> requestTable;
+    
+
+    //Venues Table
     @FXML
     private TableColumn<Venue, Integer> vCapac;
 
@@ -223,6 +242,9 @@ public class BookingManagerController
 
     	}
     	
+    	TableListGenerator mm = new TableListGenerator();
+    	
+    	//Venue Table Updater
     	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
  	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -231,8 +253,19 @@ public class BookingManagerController
 
  	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
  	    
- 	    TableListGenerator mm = new TableListGenerator();
  	    venueTable.setItems(mm.getVenues());
+ 	    
+ 	    
+ 	    //Request Table Updater
+ 	    rArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+
+	    rClient.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+
+	    rID.setCellValueFactory(new PropertyValueFactory<>("requestID"));
+
+	    rTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+	    
+	    requestTable.setItems(mm.getRequests());
     }
 
 }
