@@ -40,12 +40,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TableView>
+            <TableView fx:id="requestTable">
               <columns>
-                <TableColumn prefWidth="75.0" text="Request ID" />
-                <TableColumn prefWidth="236.79993438720703" text="Event Title" />
-                  <TableColumn prefWidth="205.60006713867188" text="Artists" />
-                  <TableColumn prefWidth="194.39996337890625" text="Client" />
+                <TableColumn fx:id="rID" prefWidth="75.0" text="Request ID" />
+                <TableColumn fx:id="rTitle" prefWidth="236.79993438720703" text="Event Title" />
+                  <TableColumn fx:id="rArtist" prefWidth="205.60006713867188" text="Artists" />
+                  <TableColumn fx:id="rClient" prefWidth="194.39996337890625" text="Client" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" />
