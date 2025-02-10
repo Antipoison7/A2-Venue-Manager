@@ -20,7 +20,7 @@ public class BookingManagerView {
 		}
 		catch(Exception e) 
 		{
-			
+			System.out.println(e);
 		}
 	}
 }
