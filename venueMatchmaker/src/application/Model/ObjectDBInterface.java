@@ -10,7 +10,7 @@ public class ObjectDBInterface extends JDBCHelper
 {
 	public Venue selectVenueNoType(int id) 
 	{
-		Venue v = null;
+		Venue v = new Venue();
 		
 		try 
 		{
@@ -44,6 +44,7 @@ public class ObjectDBInterface extends JDBCHelper
 		}
 		catch(Exception e) 
 		{
+			System.out.println(e);
 			return null;
 		}
 	}
