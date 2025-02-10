@@ -180,4 +180,34 @@ public class TableListGenerator extends JDBCHelper{
 			return null;
 		}
 	}
+	
+	public ObservableList<String> getVenueTypes(int i)
+	{
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_id = ?;");
+			query.setInt(1, i);
+			
+			ObservableList<String> types = FXCollections.observableArrayList();
+			
+			ResultSet results = query.executeQuery();
+			
+			while(results.next()) 
+			{
+				types.add(results.getString(1));
+			}
+			
+			jdbc.close();
+			query.close();
+			
+			return types;
+		}
+		catch(Exception e) 
+		{
+			return null;
+		}
+	}
 }
