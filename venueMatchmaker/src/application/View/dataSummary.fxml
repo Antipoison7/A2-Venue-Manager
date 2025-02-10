@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="application.Controller.SummaryController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="301.60003051757815" minHeight="10.0" prefHeight="75.79998321533202" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="747.199998474121" minHeight="10.0" prefHeight="724.0000167846679" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Data Summaries">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="480.0" />
+               </HBox.margin>
+            </Label>
+            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="226.0" text="Menu Options">
+               <items>
+                  <MenuItem fx:id="ddBookingManager" mnemonicParsing="false" onAction="#openBookingManager" text="Booking Manager" />
+                  <MenuItem fx:id="ddCustomise" mnemonicParsing="false" onAction="#openCustomiseProfile" text="Customise Your Profile" />
+                  <MenuItem fx:id="ddAllVenues" mnemonicParsing="false" onAction="#openAllVenues" text="All Venue Search" />
+                  <MenuItem fx:id="ddAllEvents" mnemonicParsing="false" onAction="#openAllEvents" text="All Events Search" />
+                  <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
+                  <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
+                  <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
+               </items>
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </MenuButton>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1800.0" prefWidth="974.0">
+               <children>
+                  <VBox prefWidth="975.0">
+                     <children>
+                        <Label text="Commission Per Job">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="perJobTable" prefHeight="320.0" prefWidth="960.0">
+                          <columns>
+                            <TableColumn fx:id="jobId" prefWidth="75.0" text="JobID" />
+                            <TableColumn fx:id="jobStaff" prefWidth="436.00006103515625" text="Staff" />
+                              <TableColumn fx:id="jobCost" prefWidth="234.39996337890625" text="Overall Cost" />
+                              <TableColumn fx:id="jobCommission" prefWidth="213.60003662109375" text="Commission" />
+                          </columns>
+                        </TableView>
+                        <Label text="Commission Per Client">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TableView fx:id="perClientTable" prefHeight="320.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="clientClient" prefWidth="513.6000367999077" text="Client" />
+                            <TableColumn fx:id="clientCost" prefWidth="235.199951171875" text="Total Cost" />
+                              <TableColumn fx:id="clientComm" prefWidth="211.2000732421875" text="Total Commission" />
+                          </columns>
+                        </TableView>
+                        <Label text="Total Commissions">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="totalCommissions" text="\$Money">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Label>
+                        <Label text="Venue Utilization Comparison">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <PieChart fx:id="pieChart" />
+                        <Label text="Income vs commission per order">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <BarChart fx:id="barchart">
+                          <xAxis>
+                            <CategoryAxis fx:id="barchartCategory" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="barchartNumber" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </AnchorPane>
+        </content>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </ScrollPane>
+   </children>
+</GridPane>
