@@ -67,7 +67,7 @@ public class ErrorGenerator{
 			
 			Scene scene = new Scene(root);
 			errorStage.setTitle("Event Manager Login");
-			errorStage.setResizable(false);
+			errorStage.setResizable(true);
 			errorStage.setScene(scene);
 			
 			errorStage.show();
