@@ -34,6 +34,7 @@
                   <MenuItem fx:id="ddBackup" mnemonicParsing="false" onAction="#openBackupManager" text="Backup Manager" />
                   <MenuItem fx:id="ddStats" mnemonicParsing="false" onAction="#openManagerStats" text="Manager Stats" />
                   <MenuItem fx:id="ddEmployees" mnemonicParsing="false" onAction="#openAddEmployees" text="Add Employees" />
+                  <MenuItem fx:id="ddLogout" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
                </items>
                <font>
                   <Font size="19.0" />

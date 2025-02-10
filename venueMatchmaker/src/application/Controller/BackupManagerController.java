@@ -8,8 +8,10 @@ import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DataSummaryView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
+import application.View.LoginView;
 import application.View.NewManagerView;
 import application.View.NewUserView;
 import application.View.UpdateStaffProfileView;
@@ -44,6 +46,9 @@ public class BackupManagerController {
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 
     @FXML
     private Button exportMasterButton;
@@ -187,28 +192,11 @@ public class BackupManagerController {
   //Dropdown Methods
 
     @FXML
-    public void openNewUser() 
-    {
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
-    	NewUserView view = new NewUserView();
-    	view.openNewUserView(stage);
-    }
-    
-    @FXML
-    public void openNewManager() 
-    {
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
-    	NewManagerView view = new NewManagerView();
-    	view.openNewUserView(stage);
-    }
-    
-    
-    @FXML
     public void openBookingManager(ActionEvent e) 
     {
     	System.out.println("Open Booking Manager");
     	
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
     	
     	BookingManagerView view = new BookingManagerView();
     	view.openBookingManager(stage);
@@ -219,7 +207,7 @@ public class BackupManagerController {
     {
     	System.out.println("Open Customise Profile");
     	
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
     	
     	UpdateStaffProfileView view = new UpdateStaffProfileView();
     	view.openProfileCustomisation(stage);
@@ -229,7 +217,7 @@ public class BackupManagerController {
     public void openAllVenues(ActionEvent event) {
     	System.out.println("Open All Venues Menu");
     	
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
     	
     	AllVenuesView view = new AllVenuesView();
     	view.openAllVenues(stage);
@@ -240,7 +228,7 @@ public class BackupManagerController {
     {
     	System.out.println("Open All Events Menu");
     	
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
     	
     	AllEventsView view = new AllEventsView();
     	view.openAllEvents(stage);
@@ -251,7 +239,7 @@ public class BackupManagerController {
     {
     	System.out.println("Open Backup Manager");
     	
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
     	
     	BackupManagerView view = new BackupManagerView();
     	view.openBackupManager(stage);
@@ -261,15 +249,29 @@ public class BackupManagerController {
     public void openManagerStats(ActionEvent e) 
     {
     	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
     }
     
     @FXML
     public void openAddEmployees(ActionEvent e) 
     {
     	System.out.println("Open Add Employees");
-    	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void logOut(ActionEvent e) 
+    {
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) importVenuesButton.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
     }
     
     public void initialize() 
