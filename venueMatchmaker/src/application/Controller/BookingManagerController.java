@@ -327,7 +327,7 @@ public class BookingManagerController
 	               
 	                DetailsVenueView dvv = new DetailsVenueView();
 	                
-//	                DetailsVenueController.setID(venue.getId());
+	                DetailsVenueController.setID(venue.getId());
 	                
 	                dvv.openNewVenueDetails();
 	                
