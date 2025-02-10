@@ -1,5 +1,14 @@
 package application.Controller;
 
+import application.Model.ObjectClasses.CurrentUser;
+import application.View.AllEventsView;
+import application.View.AllVenuesView;
+import application.View.BackupManagerView;
+import application.View.BookingManagerView;
+import application.View.DataSummaryView;
+import application.View.EmployeeManagerView;
+import application.View.LoginView;
+import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -10,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class SummaryController {
 
@@ -51,6 +61,9 @@ public class SummaryController {
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 
     @FXML
     private TableColumn<?, ?> jobCommission;
@@ -77,38 +90,96 @@ public class SummaryController {
     private Label totalCommissions;
 
     @FXML
-    void openAddEmployees(ActionEvent event) {
-
+    public void openBookingManager(ActionEvent e) 
+    {
+    	System.out.println("Open Booking Manager");
+    	
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	
+    	BookingManagerView view = new BookingManagerView();
+    	view.openBookingManager(stage);
     }
-
+    
     @FXML
-    void openAllEvents(ActionEvent event) {
-
+    public void openCustomiseProfile(ActionEvent e) 
+    {
+    	System.out.println("Open Customise Profile");
+    	
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	
+    	UpdateStaffProfileView view = new UpdateStaffProfileView();
+    	view.openProfileCustomisation(stage);
     }
-
+    
     @FXML
-    void openAllVenues(ActionEvent event) {
-
+    public void openAllVenues(ActionEvent event) {
+    	System.out.println("Open All Venues Menu");
+    	
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	
+    	AllVenuesView view = new AllVenuesView();
+    	view.openAllVenues(stage);
     }
-
+    
     @FXML
-    void openBackupManager(ActionEvent event) {
-
+    public void openAllEvents(ActionEvent event) 
+    {
+    	System.out.println("Open All Events Menu");
+    	
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	
+    	AllEventsView view = new AllEventsView();
+    	view.openAllEvents(stage);
     }
-
+    
     @FXML
-    void openBookingManager(ActionEvent event) {
-
+    public void openBackupManager(ActionEvent e) 
+    {
+    	System.out.println("Open Backup Manager");
+    	
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	
+    	BackupManagerView view = new BackupManagerView();
+    	view.openBackupManager(stage);
     }
-
+    
     @FXML
-    void openCustomiseProfile(ActionEvent event) {
-
+    public void openManagerStats(ActionEvent e) 
+    {
+    	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
     }
-
+    
     @FXML
-    void openManagerStats(ActionEvent event) {
+    public void openAddEmployees(ActionEvent e) 
+    {
+    	System.out.println("Open Add Employees");
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	EmployeeManagerView empl = new EmployeeManagerView();
+    	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void logOut(ActionEvent e) 
+    {
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) totalCommissions.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
+    }
+    
+    public void initialize() 
+    {
+    	if(CurrentUser.getUser().getSecurity() <=0) 
+    	{
+    		    ddEmployees.setVisible(false);
 
+    		    ddStats.setVisible(false);
+    	}
     }
 
 }
