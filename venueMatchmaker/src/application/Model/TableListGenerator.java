@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.Venue;
 import application.Model.ObjectClasses.VenueDump;
@@ -143,6 +144,39 @@ public class TableListGenerator extends JDBCHelper{
 		catch(Exception e) 
 		{
 			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public ObservableList<Request> getRequests()
+	{
+		try 
+		{
+			Connection jdbc =  connectDB();
+			
+			Statement statement = jdbc.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT request_id, client_name, title, artist FROM requests");
+			
+			ObservableList<Request> requests = FXCollections.observableArrayList();
+			
+			while(resultSet.next()) 
+			{
+				Request newRequest = new Request();
+				newRequest.setRequestID(resultSet.getInt(1));
+				newRequest.setClientName(resultSet.getString(2));
+				newRequest.setTitle(resultSet.getString(3));
+				newRequest.setArtist(resultSet.getString(4));
+				
+				requests.add(newRequest);
+			}
+			
+			jdbc.close();
+			statement.close();
+			
+			return requests;
+		}
+		catch(Exception e) 
+		{
 			return null;
 		}
 	}
