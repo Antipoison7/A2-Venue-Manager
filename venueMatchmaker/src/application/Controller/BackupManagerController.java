@@ -3,6 +3,7 @@ package application.Controller;
 import java.io.File;
 
 import application.Model.BackupModel;
+import application.Model.ObjectClasses.CurrentUser;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
@@ -269,6 +270,18 @@ public class BackupManagerController {
     	Stage stage = (Stage) staffBackupgrid.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    public void initialize() 
+    {
+    	if(CurrentUser.getUser().getSecurity() <= 0) 
+    	{
+    		managerBackupGrid.setDisable(true);
+    		
+    		ddEmployees.setVisible(false);
+
+		    ddStats.setVisible(false);
+    	}
     }
 
 }

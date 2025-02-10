@@ -281,7 +281,6 @@ public class BookingManagerController
     		    ddEmployees.setVisible(false);
 
     		    ddStats.setVisible(false);
-
     	}
     	
     	TableListGenerator mm = new TableListGenerator();
