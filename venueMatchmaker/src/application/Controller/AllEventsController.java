@@ -5,6 +5,7 @@ import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.Booking;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
+import application.View.BackupManagerView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.NewManagerView;
@@ -137,6 +138,11 @@ public class AllEventsController {
     public void openBackupManager(ActionEvent e) 
     {
     	System.out.println("Open Backup Manager");
+    	
+    	Stage stage = (Stage) searchButton.getScene().getWindow();
+    	
+    	BackupManagerView view = new BackupManagerView();
+    	view.openBackupManager(stage);
     }
     
     @FXML
