@@ -3,11 +3,14 @@ package application.Controller;
 import application.Model.AllVenuesSearchModel;
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.Booking;
+import application.Model.ObjectClasses.CurrentUser;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DataSummaryView;
 import application.View.EmployeeManagerView;
+import application.View.LoginView;
 import application.View.NewManagerView;
 import application.View.NewUserView;
 import application.View.UpdateStaffProfileView;
@@ -43,6 +46,9 @@ public class AllEventsController {
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 
     @FXML
     private TextField searchBox;
@@ -74,23 +80,6 @@ public class AllEventsController {
     @FXML
     private TableView<Booking> table;
 
-    @FXML
-    public void openNewUser() 
-    {
-    	Stage stage = (Stage) searchButton.getScene().getWindow();
-    	NewUserView view = new NewUserView();
-    	view.openNewUserView(stage);
-    }
-    
-    @FXML
-    public void openNewManager() 
-    {
-    	Stage stage = (Stage) searchButton.getScene().getWindow();
-    	NewManagerView view = new NewManagerView();
-    	view.openNewUserView(stage);
-    }
-    
-    //Dropdown Methods
     @FXML
     public void openBookingManager(ActionEvent e) 
     {
@@ -149,6 +138,11 @@ public class AllEventsController {
     public void openManagerStats(ActionEvent e) 
     {
     	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) searchButton.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
     }
     
     @FXML
@@ -158,6 +152,15 @@ public class AllEventsController {
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void logOut(ActionEvent e) 
+    {
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) searchButton.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
     }
     
     
@@ -213,6 +216,13 @@ public class AllEventsController {
     
     public void initialize()
     {
+    	if(CurrentUser.getUser().getSecurity() <=0) 
+    	{
+    		    ddEmployees.setVisible(false);
+
+    		    ddStats.setVisible(false);
+    	}
+    	
     	tClientName.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
 		tCommission.setCellValueFactory(new PropertyValueFactory<>("category"));
