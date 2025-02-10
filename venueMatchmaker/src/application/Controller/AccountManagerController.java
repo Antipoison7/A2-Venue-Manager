@@ -7,7 +7,9 @@ import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DataSummaryView;
 import application.View.EmployeeManagerView;
+import application.View.LoginView;
 import application.View.NewManagerView;
 import application.View.NewUserView;
 import application.View.UpdateStaffProfileView;
@@ -45,6 +47,9 @@ public class AccountManagerController
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 	
     @FXML
     private Button deleteStaff;
@@ -91,6 +96,80 @@ public class AccountManagerController
     private TableView<User> table;
     
     @FXML
+    public void openBookingManager(ActionEvent e) 
+    {
+    	System.out.println("Open Booking Manager");
+    	
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	
+    	BookingManagerView view = new BookingManagerView();
+    	view.openBookingManager(stage);
+    }
+    
+    @FXML
+    public void openCustomiseProfile(ActionEvent e) 
+    {
+    	System.out.println("Open Customise Profile");
+    	
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	
+    	UpdateStaffProfileView view = new UpdateStaffProfileView();
+    	view.openProfileCustomisation(stage);
+    }
+    
+    @FXML
+    public void openAllVenues(ActionEvent event) {
+    	System.out.println("Open All Venues Menu");
+    	
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	
+    	AllVenuesView view = new AllVenuesView();
+    	view.openAllVenues(stage);
+    }
+    
+    @FXML
+    public void openAllEvents(ActionEvent event) 
+    {
+    	System.out.println("Open All Events Menu");
+    	
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	
+    	AllEventsView view = new AllEventsView();
+    	view.openAllEvents(stage);
+    }
+    
+    @FXML
+    public void openBackupManager(ActionEvent e) 
+    {
+    	System.out.println("Open Backup Manager");
+    	
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	
+    	BackupManagerView view = new BackupManagerView();
+    	view.openBackupManager(stage);
+    }
+    
+    @FXML
+    public void openManagerStats(ActionEvent e) 
+    {
+    	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
+    }
+    
+    @FXML
+    public void openAddEmployees(ActionEvent e) 
+    {
+    	System.out.println("Open Add Employees");
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	EmployeeManagerView empl = new EmployeeManagerView();
+    	empl.openManagerView(stage);
+    }
+    
+    @FXML
     public void openNewUser() 
     {
     	Stage stage = (Stage) staffTemplate.getScene().getWindow();
@@ -106,86 +185,23 @@ public class AccountManagerController
     	view.openNewUserView(stage);
     }
     
-    //Dropdown Methods
     @FXML
-    public void openBookingManager(ActionEvent e) 
+    public void logOut(ActionEvent e) 
     {
-    	System.out.println("Open Booking Manager");
-    	
-    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
-    	
-    	BookingManagerView view = new BookingManagerView();
-    	view.openBookingManager(stage);
-    }
-    
-    @FXML
-    public void openCustomiseProfile(ActionEvent e) 
-    {
-    	System.out.println("Open Customise Profile");
-    	
-    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
-    	
-    	UpdateStaffProfileView view = new UpdateStaffProfileView();
-    	view.openProfileCustomisation(stage);
-    }
-    
-    @FXML
-    public void openAllVenues(ActionEvent event) {
-    	System.out.println("Open All Venues Menu");
-    	
-    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
-    	
-    	AllVenuesView view = new AllVenuesView();
-    	view.openAllVenues(stage);
-    }
-    
-    @FXML
-    public void openAllEvents(ActionEvent event) 
-    {
-    	System.out.println("Open All Events Menu");
-    	
-    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
-    	
-    	AllEventsView view = new AllEventsView();
-    	view.openAllEvents(stage);
-    }
-    
-    @FXML
-    public void openBackupManager(ActionEvent e) 
-    {
-    	System.out.println("Open Backup Manager");
-    	
-    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
-    	
-    	BackupManagerView view = new BackupManagerView();
-    	view.openBackupManager(stage);
-    }
-    
-    @FXML
-    public void openManagerStats(ActionEvent e) 
-    {
-    	System.out.println("Open Manager Stats");
-    }
-    
-    @FXML
-    public void openAddEmployees(ActionEvent e) 
-    {
-    	System.out.println("Open Add Employees");
-    	Stage stage = (Stage) deleteStaff.getScene().getWindow();
-    	EmployeeManagerView empl = new EmployeeManagerView();
-    	empl.openManagerView(stage);
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) staffTemplate.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
     }
     
     
     public void initialize()
     {
-    	User selectedUser = CurrentUser.getUser();
-    	if(selectedUser.getSecurity() <=0) 
+    	if(CurrentUser.getUser().getSecurity() <=0) 
     	{
     		    ddEmployees.setVisible(false);
 
     		    ddStats.setVisible(false);
-
     	}
     	
     	    tFullName.setCellValueFactory(new PropertyValueFactory<>("realName"));
