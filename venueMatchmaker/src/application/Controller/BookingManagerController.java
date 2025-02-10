@@ -10,9 +10,11 @@ import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DataSummaryView;
 import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
+import application.View.LoginView;
 import application.View.NewBookingView;
 import application.View.NewVenueView;
 import application.View.UpdateStaffProfileView;
@@ -92,6 +94,9 @@ public class BookingManagerController
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 
     @FXML
     private Button filterVenues;
@@ -236,6 +241,11 @@ public class BookingManagerController
     public void openManagerStats(ActionEvent e) 
     {
     	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
     }
     
     @FXML
@@ -245,6 +255,15 @@ public class BookingManagerController
     	Stage stage = (Stage) newBooking.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void logOut(ActionEvent e) 
+    {
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
     }
     
     @FXML
@@ -275,8 +294,7 @@ public class BookingManagerController
     public void initialize()
     {
     	
-    	User selectedUser = CurrentUser.getUser();
-    	if(selectedUser.getSecurity() <=0) 
+    	if(CurrentUser.getUser().getSecurity() <=0) 
     	{
     		    ddEmployees.setVisible(false);
 
