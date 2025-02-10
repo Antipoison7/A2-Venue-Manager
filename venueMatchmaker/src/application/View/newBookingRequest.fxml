@@ -2,27 +2,27 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.NewVenueController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.NewBookingController">
    <children>
-      <Label text="New Venue">
+      <Label text="New Booking">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Label text="Venue Name">
+      <Label text="Client Name">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="venueName" promptText="Name">
+      <TextField fx:id="clientName" promptText="Name">
          <font>
             <Font size="15.0" />
          </font>
@@ -30,12 +30,12 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </TextField>
-      <Label text="Price Per Hour">
+      <Label text="Title">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="venuePrice" promptText="Price">
+      <TextField fx:id="title" promptText="Event Title">
          <font>
             <Font size="15.0" />
          </font>
@@ -43,12 +43,12 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </TextField>
-      <Label text="Capacity">
+      <Label text="Artist/s">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="venueCap" promptText="Number">
+      <TextField fx:id="artists" promptText="Artist Names">
          <font>
             <Font size="15.0" />
          </font>
@@ -56,40 +56,73 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </TextField>
-      <Label text="Event Types">
+      <Label text="Date">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <VBox fx:id="typeVBox" spacing="5.0">
+      <DatePicker fx:id="date" prefHeight="26.0" prefWidth="560.0">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </DatePicker>
+      <Label text="Time">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <HBox>
          <children>
-            <CheckBox fx:id="checkGig" mnemonicParsing="false" text="Gig">
+            <TextField fx:id="timeHour" promptText="Hour">
                <font>
-                  <Font size="14.0" />
+                  <Font size="15.0" />
                </font>
-            </CheckBox>
-            <CheckBox fx:id="checkDisco" mnemonicParsing="false" text="Disco">
+            </TextField>
+            <Label text=" : ">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
-            </CheckBox>
-            <CheckBox fx:id="checkLive" mnemonicParsing="false" text="Live Concert">
+            </Label>
+            <TextField fx:id="timeMinute" promptText="Minute">
                <font>
-                  <Font size="14.0" />
+                  <Font size="15.0" />
                </font>
-            </CheckBox>
-            <CheckBox fx:id="checkLLC" mnemonicParsing="false" text="Large Live Concert">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="checkFestival" mnemonicParsing="false" text="Festival">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </CheckBox>
+            </TextField>
          </children>
-      </VBox>
+      </HBox>
+      <Label text="Duration">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="duration" promptText="Hour/s">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label text="Audience">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="audienceNumber">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </TextField>
+      <Label text="Type">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="bookingType" prefHeight="26.0" prefWidth="198.0" promptText="Type">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </ComboBox>
       <Label text="Conditions">
          <font>
             <Font size="16.0" />
@@ -98,10 +131,13 @@
             <Insets top="5.0" />
          </VBox.margin>
       </Label>
-      <ComboBox fx:id="venueCondition" prefHeight="26.0" prefWidth="198.0" promptText="Category Conditions" />
+      <ComboBox fx:id="bookingCondition" prefHeight="26.0" prefWidth="198.0" promptText="Category Conditions">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin></ComboBox>
       <HBox spacing="20.0">
          <children>
-            <Button fx:id="createVenue" mnemonicParsing="false" onAction="#createVenue" text="Create Venue">
+            <Button fx:id="createBooking" mnemonicParsing="false" onAction="#createBooking" text="Create Booking">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
