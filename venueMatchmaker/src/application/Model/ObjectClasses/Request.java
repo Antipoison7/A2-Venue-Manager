@@ -133,7 +133,7 @@ public class Request {
 		
 		try 
 		{
-			returnString += "Request ID: " + requestID;
+			returnString += "Request ID: " + requestID + "\n";
 			returnString += "Client Name: " + clientName + "\n";
 			returnString += "Event Title: " + title + "\n";
 			returnString += "Artist/s: " + artist + "\n";
