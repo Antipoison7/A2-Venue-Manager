@@ -77,17 +77,11 @@
                <font>
                   <Font size="15.0" />
                </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
             </TextField>
-            <Label text=" : ">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="timeMinute" promptText="Minute">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
+            <ComboBox fx:id="amPM" prefHeight="26.0" prefWidth="198.0" promptText="AM / PM" />
          </children>
       </HBox>
       <Label text="Duration">

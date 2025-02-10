@@ -26,6 +26,9 @@ public class NewBookingController {
 	private ComboBox<String> bookingType;
 
 	@FXML
+	private ComboBox<String> amPM;
+	
+	@FXML
 	private Button buttonDiscard;
 
 	@FXML
@@ -39,9 +42,6 @@ public class NewBookingController {
 
 	@FXML
 	private TextField duration;
-
-	@FXML
-	private TextField timeHour;
 
 	@FXML
 	private TextField timeMinute;
@@ -70,6 +70,9 @@ public class NewBookingController {
     	
     	ObservableList<String> dataCondition = FXCollections.observableArrayList("Indoor","Convertible","Outdoor");
     	bookingCondition.setItems(dataCondition);
+    	
+    	ObservableList<String> dataAmPm = FXCollections.observableArrayList("AM", "PM");
+    	amPM.setItems(dataAmPm);
 	}
 
 }
