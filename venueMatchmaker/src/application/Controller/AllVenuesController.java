@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import application.Model.AllVenuesSearchModel;
 import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
+import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.Venue;
 import application.Model.ObjectClasses.VenueDump;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DataSummaryView;
 import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
+import application.View.LoginView;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +58,9 @@ public class AllVenuesController {
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 
     @FXML
     private TextField searchBox;
@@ -90,11 +96,12 @@ public class AllVenuesController {
     private Label selected;
     
 	
-	public void openBookingManager(ActionEvent e) 
+    @FXML
+    public void openBookingManager(ActionEvent e) 
     {
     	System.out.println("Open Booking Manager");
     	
-    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	Stage stage = (Stage) selected.getScene().getWindow();
     	
     	BookingManagerView view = new BookingManagerView();
     	view.openBookingManager(stage);
@@ -105,7 +112,7 @@ public class AllVenuesController {
     {
     	System.out.println("Open Customise Profile");
     	
-    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	Stage stage = (Stage) selected.getScene().getWindow();
     	
     	UpdateStaffProfileView view = new UpdateStaffProfileView();
     	view.openProfileCustomisation(stage);
@@ -115,7 +122,7 @@ public class AllVenuesController {
     public void openAllVenues(ActionEvent event) {
     	System.out.println("Open All Venues Menu");
     	
-    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	Stage stage = (Stage) selected.getScene().getWindow();
     	
     	AllVenuesView view = new AllVenuesView();
     	view.openAllVenues(stage);
@@ -126,7 +133,7 @@ public class AllVenuesController {
     {
     	System.out.println("Open All Events Menu");
     	
-    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	Stage stage = (Stage) selected.getScene().getWindow();
     	
     	AllEventsView view = new AllEventsView();
     	view.openAllEvents(stage);
@@ -137,7 +144,7 @@ public class AllVenuesController {
     {
     	System.out.println("Open Backup Manager");
     	
-    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	Stage stage = (Stage) selected.getScene().getWindow();
     	
     	BackupManagerView view = new BackupManagerView();
     	view.openBackupManager(stage);
@@ -147,15 +154,29 @@ public class AllVenuesController {
     public void openManagerStats(ActionEvent e) 
     {
     	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) selected.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
     }
     
     @FXML
     public void openAddEmployees(ActionEvent e) 
     {
     	System.out.println("Open Add Employees");
-    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	Stage stage = (Stage) selected.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void logOut(ActionEvent e) 
+    {
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) selected.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
     }
     
     @FXML
@@ -233,6 +254,14 @@ public class AllVenuesController {
     
     public void initialize()
     {
+    	
+    	if(CurrentUser.getUser().getSecurity() <=0) 
+    	{
+    		    ddEmployees.setVisible(false);
+
+    		    ddStats.setVisible(false);
+    	}
+    	
 		tCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
 		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
