@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Venue {
 
-	protected int id;
-	protected String name;
-	protected double hirePrice;
-	protected int capacity;
-	protected String category;
+	protected int id = -1;
+	protected String name = "";
+	protected double hirePrice = -1;
+	protected int capacity = -1;
+	protected String category = "";
 	protected boolean bookable = true;
 	protected ArrayList<String> suitableType = new ArrayList<String>();
 	
@@ -77,6 +77,27 @@ public class Venue {
 	public void addToType(String type) 
 	{
 		suitableType.add(type);
+	}
+	
+	@Override
+	public String toString() 
+	{
+		String toString = "";
+		
+		toString += "ID: " + id + "\n";
+		toString += "Name: " + name + "\n";
+		toString += "Hire Price: " + hirePrice + "\n";
+		toString += "Capacity: " + capacity + "\n";
+		toString += "Category: " + category + "\n";
+		toString += "Bookable: " + bookable + "\n";
+		toString += "Suitable Event Types \n";
+		
+		for(String s : suitableType) 
+		{
+			toString += "- " + s + "\n";
+		}
+		
+		return toString;
 	}
 
 }
