@@ -70,4 +70,27 @@ public class ObjectDBInterface extends JDBCHelper
 			System.out.println(e);
 		}
 	}
+	
+	public void toggleVenueWhere(int id) 
+	{
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			//Ivanov, D. (n.d.). How to toggle boolean in SQLite. Noties. Reviewed Feb 10 2025, from https://noties.io/blog/2019/08/19/sqlite-toggle-boolean/index.html
+			query = jdbc.prepareStatement("UPDATE venues SET bookable = ((bookable | 1) - (bookable & 1)) WHERE venue_id = ?;");
+			
+			query.setInt(1, id);
+
+			query.executeUpdate();
+			
+			jdbc.close();
+			query.close();
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+	}
 }
