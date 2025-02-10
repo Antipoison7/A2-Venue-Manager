@@ -6,8 +6,10 @@ import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.Venue;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
+import application.View.BackupManagerView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
+import application.View.NewBookingView;
 import application.View.NewVenueView;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
@@ -109,6 +111,11 @@ public class BookingManagerController
     public void addNewBooking(ActionEvent e) 
     {
     	System.out.println("Add New Booking Button");
+    	
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	
+    	NewBookingView view = new NewBookingView();
+    	view.openBookingWindow(stage);
     }
     
     @FXML
@@ -158,6 +165,11 @@ public class BookingManagerController
     public void openBackupManager(ActionEvent e) 
     {
     	System.out.println("Open Backup Manager");
+    	
+    	Stage stage = (Stage) newBooking.getScene().getWindow();
+    	
+    	BackupManagerView view = new BackupManagerView();
+    	view.openBackupManager(stage);
     }
     
     @FXML
