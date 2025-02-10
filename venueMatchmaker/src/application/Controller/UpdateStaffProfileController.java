@@ -7,6 +7,7 @@ import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DataSummaryView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
 import application.View.LoginView;
@@ -41,6 +42,9 @@ public class UpdateStaffProfileController {
 
     @FXML
     private MenuItem ddStats;
+    
+    @FXML
+    private MenuItem ddLogout;
 
     @FXML
     private Label title;
@@ -59,7 +63,7 @@ public class UpdateStaffProfileController {
     {
     	System.out.println("Open Booking Manager");
     	
-    	Stage stage = (Stage) fullName.getScene().getWindow();
+    	Stage stage = (Stage) title.getScene().getWindow();
     	
     	BookingManagerView view = new BookingManagerView();
     	view.openBookingManager(stage);
@@ -70,7 +74,7 @@ public class UpdateStaffProfileController {
     {
     	System.out.println("Open Customise Profile");
     	
-    	Stage stage = (Stage) fullName.getScene().getWindow();
+    	Stage stage = (Stage) title.getScene().getWindow();
     	
     	UpdateStaffProfileView view = new UpdateStaffProfileView();
     	view.openProfileCustomisation(stage);
@@ -80,7 +84,7 @@ public class UpdateStaffProfileController {
     public void openAllVenues(ActionEvent event) {
     	System.out.println("Open All Venues Menu");
     	
-    	Stage stage = (Stage) fullName.getScene().getWindow();
+    	Stage stage = (Stage) title.getScene().getWindow();
     	
     	AllVenuesView view = new AllVenuesView();
     	view.openAllVenues(stage);
@@ -91,7 +95,7 @@ public class UpdateStaffProfileController {
     {
     	System.out.println("Open All Events Menu");
     	
-    	Stage stage = (Stage) fullName.getScene().getWindow();
+    	Stage stage = (Stage) title.getScene().getWindow();
     	
     	AllEventsView view = new AllEventsView();
     	view.openAllEvents(stage);
@@ -102,7 +106,7 @@ public class UpdateStaffProfileController {
     {
     	System.out.println("Open Backup Manager");
     	
-    	Stage stage = (Stage) fullName.getScene().getWindow();
+    	Stage stage = (Stage) title.getScene().getWindow();
     	
     	BackupManagerView view = new BackupManagerView();
     	view.openBackupManager(stage);
@@ -112,15 +116,29 @@ public class UpdateStaffProfileController {
     public void openManagerStats(ActionEvent e) 
     {
     	System.out.println("Open Manager Stats");
+    	
+    	Stage stage = (Stage) title.getScene().getWindow();
+    	
+    	DataSummaryView view = new DataSummaryView();
+    	view.openSummary(stage);
     }
     
     @FXML
     public void openAddEmployees(ActionEvent e) 
     {
     	System.out.println("Open Add Employees");
-    	Stage stage = (Stage) fullName.getScene().getWindow();
+    	Stage stage = (Stage) title.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
+    }
+    
+    @FXML
+    public void logOut(ActionEvent e) 
+    {
+    	System.out.println("Log Out");
+    	Stage stage = (Stage) title.getScene().getWindow();
+    	LoginView logOut = new LoginView();
+    	logOut.start(stage);
     }
     
     @FXML
@@ -168,6 +186,13 @@ public class UpdateStaffProfileController {
     
     public void initialize() 
     {
+    	if(CurrentUser.getUser().getSecurity() <=0) 
+    	{
+    		    ddEmployees.setVisible(false);
+
+    		    ddStats.setVisible(false);
+    	}
+    	
     	title.setText("Update Profile: " + CurrentUser.getUser().getUsername());
     	fullName.setText(CurrentUser.getUser().getRealName());
     	password.setText(CurrentUser.getUser().getPassword());
