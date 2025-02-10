@@ -1,33 +1,34 @@
 package application.Model.ObjectClasses;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Request {
-	private int requestID;
-	private String clientName;
-	private String title;
-	private String artist;
-	private LocalDate date;
-	private LocalTime time;
-	private Double duration;
-	private int audienceNumber;
-	private String type;
-	private String category;
+	private int requestID = -1;
+	private String clientName = "";
+	private String title = "";
+	private String artist = "";
+	private LocalDateTime dateTime;
+	private String date = "";
+	private String time = "";
+	private double duration = -1;
+	private int audienceNumber = -1;
+	private String type = "";
+	private String category = "";
 
 	public Request() 
 	{
 		
 	}
 	
-	public Request(int requestID, String clientName, String title, String artist, LocalDate date, LocalTime time,
-			Double duration, int audienceNumber, String type, String category) {
+	public Request(int requestID, String clientName, String title, String artist, LocalDateTime dateTime, String date, String time,
+			double duration, int audienceNumber, String type, String category) {
 		this.requestID = requestID;
 		this.clientName = clientName;
 		this.title = title;
 		this.artist = artist;
 		this.date = date;
 		this.time = time;
+		this.dateTime = dateTime;
 		this.duration = duration;
 		this.audienceNumber = audienceNumber;
 		this.type = type;
@@ -66,27 +67,38 @@ public class Request {
 		this.artist = artist;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDateTime getDateTime() {
+		return dateTime;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDateTime(LocalDateTime date) {
+		this.dateTime = date;
+	}
+	
+	public void setDate(String date) 
+	{
 		this.date = date;
 	}
-
-	public LocalTime getTime() {
-		return time;
+	
+	public String getDate() 
+	{
+		return date;
+	}
+	
+	public void setTime(String time) 
+	{
+		this.time = time;
 	}
 
-	public void setTime(LocalTime time) {
-		this.time = time;
+	public String getTime() {
+		return time;
 	}
 
 	public Double getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Double duration) {
+	public void setDuration(double duration) {
 		this.duration = duration;
 	}
 
@@ -112,6 +124,32 @@ public class Request {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	@Override
+	public String toString() 
+	{
+		String returnString = "";
+		
+		try 
+		{
+			returnString += "Request ID: " + requestID;
+			returnString += "Client Name: " + clientName + "\n";
+			returnString += "Event Title: " + title + "\n";
+			returnString += "Artist/s: " + artist + "\n";
+			returnString += "Date: " + date + "\n";
+			returnString += "Time: " + time + "\n";
+			returnString += "Duration: " + duration + "\n";
+			returnString += "Audience Number: " + audienceNumber + "\n";
+			returnString += "Type: " + type + "\n";
+			returnString += "Category: " + category;
+			
+			return returnString;
+		}
+		catch(Exception e) 
+		{
+			return "Error???????";
+		}
 	}
 
 }
