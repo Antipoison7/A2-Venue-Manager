@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.ErrorController">
+<BorderPane prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.DetailsVenueController">
    <bottom>
       <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" prefHeight="51.0" prefWidth="199.0" text="Close" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
