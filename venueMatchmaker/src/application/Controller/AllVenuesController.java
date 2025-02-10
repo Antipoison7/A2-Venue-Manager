@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import application.Model.AllVenuesSearchModel;
 import application.Model.TableListGenerator;
-import application.Model.ObjectClasses.CurrentUser;
-import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.VenueDump;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
+import application.View.BackupManagerView;
 import application.View.BookingManagerView;
 import application.View.EmployeeManagerView;
 import application.View.UpdateStaffProfileView;
@@ -20,7 +19,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class AllVenuesController {
@@ -122,6 +120,11 @@ public class AllVenuesController {
     public void openBackupManager(ActionEvent e) 
     {
     	System.out.println("Open Backup Manager");
+    	
+    	Stage stage = (Stage) searchBox.getScene().getWindow();
+    	
+    	BackupManagerView view = new BackupManagerView();
+    	view.openBackupManager(stage);
     }
     
     @FXML
