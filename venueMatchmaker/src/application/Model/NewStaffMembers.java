@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import application.Model.ObjectClasses.User;
-import application.Model.ObjectClasses.Venue;
 
 public class NewStaffMembers extends JDBCHelper {
 	

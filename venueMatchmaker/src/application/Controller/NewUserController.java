@@ -4,7 +4,6 @@ import application.Model.NewStaffMembers;
 import application.Model.ObjectClasses.User;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
-import application.View.NewManagerView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

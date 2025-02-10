@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import application.Model.ObjectClasses.Venue;
 import application.Model.ObjectClasses.VenueDump;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
