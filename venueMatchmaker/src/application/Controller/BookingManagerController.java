@@ -1,5 +1,6 @@
 package application.Controller;
 
+import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.Request;
@@ -9,26 +10,42 @@ import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
+import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
+import application.View.ErrorGenerator;
 import application.View.NewBookingView;
 import application.View.NewVenueView;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class BookingManagerController 
 {
+	private int selectedVenueID = -1;
+	
+	@FXML
+    private Label bookingTitle;
+	
+	@FXML
+    private Label venueTitle;
 
 	//Add new venue to table button
 	@FXML
     private Button addVenue;
+	
+	@FXML
+    private Button deleteVenueButton;
 
 	@FXML
 	private Button newBooking;
@@ -138,6 +155,30 @@ public class BookingManagerController
     }
     
     @FXML
+    public void deleteVenue(ActionEvent event) {
+    	System.out.println("Deleted ID");
+    	
+    	ObjectDBInterface db = new ObjectDBInterface();
+    	
+    	if(selectedVenueID >= 0) 
+    	{
+    		db.deleteVenueWhere(selectedVenueID);
+    		
+    		BookingManagerView manager = new BookingManagerView();
+    		manager.openBookingManager((Stage) ((Node)event.getSource()).getScene().getWindow());
+    	}
+    	else 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("No Venue Selected");
+	    	errorThrow.setErrorBody("Please select a valid venue and try again (Click on table row)");
+	    	
+	    	errorThrow.throwError();
+    	}
+    }
+    
+    @FXML
     public void openBookingManager(ActionEvent e) 
     {
     	System.out.println("Open Booking Manager");
@@ -233,6 +274,7 @@ public class BookingManagerController
     
     public void initialize()
     {
+    	
     	User selectedUser = CurrentUser.getUser();
     	if(selectedUser.getSecurity() <=0) 
     	{
@@ -266,6 +308,32 @@ public class BookingManagerController
 	    rTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 	    
 	    requestTable.setItems(mm.getRequests());
+	    
+	    
+	    venueTable.setOnMouseClicked((MouseEvent event) -> {
+	        if (event.getButton().equals(MouseButton.PRIMARY)) {
+	            int index = venueTable.getSelectionModel().getSelectedIndex();
+	            Venue venue = venueTable.getItems().get(index);
+	            selectedVenueID = venue.getId();
+	            venueTitle.setText("Venues | Selected: " + selectedVenueID);
+	        }
+	        
+	        if(event.getButton().equals(MouseButton.PRIMARY)){
+	            if(event.getClickCount() == 2){
+	                System.out.println("Double clicked");
+	                
+	                int index = venueTable.getSelectionModel().getSelectedIndex();
+		            Venue venue = venueTable.getItems().get(index);
+	               
+	                DetailsVenueView dvv = new DetailsVenueView();
+	                
+//	                DetailsVenueController.setID(venue.getId());
+	                
+	                dvv.openNewVenueDetails();
+	                
+	            }
+	        }
+	    });
     }
 
 }
