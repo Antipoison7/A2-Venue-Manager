@@ -50,8 +50,9 @@ public class NewBookingController {
 	private TextField title;
 
 	@FXML
-	void createBooking(ActionEvent event) {
-
+	void createBooking(ActionEvent event) 
+	{
+		System.out.println(date.getValue());
 	}
 
 	@FXML
