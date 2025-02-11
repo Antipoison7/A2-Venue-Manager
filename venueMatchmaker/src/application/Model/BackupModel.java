@@ -144,63 +144,67 @@ public class BackupModel extends JDBCHelper{
 			{
 				currString = scnr.nextLine();
 				
-					List<String> csvLine = Arrays.asList(currString.split(","));
-					
-					Request currRequest = new Request();
-					
-					currRequest.setClientName(csvLine.get(0).strip());
-					currRequest.setTitle(csvLine.get(1).strip());
-					currRequest.setArtist(csvLine.get(2).strip());
-					List<String> splitDate = Arrays.asList(csvLine.get(3).strip().split("-"));
-					
-					String date = "";
-					
-					if(splitDate.get(0).length() == 1) 
-					{
-						date += "0" + splitDate.get(0);
-					}
-					else 
-					{
-						date += splitDate.get(0);
-					}
-					
-					date += "-";
-					
-					if(splitDate.get(1).length() == 1) 
-					{
-						date += "0" + splitDate.get(1);
-					}
-					else 
-					{
-						date += splitDate.get(1);
-					}
-					
-					date += "-";
-					
-					if(splitDate.get(2).length() ==1) 
-					{
-						date += 0 + splitDate.get(2);
-					}
-					else if(splitDate.get(2).length() == 4) 
-					{
-						date += splitDate.get(2).substring(2, 4);
-					}
-					else 
-					{
-						date += splitDate.get(2);
-					}
-					
-					currRequest.setDate(date);
-					
-					currRequest.setTime(csvLine.get(4).strip());
-					currRequest.setDuration(Double.parseDouble(csvLine.get(5).strip()));
-					currRequest.setAudienceNumber(Integer.parseInt(csvLine.get(6).strip()));
-					currRequest.setType(csvLine.get(7).strip());
-					currRequest.setCategory(csvLine.get(8).strip());
-					
-					requests.add(currRequest);
+				List<String> csvLine = Arrays.asList(currString.split(","));
 				
-					System.out.println(currRequest.toString());
+				Request currRequest = new Request();
+				
+				ObjectDBInterface db = new ObjectDBInterface();
+			
+				db.doesClientExist(csvLine.get(0).strip());
+				
+				currRequest.setClientName(csvLine.get(0).strip());
+				currRequest.setTitle(csvLine.get(1).strip());
+				currRequest.setArtist(csvLine.get(2).strip());
+				List<String> splitDate = Arrays.asList(csvLine.get(3).strip().split("-"));
+				
+				String date = "";
+				
+				if(splitDate.get(0).length() == 1) 
+				{
+					date += "0" + splitDate.get(0);
+				}
+				else 
+				{
+					date += splitDate.get(0);
+				}
+				
+				date += "-";
+				
+				if(splitDate.get(1).length() == 1) 
+				{
+					date += "0" + splitDate.get(1);
+				}
+				else 
+				{
+					date += splitDate.get(1);
+				}
+				
+				date += "-";
+				
+				if(splitDate.get(2).length() ==1) 
+				{
+					date += 0 + splitDate.get(2);
+				}
+				else if(splitDate.get(2).length() == 4) 
+				{
+					date += splitDate.get(2).substring(2, 4);
+				}
+				else 
+				{
+					date += splitDate.get(2);
+				}
+				
+				currRequest.setDate(date);
+				
+				currRequest.setTime(csvLine.get(4).strip());
+				currRequest.setDuration(Double.parseDouble(csvLine.get(5).strip()));
+				currRequest.setAudienceNumber(Integer.parseInt(csvLine.get(6).strip()));
+				currRequest.setType(csvLine.get(7).strip());
+				currRequest.setCategory(csvLine.get(8).strip());
+				
+				requests.add(currRequest);
+			
+				System.out.println(currRequest.toString());
 			}
 			
 			scnr.close();
