@@ -104,17 +104,12 @@ public class NewVenueModel extends JDBCHelper {
 				isSuccessful = true;
 			}
 			
-			Statement statement = jdbc.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT MAX(venue_id) FROM venues;");
-			
-			int setID = rs.getInt(1);
-			
 			for(String s : userVenue.getSuitableType()) 
 			{
 				PreparedStatement typeQuery;
 				
 				typeQuery = jdbc.prepareStatement("INSERT INTO venues_suitable (venue_id, event_type) VALUES (?,?);");
-				typeQuery.setInt(1, setID);
+				typeQuery.setString(1, userVenue.getName());
 				typeQuery.setString(2, s);
 				
 				typeQuery.executeUpdate();

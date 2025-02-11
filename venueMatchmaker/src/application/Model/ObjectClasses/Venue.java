@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Venue {
 
-	protected int id = -1;
 	protected String name = "";
 	protected double hirePrice = -1;
 	protected int capacity = -1;
@@ -18,14 +17,6 @@ public class Venue {
 	}
 
 	// Getters and Setters
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -84,7 +75,6 @@ public class Venue {
 	{
 		String toString = "";
 		
-		toString += "ID: " + id + "\n";
 		toString += "Name: " + name + "\n";
 		toString += "Hire Price: " + hirePrice + "\n";
 		toString += "Capacity: " + capacity + "\n";

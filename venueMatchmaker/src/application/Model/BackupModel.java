@@ -83,23 +83,12 @@ public class BackupModel extends JDBCHelper{
 					
 					query.executeUpdate();
 					
-					Statement statement = jdbc.createStatement();
-					
-					ResultSet rs = statement.executeQuery("SELECT MAX(venue_id) FROM venues;");
-					
-					while(rs.next()) 
-					{
-						v.setId(rs.getInt(1)-1);							
-					}
-					
-					rs.close();
-					
 					for(String s : v.getSuitableType()) 
 					{
 						PreparedStatement typeQuery;
 						
 						typeQuery = jdbc.prepareStatement("INSERT INTO venues_suitable (venue_id, event_type) VALUES (?,?);");
-						typeQuery.setInt(1, v.getId());
+						typeQuery.setString(1, v.getName());
 						typeQuery.setString(2, s);
 						
 						typeQuery.executeUpdate();
@@ -204,7 +193,6 @@ public class BackupModel extends JDBCHelper{
 				
 				requests.add(currRequest);
 			
-				System.out.println(currRequest.toString());
 			}
 			
 			scnr.close();

@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 
 public class BookingManagerController 
 {
-	private int selectedVenueID = -1;
+	private String selectedVenueID = "";
 	
 	private int selectedRequestID = -1;
 	@FXML
@@ -168,7 +168,7 @@ public class BookingManagerController
     	
     	ObjectDBInterface db = new ObjectDBInterface();
     	
-    	if(selectedVenueID >= 0) 
+    	if(!selectedVenueID.equals("")) 
     	{
     		db.deleteVenueWhere(selectedVenueID);
     		
@@ -292,8 +292,6 @@ public class BookingManagerController
 
          	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-         	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
-
          	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
          	    
          	    venueTable.setItems(mm.getVenuesFilter(filters, selectedRequestID));
@@ -306,8 +304,6 @@ public class BookingManagerController
     	    	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
     	 	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-    	 	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
 
     	 	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
     	 	    
@@ -323,8 +319,6 @@ public class BookingManagerController
         	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
      	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-     	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
 
      	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
      	    
@@ -342,11 +336,11 @@ public class BookingManagerController
     @FXML
     public void showMoreVenueDetails(ActionEvent e) 
     {
-    	if(selectedVenueID != -1) 
+    	if(!selectedVenueID.equals("")) 
     	{
     		DetailsVenueView dvv = new DetailsVenueView();
             
-            DetailsVenueController.setID(selectedVenueID);
+            DetailsVenueController.setName(selectedVenueID);
             
             dvv.openNewVenueDetails();
     	}
@@ -389,8 +383,6 @@ public class BookingManagerController
 
  	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
 
- 	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
-
  	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
  	    
  	    venueTable.setItems(mm.getVenues());
@@ -412,7 +404,7 @@ public class BookingManagerController
 	        if (event.getButton().equals(MouseButton.PRIMARY)) {
 	            int index = venueTable.getSelectionModel().getSelectedIndex();
 	            Venue venue = venueTable.getItems().get(index);
-	            selectedVenueID = venue.getId();
+	            selectedVenueID = venue.getName();
 	            venueTitle.setText("Venues | Selected: " + selectedVenueID);
 	        }
 	        
@@ -425,7 +417,7 @@ public class BookingManagerController
 	               
 	                DetailsVenueView dvv = new DetailsVenueView();
 	                
-	                DetailsVenueController.setID(venue.getId());
+	                DetailsVenueController.setName(venue.getName());
 	                
 	                dvv.openNewVenueDetails();
 	                

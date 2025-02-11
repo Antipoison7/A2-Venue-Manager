@@ -63,10 +63,9 @@
             </Label>
             <TableView fx:id="venueTable">
               <columns>
-                <TableColumn fx:id="vID" prefWidth="79.20001065731049" text="Venue ID" />
-                <TableColumn fx:id="vName" prefWidth="404.7999954223633" text="Venue Name" />
-                  <TableColumn fx:id="vCompat" prefWidth="105.59994506835938" text="Compatibility" />
-                  <TableColumn fx:id="vCapac" prefWidth="120.79998779296875" text="Capacity" />
+                <TableColumn fx:id="vName" prefWidth="442.39996945858" text="Venue Name" />
+                  <TableColumn fx:id="vCompat" prefWidth="132.80001831054688" text="Compatibility" />
+                  <TableColumn fx:id="vCapac" prefWidth="136.0" text="Capacity" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" />

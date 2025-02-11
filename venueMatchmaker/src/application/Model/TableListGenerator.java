@@ -64,13 +64,12 @@ public class TableListGenerator extends JDBCHelper{
 			while(resultSet.next()) 
 			{
 				Venue newVenue = new Venue();
-				newVenue.setId(resultSet.getInt(1));
-				newVenue.setName(resultSet.getString(2));
-				newVenue.setHirePrice(resultSet.getDouble(3));
-				newVenue.setCapacity(resultSet.getInt(4));
-				newVenue.setCategory(resultSet.getString(5));
+				newVenue.setName(resultSet.getString(1));
+				newVenue.setHirePrice(resultSet.getDouble(2));
+				newVenue.setCapacity(resultSet.getInt(3));
+				newVenue.setCategory(resultSet.getString(4));
 				
-				if(resultSet.getInt(6) == 1) 
+				if(resultSet.getInt(5) == 1) 
 				{
 					newVenue.setBookable(true);
 				}
@@ -107,13 +106,12 @@ public class TableListGenerator extends JDBCHelper{
 			while(resultSet.next()) 
 			{
 				VenueDump newVenue = new VenueDump();
-				newVenue.setId(resultSet.getInt(1));
-				newVenue.setName(resultSet.getString(2));
-				newVenue.setHirePrice(resultSet.getDouble(3));
-				newVenue.setCapacity(resultSet.getInt(4));
-				newVenue.setCategory(resultSet.getString(5));
+				newVenue.setName(resultSet.getString(1));
+				newVenue.setHirePrice(resultSet.getDouble(2));
+				newVenue.setCapacity(resultSet.getInt(3));
+				newVenue.setCategory(resultSet.getString(4));
 				
-				if(resultSet.getInt(6) == 1) 
+				if(resultSet.getInt(5) == 1) 
 				{
 					newVenue.setBookable(true);
 				}
@@ -124,7 +122,7 @@ public class TableListGenerator extends JDBCHelper{
 				
 				PreparedStatement query;
 				query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_id = ?;");
-				query.setInt(1, resultSet.getInt(1));
+				query.setString(1, resultSet.getString(1));
 				
 				ResultSet results = query.executeQuery();
 				
@@ -182,7 +180,7 @@ public class TableListGenerator extends JDBCHelper{
 		}
 	}
 	
-	public ObservableList<String> getVenueTypes(int i)
+	public ObservableList<String> getVenueTypes(String i)
 	{
 		try 
 		{
@@ -190,7 +188,7 @@ public class TableListGenerator extends JDBCHelper{
 			
 			PreparedStatement query;
 			query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_id = ?;");
-			query.setInt(1, i);
+			query.setString(1, i);
 			
 			ObservableList<String> types = FXCollections.observableArrayList();
 			
@@ -222,7 +220,7 @@ public class TableListGenerator extends JDBCHelper{
 			Connection jdbc =  connectDB();
 			
 			PreparedStatement query;
-			String queryString = "SELECT v.venue_id, v.venue_name, v.hire_price, v.capacity, v.category, v.bookable, s.event_type FROM venues as v JOIN venues_suitable as s ON v.venue_id = s.venue_id WHERE bookable = 1";
+			String queryString = "SELECT v.venue_name, v.hire_price, v.capacity, v.category, v.bookable, s.event_type FROM venues as v JOIN venues_suitable as s ON v.venue_name = s.venue_id WHERE bookable = 1";
 			
 			if(filters.get("Capacity")) 
 			{
@@ -242,8 +240,7 @@ public class TableListGenerator extends JDBCHelper{
 				queryString += " AND category = ?";
 			}
 				
-//			System.out.println(queryString + "GROUP BY v.venue_id;");
-			query = jdbc.prepareStatement(queryString + " GROUP BY v.venue_id;");
+			query = jdbc.prepareStatement(queryString + " GROUP BY v.venue_name;");
 			int counter = 1;
 			
 			if(filters.get("Capacity")) 
@@ -260,7 +257,8 @@ public class TableListGenerator extends JDBCHelper{
 			
 			if(filters.get("Weather")) 
 			{
-				query.setString(counter, r.getCategory());
+				String category = r.getCategory();
+				query.setString(counter, category.substring(0, 1).toUpperCase() + category.substring(1));
 				counter++;
 			}
 			
@@ -271,13 +269,12 @@ public class TableListGenerator extends JDBCHelper{
 			while(resultSet.next()) 
 			{
 				Venue newVenue = new Venue();
-				newVenue.setId(resultSet.getInt(1));
-				newVenue.setName(resultSet.getString(2));
-				newVenue.setHirePrice(resultSet.getDouble(3));
-				newVenue.setCapacity(resultSet.getInt(4));
-				newVenue.setCategory(resultSet.getString(5));
+				newVenue.setName(resultSet.getString(1));
+				newVenue.setHirePrice(resultSet.getDouble(2));
+				newVenue.setCapacity(resultSet.getInt(3));
+				newVenue.setCategory(resultSet.getString(4));
 				
-				if(resultSet.getInt(6) == 1) 
+				if(resultSet.getInt(5) == 1) 
 				{
 					newVenue.setBookable(true);
 				}

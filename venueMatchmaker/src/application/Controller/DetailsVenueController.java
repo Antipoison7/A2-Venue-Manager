@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class DetailsVenueController {
 	
-	private static int ID;
+	private static String ID;
 	
     @FXML
     private Label bookable;
@@ -67,6 +67,8 @@ public class DetailsVenueController {
     	
     	Venue selectedVenue = db.selectVenueNoType(ID);
     	
+    	System.out.println(selectedVenue.toString());
+    	
     	
     	//Set bookable
     	if(selectedVenue.isBookable()) 
@@ -83,7 +85,7 @@ public class DetailsVenueController {
 //    	//Set Category
     	category.setText(selectedVenue.getCategory());
 //    	//Set ID and Title
-    	idAndTitle.setText("#" + selectedVenue.getId() + " | " + selectedVenue.getName());
+    	idAndTitle.setText(selectedVenue.getName());
 //    	//Set Price Per Hour
     	pricePerHour.setText("$" + selectedVenue.getHirePrice());
     	//Set Suitable Events Table
@@ -94,8 +96,10 @@ public class DetailsVenueController {
     }
 
 
-	public static void setID(int id) {
-		ID = id;
+	public static void setName(String venueName) {
+		System.out.println("Name: " + venueName);
+		ID = venueName;
+		System.out.println("ID: " + ID);
 	}
     
 }

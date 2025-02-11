@@ -26,13 +26,12 @@ public class AllVenuesSearchModel extends JDBCHelper{
 			while(resultSet.next()) 
 			{
 				VenueDump newVenue = new VenueDump();
-				newVenue.setId(resultSet.getInt(1));
-				newVenue.setName(resultSet.getString(2));
-				newVenue.setHirePrice(resultSet.getDouble(3));
-				newVenue.setCapacity(resultSet.getInt(4));
-				newVenue.setCategory(resultSet.getString(5));
+				newVenue.setName(resultSet.getString(1));
+				newVenue.setHirePrice(resultSet.getDouble(2));
+				newVenue.setCapacity(resultSet.getInt(3));
+				newVenue.setCategory(resultSet.getString(4));
 				
-				if(resultSet.getInt(6) == 1) 
+				if(resultSet.getInt(5) == 1) 
 				{
 					newVenue.setBookable(true);
 				}
@@ -42,8 +41,8 @@ public class AllVenuesSearchModel extends JDBCHelper{
 				}
 				
 				PreparedStatement query;
-				query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_id = ?;");
-				query.setInt(1, resultSet.getInt(1));
+				query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_name = ?;");
+				query.setString(1, resultSet.getString(1));
 				
 				ResultSet results = query.executeQuery();
 				

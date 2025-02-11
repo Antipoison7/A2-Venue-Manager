@@ -108,11 +108,10 @@ public class NewVenueController {
         	userVenue.setHirePrice(Double.parseDouble(venuePrice.getText()));
         	userVenue.setName(venueName.getText());
         	userVenue.setSuitableType(suitableTypes);
-        	userVenue.setId(0);
         	
         	if(venueModel.isEntryValid(userVenue)) 
         	{
-        		if(venueModel.isDuplicateVenuename(venueName.getText())) 
+        		if(!venueModel.isDuplicateVenuename(venueName.getText())) 
         		{
         			if(!venueModel.addNewVenue(userVenue)) 
             		{

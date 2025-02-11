@@ -36,7 +36,7 @@ public class AllVenuesController {
 
 	private ArrayList<VenueDump> tableData = new ArrayList<VenueDump>();
 	
-	private int selectedVenueID = -1;
+	private String selectedVenueName = "";
 	
 	@FXML
     private MenuItem ddAllVenues;
@@ -73,9 +73,6 @@ public class AllVenuesController {
 
     @FXML
     private TableColumn<VenueDump, String> tCategory;
-
-    @FXML
-    private TableColumn<VenueDump, Integer> tID;
 
     @FXML
     private TableColumn<VenueDump, String> tName;
@@ -182,7 +179,7 @@ public class AllVenuesController {
     @FXML
     public void toggleDisabled(ActionEvent e) 
     {
-    	if(selectedVenueID == -1) 
+    	if(selectedVenueName.equals("")) 
     	{
     		ErrorGenerator errorThrow = new ErrorGenerator();
 	    	
@@ -195,7 +192,7 @@ public class AllVenuesController {
     	{
     		ObjectDBInterface db = new ObjectDBInterface();
     		
-    		db.toggleVenueWhere(selectedVenueID);
+    		db.toggleVenueWhere(selectedVenueName);
     		
     		AllVenuesView venue = new AllVenuesView();
     		venue.openAllVenues((Stage) ((Node)e.getSource()).getScene().getWindow());
@@ -212,8 +209,6 @@ public class AllVenuesController {
     		tCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
     		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-    		tID.setCellValueFactory(new PropertyValueFactory<>("id"));
 
     		tName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -234,8 +229,6 @@ public class AllVenuesController {
     		tCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
     		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-    		tID.setCellValueFactory(new PropertyValueFactory<>("id"));
 
     		tName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -266,8 +259,6 @@ public class AllVenuesController {
 
 		tCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-		tID.setCellValueFactory(new PropertyValueFactory<>("id"));
-
 		tName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		tPrice.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
@@ -284,8 +275,8 @@ public class AllVenuesController {
 			if (event.getButton().equals(MouseButton.PRIMARY)) {
 	            int index = table.getSelectionModel().getSelectedIndex();
 	            Venue venue = table.getItems().get(index);
-	            selectedVenueID = venue.getId();
-	            selected.setText("Selected ID : " + selectedVenueID);
+	            selectedVenueName = venue.getName();
+	            selected.setText("Selected ID : " + selectedVenueName);
 	        }
 			
 	        if(event.getButton().equals(MouseButton.PRIMARY)){
@@ -297,7 +288,7 @@ public class AllVenuesController {
 	               
 	                DetailsVenueView dvv = new DetailsVenueView();
 	                
-	                DetailsVenueController.setID(venue.getId());
+	                DetailsVenueController.setName(venue.getName());
 	                
 	                dvv.openNewVenueDetails();
 	                

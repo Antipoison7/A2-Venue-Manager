@@ -85,13 +85,12 @@
             </HBox>
             <TableView fx:id="table" prefHeight="650.0" prefWidth="979.0">
               <columns>
-                <TableColumn fx:id="tID" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="tName" prefWidth="220.79993438720703" text="Name" />
                   <TableColumn fx:id="tPrice" prefWidth="94.4000244140625" text="Price" />
                   <TableColumn fx:id="tCapacity" prefWidth="136.00003051757812" text="Capacity" />
                   <TableColumn fx:id="tCategory" prefWidth="167.2000732421875" text="Category" />
-                  <TableColumn fx:id="tSuitable" prefWidth="208.800048828125" text="Suitable" />
-                  <TableColumn fx:id="tActive" prefWidth="78.4000244140625" text="Active" />
+                  <TableColumn fx:id="tSuitable" prefWidth="263.199951171875" text="Suitable" />
+                  <TableColumn fx:id="tActive" prefWidth="95.2000732421875" text="Active" />
               </columns>
             </TableView>
          </children>
