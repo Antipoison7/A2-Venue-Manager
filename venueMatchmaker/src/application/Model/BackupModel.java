@@ -205,7 +205,7 @@ public class BackupModel extends JDBCHelper{
 			
 			scnr.close();
 			
-			NewRequestModel nrm = new NewRequestModel();
+			RequestManagerModel nrm = new RequestManagerModel();
 			
 			//Removes Duplicates
 			for(int i = requests.size()-1; i >=0; i--) 
