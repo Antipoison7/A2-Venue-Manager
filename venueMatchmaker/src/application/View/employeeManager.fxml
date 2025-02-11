@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -109,7 +108,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="deleteStaff" mnemonicParsing="false" prefWidth="230.0" text="Delete Staff Member">
+                  <Button fx:id="deleteStaff" mnemonicParsing="false" onAction="#deleteStaff" prefWidth="230.0" text="Delete Staff Member">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -131,27 +130,22 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="updateUsername" promptText="Username">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextField>
                   <TextField fx:id="updateFullName" promptText="Full Name">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="updatePassword" promptText="Password">
+                  <TextField fx:id="updateSecurity" promptText="Security Level">
                      <font>
                         <Font size="16.0" />
                      </font>
-                  </PasswordField>
+                  </TextField>
                   <TextField fx:id="updateCEOCode" promptText="CEO Code">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="updateButton" mnemonicParsing="false" prefWidth="230.0" text="Update">
+                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateStaff" prefWidth="230.0" text="Update">
                      <font>
                         <Font size="16.0" />
                      </font>

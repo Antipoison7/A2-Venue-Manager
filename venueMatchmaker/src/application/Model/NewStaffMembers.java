@@ -215,4 +215,82 @@ public class NewStaffMembers extends JDBCHelper {
 		
 		return isSuccessful;
 	}
+	
+	public boolean updateStaffMemberCheck(User user, int pin) 
+	{
+		boolean isSuccessful = false;
+		
+		try 
+		{
+			if(user.getRealName().length()<=0) 
+			{
+				return false;
+			}
+			
+			if(user.getSecurity() >1) 
+			{
+				return false;
+			}
+		}
+		catch(Exception e) 
+		{
+			return false;
+		}
+		
+		if(pin == AUTH_PIN) 
+		{
+			try
+			{
+				Connection jdbc = connectDB();
+				
+				PreparedStatement query;
+				query = jdbc.prepareStatement("UPDATE users SET real_name = ?, security = ? WHERE username = ?;");
+				query.setString(1, user.getRealName());
+				query.setInt(2, user.getSecurity());
+				query.setString(3, user.getUsername());
+				
+				if(query.executeUpdate() !=0) 
+				{
+					isSuccessful = true;
+				}
+				
+				jdbc.close();
+				query.close();
+			}
+			catch(Exception e) 
+			{
+				return false;
+			}
+		}
+		
+		return isSuccessful;
+	}
+	
+	public boolean deleteStaffMember(String user) 
+	{
+		boolean isSuccessful = false;
+		
+		try
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("UPDATE users SET active = 0 WHERE username = ?;");
+			query.setString(1, user);
+
+			if(query.executeUpdate() !=0) 
+			{
+				isSuccessful = true;
+			}
+			
+			jdbc.close();
+			query.close();
+		}
+		catch(Exception e) 
+		{
+			return false;
+		}
+		
+		return isSuccessful;
+	}
 }

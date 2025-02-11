@@ -1,20 +1,26 @@
 package application.Controller;
 
+import application.Model.LoginHelper;
+import application.Model.NewStaffMembers;
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.User;
+import application.Model.ObjectClasses.Venue;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
 import application.View.DataSummaryView;
+import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
+import application.View.ErrorGenerator;
 import application.View.LoginView;
 import application.View.NewManagerView;
 import application.View.NewUserView;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -23,15 +29,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AccountManagerController 
 {
-	 @FXML
-	 private MenuItem ddAllVenues;
+	private String selectedAccountUsername = "";
+	
+	@FXML
+	private MenuItem ddAllVenues;
 	 
-	 @FXML
-	 private MenuItem ddAllEvents;
+	@FXML
+	private MenuItem ddAllEvents;
 	
 	@FXML
     private MenuItem ddBookingManager;
@@ -74,10 +84,7 @@ public class AccountManagerController
     private TextField updateFullName;
 
     @FXML
-    private PasswordField updatePassword;
-
-    @FXML
-    private TextField updateUsername;
+    private TextField updateSecurity;
     
     @FXML
     private TextField updateCEOCode;
@@ -194,6 +201,95 @@ public class AccountManagerController
     	logOut.start(stage);
     }
     
+    @FXML
+    void updateStaff(ActionEvent event) 
+    {
+    	LoginHelper log = new LoginHelper();
+    	
+    	if(log.doesAccountExist(selectedAccountUsername)) 
+    	{
+    		try 
+        	{
+        		User u = new User();
+        		u.setUsername(selectedAccountUsername);
+        		u.setRealName(updateFullName.getText());
+        		u.setSecurity(Integer.parseInt(updateSecurity.getText()));
+        		
+        		NewStaffMembers db = new NewStaffMembers();
+        		
+        		if(!db.updateStaffMemberCheck(u,Integer.parseInt( updateCEOCode.getText()))) 
+        		{
+        			ErrorGenerator errorThrow = new ErrorGenerator();
+        	    	
+        	    	errorThrow.setErrorTitle("Invalid Data");
+        	    	errorThrow.setErrorBody("Something went wrong when updating the user data, check to see that the secuirty level is valid, the CEO code is valid and/or the name field is filled out");	
+        	    	
+        	    	errorThrow.throwError();
+        		}
+        		else 
+        		{
+        			EmployeeManagerView manager = new EmployeeManagerView();
+            		manager.openManagerView((Stage) ((Node)event.getSource()).getScene().getWindow());
+        		}
+        		
+        	}
+        	catch(Exception e) 
+        	{
+        		ErrorGenerator errorThrow = new ErrorGenerator();
+    	    	
+    	    	errorThrow.setErrorTitle("Update Error");
+    	    	errorThrow.setErrorBody("Something went wrong when updating the user data, check to see if any fields are blank or if the CEO code is invalid.");
+    	    	
+    	    	errorThrow.throwError();
+        	}
+    	}
+    	else 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("User Selection Error");
+	    	errorThrow.setErrorBody("Selected user does not exist in the database, please select someone who is registered.");
+	    	
+	    	errorThrow.throwError();
+    	}
+    	
+    	
+    }
+    
+    @FXML
+    void deleteStaff(ActionEvent event) 
+    {
+    	LoginHelper log = new LoginHelper();
+    	
+    	if(log.doesAccountExist(selectedAccountUsername)) 
+    	{
+    		NewStaffMembers db = new NewStaffMembers();
+    		if(!db.deleteStaffMember(selectedAccountUsername))
+    		{
+    			ErrorGenerator errorThrow = new ErrorGenerator();
+				
+				errorThrow.setErrorTitle("DB Error");
+    	    	errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
+    	    	
+    	    	errorThrow.throwError();
+    		}
+    		else 
+    		{
+    			EmployeeManagerView manager = new EmployeeManagerView();
+        		manager.openManagerView((Stage) ((Node)event.getSource()).getScene().getWindow());
+    		}
+    	}
+    	else 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("User Selection Error");
+	    	errorThrow.setErrorBody("Selected user does not exist in the database, please select someone who is registered.");
+	    	
+	    	errorThrow.throwError();
+    	}
+    }
+    
     
     public void initialize()
     {
@@ -212,6 +308,18 @@ public class AccountManagerController
     	    
     	    TableListGenerator mm = new TableListGenerator();
     	    table.setItems(mm.getUsers());
+    	    
+    	    table.setOnMouseClicked((MouseEvent event) -> {
+    	        if (event.getButton().equals(MouseButton.PRIMARY)) {
+    	            int index = table.getSelectionModel().getSelectedIndex();
+    	            User user = table.getItems().get(index);
+    	            selectedAccountUsername = user.getUsername();
+    	            selectedUserDelete.setText("Selected: " + selectedAccountUsername);
+    	            selectedUserUpdate.setText("Selected: " + selectedAccountUsername);
+    	            updateFullName.setText(user.getRealName());
+    	            updateSecurity.setText("" + user.getSecurity());
+    	        }
+    	    });
     }
 
 }
