@@ -93,4 +93,42 @@ public class ObjectDBInterface extends JDBCHelper
 			System.out.println(e);
 		}
 	}
+	
+	public void doesClientExist(String client) 
+	{
+		boolean doesExist = false;
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			
+			query = jdbc.prepareStatement("SELECT COUNT(name) FROM clients WHERE name = ?;");
+			query.setString(1, client);
+			
+			ResultSet results = query.executeQuery();
+			
+			if(results.getInt(1) > 0) 
+			{
+				doesExist = true;
+			}
+			
+			if(!doesExist) 
+			{
+				query = jdbc.prepareStatement("INSERT INTO clients (name) VALUES (?);");
+				query.setString(1, client);
+				
+				query.executeUpdate();
+			}
+			
+			jdbc.close();
+			query.close();
+			
+			
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+	}
 }
