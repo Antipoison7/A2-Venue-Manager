@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 
 import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.User;
@@ -207,6 +208,105 @@ public class TableListGenerator extends JDBCHelper{
 		}
 		catch(Exception e) 
 		{
+			return null;
+		}
+	}
+	
+	public ObservableList<Venue> getVenuesFilter(HashMap<String, Boolean> filters, int requestID)
+	{
+		try 
+		{
+			ObjectDBInterface db = new ObjectDBInterface();
+			Request r = db.selectRequest(requestID);
+			
+			Connection jdbc =  connectDB();
+			
+			PreparedStatement query;
+			String queryString = "SELECT v.venue_id, v.venue_name, v.hire_price, v.capacity, v.category, v.bookable, s.event_type FROM venues as v JOIN venues_suitable as s ON v.venue_id = s.venue_id WHERE bookable = 1";
+			
+			if(filters.get("Capacity")) 
+			{
+//				System.out.println("Capacity");
+				queryString += " AND capacity >= ?";
+			}
+			
+			if(filters.get("Type")) 
+			{
+//				System.out.println("Type");
+				queryString += " AND event_type = ?";
+			}
+			
+			if(filters.get("Weather")) 
+			{
+//				System.out.println("Weather");
+				queryString += " AND category = ?";
+			}
+				
+//			System.out.println(queryString + "GROUP BY v.venue_id;");
+			query = jdbc.prepareStatement(queryString + " GROUP BY v.venue_id;");
+			int counter = 1;
+			
+			if(filters.get("Capacity")) 
+			{
+				query.setInt(counter, r.getAudienceNumber());
+				counter++;
+			}
+			
+			if(filters.get("Type")) 
+			{
+				query.setString(counter, r.getType());
+				counter++;
+			}
+			
+			if(filters.get("Weather")) 
+			{
+				query.setString(counter, r.getCategory());
+				counter++;
+			}
+			
+			ResultSet resultSet = query.executeQuery();
+			
+			ObservableList<Venue> venues = FXCollections.observableArrayList();
+			
+			while(resultSet.next()) 
+			{
+				Venue newVenue = new Venue();
+				newVenue.setId(resultSet.getInt(1));
+				newVenue.setName(resultSet.getString(2));
+				newVenue.setHirePrice(resultSet.getDouble(3));
+				newVenue.setCapacity(resultSet.getInt(4));
+				newVenue.setCategory(resultSet.getString(5));
+				
+				if(resultSet.getInt(6) == 1) 
+				{
+					newVenue.setBookable(true);
+				}
+				else 
+				{
+					newVenue.setBookable(false);
+				}
+				
+				venues.add(newVenue);
+			}
+			
+//			if(filters.get("TimeDate")) 
+//			{
+//				for(int i = venues.size()-1; i >=0; i++) 
+//				{
+//					
+//					
+//					if(Request.doesOverlap(r.getDate(), r.getTime(), r.getDuration(), , queryString, i))
+//				}
+//			}
+			
+			jdbc.close();
+			query.close();
+			
+			return venues;
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
 			return null;
 		}
 	}
