@@ -79,7 +79,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="27.0" />
          </GridPane.margin>
          <children>
-            <Button fx:id="moreRequestDetails" mnemonicParsing="false" text="Show More Request Details">
+            <Button fx:id="moreRequestDetails" mnemonicParsing="false" onAction="#showMoreRequestDetails" text="Show More Request Details">
                <font>
                   <Font size="13.0" />
                </font>
@@ -110,7 +110,7 @@
                   <Font size="13.0" />
                </font>
             </CheckBox>
-            <Button fx:id="filterVenues" mnemonicParsing="false" text="Filter Venues For Selected Booking">
+            <Button fx:id="filterVenues" mnemonicParsing="false" onAction="#filterVenues" text="Filter Venues For Selected Booking">
                <font>
                   <Font size="13.0" />
                </font>
@@ -139,7 +139,7 @@
                </children>
             </HBox>
             <CheckBox fx:id="bookingDiscount" mnemonicParsing="false" text="Group Booking Discount" />
-            <Button fx:id="moreVenueDetails" mnemonicParsing="false" text="Show More Venue Details" />
+            <Button fx:id="moreVenueDetails" mnemonicParsing="false" onAction="#showMoreVenueDetails" text="Show More Venue Details" />
             <Button fx:id="bookVenue" mnemonicParsing="false" text="Book Selected Venue">
                <VBox.margin>
                   <Insets bottom="5.0" />
