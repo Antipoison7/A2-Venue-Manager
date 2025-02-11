@@ -10,6 +10,7 @@ import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
 import application.View.DataSummaryView;
+import application.View.DetailsRequestView;
 import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
@@ -35,6 +36,7 @@ public class BookingManagerController
 {
 	private int selectedVenueID = -1;
 	
+	private int selectedRequestID = -1;
 	@FXML
     private Label bookingTitle;
 	
@@ -346,6 +348,31 @@ public class BookingManagerController
 	                DetailsVenueController.setID(venue.getId());
 	                
 	                dvv.openNewVenueDetails();
+	                
+	            }
+	        }
+	    });
+	    
+	    requestTable.setOnMouseClicked((MouseEvent event) -> {
+	        if (event.getButton().equals(MouseButton.PRIMARY)) {
+	            int index = requestTable.getSelectionModel().getSelectedIndex();
+	            Request request = requestTable.getItems().get(index);
+	            selectedRequestID = request.getRequestID();
+	            bookingTitle.setText("Booking Requests | Selected: " + selectedRequestID);
+	        }
+	        
+	        if(event.getButton().equals(MouseButton.PRIMARY)){
+	            if(event.getClickCount() == 2){
+	                System.out.println("Double clicked");
+	                
+	                int index = requestTable.getSelectionModel().getSelectedIndex();
+		            Request request = requestTable.getItems().get(index);
+	               
+	                DetailsRequestView drv = new DetailsRequestView();
+	                
+	                DetailsRequestController.setID(request.getRequestID());
+	                
+	                drv.openNewRequestDetails();
 	                
 	            }
 	        }
