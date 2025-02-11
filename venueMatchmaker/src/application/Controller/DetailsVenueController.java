@@ -67,9 +67,6 @@ public class DetailsVenueController {
     	
     	Venue selectedVenue = db.selectVenueNoType(ID);
     	
-    	System.out.println(selectedVenue.toString());
-    	
-    	
     	//Set bookable
     	if(selectedVenue.isBookable()) 
     	{
