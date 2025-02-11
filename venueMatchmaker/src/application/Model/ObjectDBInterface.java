@@ -171,40 +171,58 @@ public class ObjectDBInterface extends JDBCHelper
 		}
 	}
 	
-//	public ArrayList<Booking> getBookings(int venueID)
-//	{
-//		ArrayList<Booking> bookings = new ArrayList<Booking>();
-//		
-//		try 
-//		{
-//			Connection jdbc = connectDB();
-//			
-//			PreparedStatement query;
-//			query = jdbc.prepareStatement("SELECT * FROM requests WHERE request_id = ?;");
-//			query.setInt(1, id);
-//			
-//			ResultSet results = query.executeQuery();
-//			
-//			while(results.next()) 
-//			{
-//				r.setRequestID(results.getInt(1));
-//				r.setClientName(results.getString(2));
-//				r.setTitle(results.getString(3));
-//				r.setArtist(results.getString(4));
-//				r.setDate(results.getString(5));
-//				r.setTime(results.getString(6));
-//				r.setDuration(results.getDouble(7));
-//				r.setAudienceNumber(results.getInt(8));
-//				r.setType(results.getString(9));
-//				r.setCategory(results.getString(10));
-//			}
-//			
-//			return bookings;
-//		}
-//		catch(Exception e) 
-//		{
-//			return bookings;
-//		}
-//		
-//	}
+	public ArrayList<Booking> getBookings(String venueID)
+	{
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("SELECT * FROM event_bookings WHERE venue = ?;");
+			query.setString(1, venueID);
+			
+			ResultSet results = query.executeQuery();
+			
+			while(results.next()) 
+			{
+				Booking r = new Booking();
+				
+				r.setRequestID(results.getInt(1));
+				r.setClientName(results.getString(2));
+				r.setStaff(results.getString(3));
+				r.setCost(results.getDouble(4));
+				r.setCommission(results.getDouble(5));
+				r.setTitle(results.getString(6));
+				r.setArtist(results.getString(7));
+				r.setDate(results.getString(8));
+				r.setTime(results.getString(9));
+				r.setDuration(results.getDouble(10));
+				r.setAudienceNumber(results.getInt(11));
+				r.setType(results.getString(12));
+				
+				if(results.getInt(13) == 1) 
+				{
+					r.setGroup(true);
+				}
+				else 
+				{
+					r.setGroup(false);
+				}
+				r.setCategory(results.getString(14));
+				
+				r.setVenue(results.getString(15));
+				
+				bookings.add(r);
+			}
+			
+			return bookings;
+		}
+		catch(Exception e) 
+		{
+			return bookings;
+		}
+		
+	}
 }
