@@ -4,7 +4,6 @@ import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.Request;
-import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.Venue;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;

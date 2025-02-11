@@ -12,8 +12,6 @@ import application.View.DataSummaryView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
 import application.View.LoginView;
-import application.View.NewManagerView;
-import application.View.NewUserView;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

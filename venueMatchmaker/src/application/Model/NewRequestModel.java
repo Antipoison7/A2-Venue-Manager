@@ -3,10 +3,6 @@ package application.Model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 
 public class NewRequestModel extends JDBCHelper{
 
