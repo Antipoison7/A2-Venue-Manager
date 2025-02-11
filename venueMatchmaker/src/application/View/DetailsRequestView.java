@@ -6,14 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class DetailsVenueView{
-	public void openNewRequestDetails() 
+public class DetailsRequestView{
+	public void openNewVenueDetails() 
 	{
 		try 
 		{
 			Stage stage = new Stage();
 			
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("moreRequestDetails.fxml"));
+			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("moreVenueDetails.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setTitle("Event Manager Login");
