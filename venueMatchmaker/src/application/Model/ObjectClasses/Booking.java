@@ -5,6 +5,7 @@ public class Booking extends Request{
 	private double cost = -1;
 	private double commission = 0.0;
 	private String venue = "";
+	private boolean groupBooking = false;
 	
 	public Booking()
 	{
@@ -26,7 +27,7 @@ public class Booking extends Request{
 	}
 	
 	public Booking(int requestID, String clientName, String title, String artist, String date, String time,
-			double duration, int audienceNumber, String type, String category, String staff, double cost, double commission, String venue) {
+			double duration, int audienceNumber, String type, String category, String staff, double cost, double commission, String venue, boolean groupBooking) {
 		this.requestID = requestID;
 		this.clientName = clientName;
 		this.title = title;
@@ -41,6 +42,7 @@ public class Booking extends Request{
 		this.cost = cost;
 		this.commission = commission;
 		this.venue = venue;
+		this.groupBooking = groupBooking;
 	}
 
 	public String getStaff() {
@@ -73,6 +75,16 @@ public class Booking extends Request{
 
 	public void setVenue(String venue) {
 		this.venue = venue;
+	}
+	
+	public boolean getGroup() 
+	{
+		return groupBooking;
+	}
+	
+	public void setGroup(boolean group) 
+	{
+		groupBooking = group;
 	}
 	
 	
