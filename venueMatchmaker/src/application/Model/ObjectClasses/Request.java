@@ -7,7 +7,6 @@ public class Request {
 	private String clientName = "";
 	private String title = "";
 	private String artist = "";
-	private LocalDateTime dateTime;
 	private String date = "";
 	private String time = "";
 	private double duration = -1;
@@ -20,7 +19,7 @@ public class Request {
 		
 	}
 	
-	public Request(int requestID, String clientName, String title, String artist, LocalDateTime dateTime, String date, String time,
+	public Request(int requestID, String clientName, String title, String artist, String date, String time,
 			double duration, int audienceNumber, String type, String category) {
 		this.requestID = requestID;
 		this.clientName = clientName;
@@ -28,7 +27,6 @@ public class Request {
 		this.artist = artist;
 		this.date = date;
 		this.time = time;
-		this.dateTime = dateTime;
 		this.duration = duration;
 		this.audienceNumber = audienceNumber;
 		this.type = type;
@@ -67,13 +65,12 @@ public class Request {
 		this.artist = artist;
 	}
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(LocalDateTime date) {
-		this.dateTime = date;
-	}
+//	public double getDateTimeUT() 
+//	{
+//		Local
+//		
+//		return dateTime;
+//	}
 	
 	public void setDate(String date) 
 	{
