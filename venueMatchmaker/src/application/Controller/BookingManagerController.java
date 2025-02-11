@@ -1,5 +1,7 @@
 package application.Controller;
 
+import java.util.HashMap;
+
 import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.CurrentUser;
@@ -271,6 +273,64 @@ public class BookingManagerController
     public void filterVenues(ActionEvent e) 
     {
     	System.out.println("Filter Venues");
+    	
+    	if(checkTime.isSelected()||checkCapacity.isSelected()||checkGig.isSelected()||checkInOut.isSelected()) 
+    	{
+    		if(selectedRequestID != -1) 
+    		{
+    			HashMap<String, Boolean> filters = new HashMap<String, Boolean>();
+            	
+            	filters.put("TimeDate", checkTime.isSelected());
+            	filters.put("Capacity", checkCapacity.isSelected());
+            	filters.put("Type", checkGig.isSelected());
+            	filters.put("Weather", checkInOut.isSelected());
+            	
+            	TableListGenerator mm = new TableListGenerator();
+            	
+            	//Venue Table Updater
+            	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+         	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+         	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+         	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
+         	    
+         	    venueTable.setItems(mm.getVenuesFilter(filters, selectedRequestID));
+    		}
+    		else 
+    		{
+    			TableListGenerator mm = new TableListGenerator();
+    	    	
+    	    	//Venue Table Updater
+    	    	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+    	 	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+    	 	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+    	 	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    	 	    
+    	 	    venueTable.setItems(mm.getVenues());
+    		}
+    		
+    	}
+    	else 
+    	{
+    		TableListGenerator mm = new TableListGenerator();
+        	
+        	//Venue Table Updater
+        	 vCapac.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+
+     	    vCompat.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+     	    vID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+     	    vName.setCellValueFactory(new PropertyValueFactory<>("name"));
+     	    
+     	    venueTable.setItems(mm.getVenues());
+    	}
+    	
     }
     
     @FXML
@@ -282,7 +342,27 @@ public class BookingManagerController
     @FXML
     public void showMoreVenueDetails(ActionEvent e) 
     {
-    	System.out.println("Show More Venue Details");
+    	if(selectedVenueID != -1) 
+    	{
+    		DetailsVenueView dvv = new DetailsVenueView();
+            
+            DetailsVenueController.setID(selectedVenueID);
+            
+            dvv.openNewVenueDetails();
+    	}
+    }
+    
+    @FXML
+    public void showMoreRequestDetails(ActionEvent e) 
+    {
+    	if(selectedRequestID != -1) 
+    	{
+    		DetailsRequestView drv = new DetailsRequestView();
+            
+            DetailsRequestController.setID(selectedRequestID);
+            
+            drv.openNewRequestDetails();
+    	}
     }
     
     @FXML
