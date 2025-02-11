@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Request {
-	private int requestID = -1;
-	private String clientName = "";
-	private String title = "";
-	private String artist = "";
-	private String date = "";
-	private String time = "";
-	private double duration = -1;
-	private int audienceNumber = -1;
-	private String type = "";
-	private String category = "";
+	protected int requestID = -1;
+	protected String clientName = "";
+	protected String title = "";
+	protected String artist = "";
+	protected String date = "";
+	protected String time = "";
+	protected double duration = -1;
+	protected int audienceNumber = -1;
+	protected String type = "";
+	protected String category = "";
 
 	public Request() 
 	{
