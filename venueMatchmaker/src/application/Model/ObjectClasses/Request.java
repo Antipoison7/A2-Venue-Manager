@@ -1,6 +1,7 @@
 package application.Model.ObjectClasses;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Request {
 	private int requestID = -1;
@@ -31,6 +32,26 @@ public class Request {
 		this.audienceNumber = audienceNumber;
 		this.type = type;
 		this.category = category;
+	}
+	
+	public static boolean doesOverlap(String date1, String time1, double duration1, String date2, String time2, double duration2)
+	{
+		boolean doesOverlap = false;
+		
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy ha");
+
+        LocalDateTime start1 = LocalDateTime.parse((date1 + " " + time1), formatter);
+        LocalDateTime start2 = LocalDateTime.parse((date2 + " " + time2), formatter);
+        
+        LocalDateTime end1 = start1.plusHours((long)Math.ceil(duration1));
+        LocalDateTime end2 = start2.plusHours((long)Math.ceil(duration2));
+
+        if((start1.isBefore(end2)) && (start2.isBefore(end1))) 
+        {
+        	doesOverlap = true;
+        }
+
+		return doesOverlap;
 	}
 
 	public int getRequestID() {
