@@ -62,8 +62,6 @@ public class DetailsVenueController {
     
     public void initialize() 
     {
-    	System.out.println("ping");
-    	
     	TableListGenerator tlg = new TableListGenerator();
     	ObjectDBInterface db = new ObjectDBInterface();
     	
