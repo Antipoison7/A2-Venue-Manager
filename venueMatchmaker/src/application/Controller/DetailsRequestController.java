@@ -1,16 +1,11 @@
 package application.Controller;
 
 import application.Model.ObjectDBInterface;
-import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.Request;
-import application.Model.ObjectClasses.Venue;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class DetailsRequestController {
