@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.Venue;
 
 public class ObjectDBInterface extends JDBCHelper
@@ -129,6 +130,43 @@ public class ObjectDBInterface extends JDBCHelper
 		catch(Exception e) 
 		{
 			System.out.println(e);
+		}
+	}
+	
+	public Request selectRequest(int id) 
+	{
+		Request r = new Request();
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("SELECT * FROM requests WHERE request_id = ?;");
+			query.setInt(1, id);
+			
+			ResultSet results = query.executeQuery();
+			
+			while(results.next()) 
+			{
+				r.setRequestID(results.getInt(1));
+				r.setClientName(results.getString(2));
+				r.setTitle(results.getString(3));
+				r.setArtist(results.getString(4));
+				r.setDate(results.getString(5));
+				r.setTime(results.getString(6));
+				r.setDuration(results.getDouble(7));
+				r.setAudienceNumber(results.getInt(8));
+				r.setType(results.getString(9));
+				r.setCategory(results.getString(10));
+			}
+			
+			return r;
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+			return null;
 		}
 	}
 }
