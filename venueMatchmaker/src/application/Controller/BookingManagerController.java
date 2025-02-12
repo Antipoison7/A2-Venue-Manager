@@ -15,6 +15,7 @@ import application.View.BackupManagerView;
 import application.View.BookVenueView;
 import application.View.BookingManagerView;
 import application.View.DataSummaryView;
+import application.View.DetailsEventView;
 import application.View.DetailsRequestView;
 import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
@@ -500,6 +501,30 @@ public class BookingManagerController
 	                DetailsRequestController.setID(request.getRequestID());
 	                
 	                drv.openNewRequestDetails();
+	                
+	            }
+	        }
+	    });
+	    
+	    eventsTable.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getButton().equals(MouseButton.PRIMARY)) {
+	            int index = eventsTable.getSelectionModel().getSelectedIndex();
+	            Booking booking = eventsTable.getItems().get(index);
+	            DetailsEventController.setID(booking.getRequestID());
+	        }
+			
+	        if(event.getButton().equals(MouseButton.PRIMARY)){
+	            if(event.getClickCount() == 2){
+	                System.out.println("Double clicked");
+	                
+	                int index = eventsTable.getSelectionModel().getSelectedIndex();
+		            Booking booking = eventsTable.getItems().get(index);
+	               
+	                DetailsEventView dev = new DetailsEventView();
+	                
+	                DetailsEventController.setID(booking.getRequestID());
+	                
+	                dev.openNewEventDetails();
 	                
 	            }
 	        }
