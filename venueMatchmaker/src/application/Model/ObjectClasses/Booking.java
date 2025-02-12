@@ -1,6 +1,7 @@
 package application.Model.ObjectClasses;
 
-public class Booking extends Request{
+
+public class Booking extends Request implements java.io.Serializable{
 	private String staff = "";
 	private double cost = -1;
 	private double commission = 0.0;
