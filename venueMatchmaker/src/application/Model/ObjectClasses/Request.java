@@ -3,7 +3,7 @@ package application.Model.ObjectClasses;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Request {
+public class Request implements java.io.Serializable{
 	protected int requestID = -1;
 	protected String clientName = "";
 	protected String title = "";
