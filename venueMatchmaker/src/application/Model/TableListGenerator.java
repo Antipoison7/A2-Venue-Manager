@@ -347,7 +347,7 @@ public class TableListGenerator extends JDBCHelper{
 			
 			if(filters.get("Type")) 
 			{
-				query.setString(counter, r.getType());
+				query.setString(counter, r.getType().toLowerCase());
 				counter++;
 			}
 			
@@ -382,15 +382,25 @@ public class TableListGenerator extends JDBCHelper{
 				venues.add(newVenue);
 			}
 			
-//			if(filters.get("TimeDate")) 
-//			{
-//				for(int i = venues.size()-1; i >=0; i++) 
-//				{
-//					
-//					
-//					if(Request.doesOverlap(r.getDate(), r.getTime(), r.getDuration(), , queryString, i))
-//				}
-//			}
+			if(filters.get("TimeDate")) 
+			{
+				for(int i = venues.size()-1; i >=0; i--) 
+				{
+					boolean doesOverlap = false;
+					for(Booking b : db.getBookings(venues.get(i).getName())) 
+					{
+						if(Request.doesOverlap(r.getDate(), r.getTime(), r.getDuration(), b.getDate(), b.getTime(), b.getDuration())) 
+						{
+							doesOverlap = true;
+						}
+					}
+					
+					if(doesOverlap) 
+					{
+						venues.remove(i);
+					}
+				}
+			}
 			
 			jdbc.close();
 			query.close();
