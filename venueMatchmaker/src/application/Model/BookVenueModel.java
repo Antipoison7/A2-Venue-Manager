@@ -67,25 +67,25 @@ public class BookVenueModel extends JDBCHelper
 		
 		if(compat.get("Capacity")) 
 		{
-			System.out.println("+Capac");
+//			System.out.println("+Capac");
 			compScore++;
 		}
 		
 		if(compat.get("Type")) 
 		{
-			System.out.println("+Type");
+//			System.out.println("+Type");
 			compScore++;
 		}
 		
 		if(compat.get("Event")) 
 		{
-			System.out.println("+Event");
+//			System.out.println("+Event");
 			compScore++;
 		}
 		
 		if(compat.get("Double")) 
 		{
-			System.out.println("+Double");
+//			System.out.println("+Double");
 			compScore++;
 		}
 		
@@ -148,7 +148,7 @@ public class BookVenueModel extends JDBCHelper
 	
 	public boolean removeRequest(int i) 
 	{
-boolean isSuccessful = true;
+		boolean isSuccessful = true;
 		
 		try 
 		{
