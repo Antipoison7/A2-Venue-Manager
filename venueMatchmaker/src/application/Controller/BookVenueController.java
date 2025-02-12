@@ -4,8 +4,11 @@ import java.util.HashMap;
 
 import application.Model.BookVenueModel;
 import application.Model.ObjectDBInterface;
+import application.Model.ObjectClasses.Booking;
+import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.Request;
 import application.View.BookingManagerView;
+import application.View.ErrorGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,11 +51,60 @@ public class BookVenueController {
     	
     	try 
     	{
+    		Request r = db.selectRequest(requestID);
+    		Booking newBooking = new Booking(r);
     		
+    		newBooking.setStaff(CurrentUser.getUser().getUsername());
+    		newBooking.setCost(db.selectVenue(venueName).getHirePrice()*db.selectRequest(requestID).getDuration());
+    		
+    		if(groupBooking) 
+    		{
+    			newBooking.setCost(newBooking.getCost()*0.99);
+    		}
+    		
+    		newBooking.setCommission(0.1);
+    		
+    		newBooking.setGroup(groupBooking);
+    		
+    		newBooking.setVenue(venueName);
+    		
+    		if(book.addBookingToVenue(newBooking)) 
+    		{
+    			if(book.removeRequest(requestID)) 
+    			{
+    				Stage stage = (Stage) buttonDiscard.getScene().getWindow();
+    		    	
+    		    	BookingManagerView view = new BookingManagerView();
+    		    	view.openBookingManager(stage);
+    			}
+    			else 
+    			{
+    				ErrorGenerator errorThrow = new ErrorGenerator();
+        			
+        			errorThrow.setErrorTitle("DB Error");
+        			errorThrow.setErrorBody("Something went wrong when removing the request, the booking has been added. Please contact IT if you believe this is a bug");
+        			
+        			errorThrow.throwError();
+    			}
+    		}
+    		else 
+    		{
+    			ErrorGenerator errorThrow = new ErrorGenerator();
+    			
+    			errorThrow.setErrorTitle("DB Error");
+    			errorThrow.setErrorBody("Something went wrong when adding the booking. Please contact IT if you believe this is a bug");
+    			
+    			errorThrow.throwError();
+    		}
     	}
     	catch(Exception e) 
     	{
-    		
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+			
+			errorThrow.setErrorTitle("DB Error");
+			errorThrow.setErrorBody("Something went wrong, not too sure what, ask your local developer or IT guy.");
+			
+			errorThrow.throwError();
     	}
     }
 
