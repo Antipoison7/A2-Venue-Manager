@@ -273,14 +273,20 @@ public class AllVenuesController {
 		
 		table.setOnMouseClicked((MouseEvent event) -> {
 			if (event.getButton().equals(MouseButton.PRIMARY)) {
-	            int index = table.getSelectionModel().getSelectedIndex();
-	            Venue venue = table.getItems().get(index);
-	            selectedVenueName = venue.getName();
-	            selected.setText("Selected ID : " + selectedVenueName);
+				try 
+				{
+					 int index = table.getSelectionModel().getSelectedIndex();
+			            Venue venue = table.getItems().get(index);
+			            selectedVenueName = venue.getName();
+			            selected.setText("Selected ID : " + selectedVenueName);
+				}
+				catch(Exception e) {}
+	           
 	        }
 			
 	        if(event.getButton().equals(MouseButton.PRIMARY)){
 	            if(event.getClickCount() == 2){
+	            	try {
 	                System.out.println("Double clicked");
 	                
 	                int index = table.getSelectionModel().getSelectedIndex();
@@ -291,6 +297,8 @@ public class AllVenuesController {
 	                DetailsVenueController.setName(venue.getName());
 	                
 	                dvv.openNewVenueDetails();
+	            	}
+					catch(Exception e) {}
 	                
 	            }
 	        }

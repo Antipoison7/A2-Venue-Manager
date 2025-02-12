@@ -452,80 +452,98 @@ public class BookingManagerController
 	    
 	    venueTable.setOnMouseClicked((MouseEvent event) -> {
 	        if (event.getButton().equals(MouseButton.PRIMARY)) {
-	            int index = venueTable.getSelectionModel().getSelectedIndex();
-	            Venue venue = venueTable.getItems().get(index);
-	            selectedVenueID = venue.getName();
-	            venueTitle.setText("Venues | Selected: " + selectedVenueID);
-	            
-	            eventsDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-	            eventsTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-	            eventsDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-	            
-	            eventsTable.setItems(mm.getEventsVenue(selectedVenueID));
+	        	try 
+	        	{
+	        		int index = venueTable.getSelectionModel().getSelectedIndex();
+		            Venue venue = venueTable.getItems().get(index);
+		            selectedVenueID = venue.getName();
+		            venueTitle.setText("Venues | Selected: " + selectedVenueID);
+		            
+		            eventsDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+		            eventsTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+		            eventsDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+		            
+		            eventsTable.setItems(mm.getEventsVenue(selectedVenueID));
+	        	}
+	        	catch(Exception e) 
+	        	{
+	        		
+	        	}
 	        }
 	        
 	        if(event.getButton().equals(MouseButton.PRIMARY)){
 	            if(event.getClickCount() == 2){
-	                System.out.println("Double clicked");
-	                
-	                int index = venueTable.getSelectionModel().getSelectedIndex();
-		            Venue venue = venueTable.getItems().get(index);
-	               
-	                DetailsVenueView dvv = new DetailsVenueView();
-	                
-	                DetailsVenueController.setName(venue.getName());
-	                
-	                dvv.openNewVenueDetails();
-	                
+	            	try 
+	            	{
+	            		System.out.println("Double clicked");
+		                
+		                int index = venueTable.getSelectionModel().getSelectedIndex();
+			            Venue venue = venueTable.getItems().get(index);
+		               
+		                DetailsVenueView dvv = new DetailsVenueView();
+		                
+		                DetailsVenueController.setName(venue.getName());
+		                
+		                dvv.openNewVenueDetails();
+	            	}
+	            	catch(Exception e) {}
 	            }
 	        }
 	    });
 	    
 	    requestTable.setOnMouseClicked((MouseEvent event) -> {
 	        if (event.getButton().equals(MouseButton.PRIMARY)) {
-	            int index = requestTable.getSelectionModel().getSelectedIndex();
-	            Request request = requestTable.getItems().get(index);
-	            selectedRequestID = request.getRequestID();
-	            bookingTitle.setText("Booking Requests | Selected: " + selectedRequestID);
+	        	try 
+	        	{
+	        		int index = requestTable.getSelectionModel().getSelectedIndex();
+	 	            Request request = requestTable.getItems().get(index);
+	 	            selectedRequestID = request.getRequestID();
+	 	            bookingTitle.setText("Booking Requests | Selected: " + selectedRequestID);
+	        	}catch(Exception e) {}
+	           
 	        }
 	        
 	        if(event.getButton().equals(MouseButton.PRIMARY)){
 	            if(event.getClickCount() == 2){
-	                System.out.println("Double clicked");
-	                
-	                int index = requestTable.getSelectionModel().getSelectedIndex();
-		            Request request = requestTable.getItems().get(index);
-	               
-	                DetailsRequestView drv = new DetailsRequestView();
-	                
-	                DetailsRequestController.setID(request.getRequestID());
-	                
-	                drv.openNewRequestDetails();
-	                
+	            	try {
+	            		System.out.println("Double clicked");
+		                
+		                int index = requestTable.getSelectionModel().getSelectedIndex();
+			            Request request = requestTable.getItems().get(index);
+		               
+		                DetailsRequestView drv = new DetailsRequestView();
+		                
+		                DetailsRequestController.setID(request.getRequestID());
+		                
+		                drv.openNewRequestDetails();
+	            	}catch(Exception e) {}	                
 	            }
 	        }
 	    });
 	    
 	    eventsTable.setOnMouseClicked((MouseEvent event) -> {
 			if (event.getButton().equals(MouseButton.PRIMARY)) {
-	            int index = eventsTable.getSelectionModel().getSelectedIndex();
-	            Booking booking = eventsTable.getItems().get(index);
-	            DetailsEventController.setID(booking.getRequestID());
+				try {
+					int index = eventsTable.getSelectionModel().getSelectedIndex();
+		            Booking booking = eventsTable.getItems().get(index);
+		            DetailsEventController.setID(booking.getRequestID());
+				}catch(Exception e) {}
 	        }
 			
 	        if(event.getButton().equals(MouseButton.PRIMARY)){
 	            if(event.getClickCount() == 2){
-	                System.out.println("Double clicked");
-	                
-	                int index = eventsTable.getSelectionModel().getSelectedIndex();
-		            Booking booking = eventsTable.getItems().get(index);
-	               
-	                DetailsEventView dev = new DetailsEventView();
-	                
-	                DetailsEventController.setID(booking.getRequestID());
-	                
-	                dev.openNewEventDetails();
-	                
+	            	try {
+	            		 System.out.println("Double clicked");
+	 	                
+	 	                int index = eventsTable.getSelectionModel().getSelectedIndex();
+	 		            Booking booking = eventsTable.getItems().get(index);
+	 	               
+	 	                DetailsEventView dev = new DetailsEventView();
+	 	                
+	 	                DetailsEventController.setID(booking.getRequestID());
+	 	                
+	 	                dev.openNewEventDetails();
+	            	}catch(Exception e) {}	                
 	            }
 	        }
 	    });
