@@ -33,7 +33,8 @@ public class Request {
 		this.type = type;
 		this.category = category;
 	}
-	
+
+	//Static method that returns true if the bookings have a clash and false if they do not overlap.
 	public static boolean doesOverlap(String date1, String time1, double duration1, String date2, String time2, double duration2)
 	{
 		boolean doesOverlap = false;
