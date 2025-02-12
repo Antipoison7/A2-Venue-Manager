@@ -17,6 +17,11 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
+      <Label fx:id="Name" text="Name Here">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
       <HBox>
          <children>
             <Label text="Capacity: ">
