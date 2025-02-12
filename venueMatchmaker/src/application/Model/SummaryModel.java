@@ -3,7 +3,10 @@ package application.Model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import application.Model.ObjectClasses.BarchartResult;
 import application.Model.ObjectClasses.SummaryPerClient;
 import application.Model.ObjectClasses.SummaryPerJob;
 import application.Model.ObjectClasses.User;
@@ -101,6 +104,34 @@ public class SummaryModel extends JDBCHelper
 		catch(Exception e) 
 		{
 			return commissions;
+		}
+	}
+	
+	public ArrayList<BarchartResult> getBarchart()
+	{
+		ArrayList<BarchartResult> charts = new ArrayList<BarchartResult>();
+		
+		try 
+		{
+			Connection jdbc =  connectDB();
+			
+			Statement statement = jdbc.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT title, cost, (cost*commission) as commission FROM event_bookings;;");
+			
+			while(resultSet.next()) 
+			{
+				
+				charts.add(new BarchartResult(resultSet.getString(1), resultSet.getDouble(2), resultSet.getDouble(3)));
+			}
+			
+			jdbc.close();
+			statement.close();
+			
+			return charts;
+		}
+		catch(Exception e) 
+		{
+			return charts;
 		}
 	}
 }
