@@ -74,22 +74,24 @@ public class BackupManagerController {
 
     @FXML
     void exportMasterdata(ActionEvent event) {
-
+    	BackupModel backup = new BackupModel();
+    	backup.exportMasterBackup();
     }
 
     @FXML
     void exportTransactiondata(ActionEvent event) {
-
+    	BackupModel backup = new BackupModel();
+    	backup.exportTransactionBackup();
     }
 
     @FXML
     void importMasterdata(ActionEvent event) {
-
+    	BackupModel backup = new BackupModel();
     }
     
     @FXML 
     void importTransactiondata(ActionEvent event) {
-
+    	BackupModel backup = new BackupModel();
     }
 
     
