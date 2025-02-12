@@ -89,7 +89,7 @@
                               <TableColumn fx:id="clientComm" prefWidth="211.2000732421875" text="Total Commission" />
                           </columns>
                         </TableView>
-                        <Label text="Total Commissions">
+                        <Label text="Total Commissions / Cost">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
