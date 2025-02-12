@@ -1,6 +1,7 @@
 package application.Controller;
 
 import application.Model.SummaryModel;
+import application.Model.ObjectClasses.BarchartResult;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.SummaryPerClient;
 import application.Model.ObjectClasses.SummaryPerJob;
@@ -18,6 +19,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -28,7 +30,7 @@ import javafx.stage.Stage;
 public class SummaryController {
 
     @FXML
-    private BarChart<?, ?> barchart;
+    private BarChart<String, Double> barchart;
 
     @FXML
     private CategoryAxis barchartCategory;
@@ -213,6 +215,23 @@ public class SummaryController {
  	    
  	 //Set Total Commissions to date
  	    totalCommissions.setText(model.getTotalCommissions());
+ 	    
+ 	 //Set The Barchart Values
+ 	    
+ 	    XYChart.Series<String,Double> seriesIncome = new XYChart.Series<String,Double>();
+ 	    seriesIncome.setName("Income $");
+ 	    
+ 	    XYChart.Series<String,Double> seriesCommission = new XYChart.Series<String,Double>();
+	    seriesCommission.setName("Commission $");
+	    
+	    for(BarchartResult b : model.getBarchart()) 
+	    {
+	    	seriesIncome.getData().add(new XYChart.Data<String, Double>(b.getTitle(), b.getCost()));
+	    	seriesCommission.getData().add(new XYChart.Data<String, Double>(b.getTitle(), b.getCommission()));
+	    }
+	    
+	    barchart.getData().add(seriesIncome);
+	    barchart.getData().add(seriesCommission);
     }
 
 }
