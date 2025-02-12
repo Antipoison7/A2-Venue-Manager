@@ -42,6 +42,64 @@ public class ObjectDBInterface extends JDBCHelper
 				}
 			}
 			
+			jdbc.close();
+			query.close();
+			
+			return v;
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public Venue selectVenue(String id) 
+	{
+		Venue v = new Venue();
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("SELECT * FROM venues WHERE venue_name = ?;");
+			query.setString(1, id);
+			
+			ResultSet results = query.executeQuery();
+			
+			while(results.next()) 
+			{
+				v.setName(results.getString(1));
+				v.setHirePrice(results.getDouble(2));
+				v.setCapacity(results.getInt(3));
+				v.setCategory(results.getString(4));
+				
+				if(results.getInt(5) == 1) 
+				{
+					v.setBookable(true);
+				}
+				else 
+				{
+					v.setBookable(false);
+				}
+			}
+			
+			query = jdbc.prepareStatement("Select * FROM venues_suitable WHERE venue_id = ?;");
+			query.setString(1, id);
+			
+			results = query.executeQuery();
+			
+			while(results.next())
+			{
+				ArrayList<String> types = new ArrayList<String>();
+				
+				types.add(results.getString(2));
+			}
+			
+			jdbc.close();
+			query.close();
+			
 			return v;
 		}
 		catch(Exception e) 
@@ -162,6 +220,9 @@ public class ObjectDBInterface extends JDBCHelper
 				r.setCategory(results.getString(10));
 			}
 			
+			jdbc.close();
+			query.close();
+			
 			return r;
 		}
 		catch(Exception e) 
@@ -216,6 +277,9 @@ public class ObjectDBInterface extends JDBCHelper
 				
 				bookings.add(r);
 			}
+			
+			jdbc.close();
+			query.close();
 			
 			return bookings;
 		}
