@@ -2,6 +2,7 @@ package application.Controller;
 
 import java.util.HashMap;
 
+import application.Model.AutoMatchModel;
 import application.Model.BookVenueModel;
 import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
@@ -349,6 +350,37 @@ public class BookingManagerController
     public void autoMatch(ActionEvent e) 
     {
     	System.out.println("Auto Match");
+    	AutoMatchModel auto = new AutoMatchModel();
+    	if(selectedRequestID != -1) 
+    	{
+    		if(auto.autoMatch(selectedRequestID)) 
+        	{
+        		Stage stage = (Stage) newBooking.getScene().getWindow();
+    	    	
+    	    	BookVenueView view = new BookVenueView();
+    	    	view.openBookVenue(stage);
+        	}
+        	else 
+        	{
+        		ErrorGenerator errorThrow = new ErrorGenerator();
+    	    	
+    	    	errorThrow.setErrorTitle("No Match Found");
+    	    	errorThrow.setErrorBody("Unable to find a match, please add more venue data or try losen up your criteria");
+    	    	
+    	    	errorThrow.throwError();
+        	}
+    	}
+    	else 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("No Request Selected");
+	    	errorThrow.setErrorBody("Please select a valid request and try again (Click on table row)");
+	    	
+	    	errorThrow.throwError();
+    	}
+    	
+    	
     }
     
     @FXML
@@ -362,6 +394,15 @@ public class BookingManagerController
             
             dvv.openNewVenueDetails();
     	}
+    	else 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("No Venue Selected");
+	    	errorThrow.setErrorBody("Please select a valid venue and try again (Click on table row)");
+	    	
+	    	errorThrow.throwError();
+    	}
     }
     
     @FXML
@@ -374,6 +415,15 @@ public class BookingManagerController
             DetailsRequestController.setID(selectedRequestID);
             
             drv.openNewRequestDetails();
+    	}
+    	else 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("No Request Selected");
+	    	errorThrow.setErrorBody("Please select a valid request and try again (Click on table row)");
+	    	
+	    	errorThrow.throwError();
     	}
     }
     
@@ -414,7 +464,6 @@ public class BookingManagerController
 	    	errorThrow.throwError();
     	}    	
     }
-    
     
     public void initialize()
     {
