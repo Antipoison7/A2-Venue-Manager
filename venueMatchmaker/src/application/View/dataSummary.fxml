@@ -4,7 +4,6 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -110,7 +109,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <PieChart fx:id="pieChart" />
+                        <HBox fx:id="pieChartBox" />
                         <Label text="Income vs commission per order">
                            <font>
                               <Font name="System Bold" size="28.0" />
