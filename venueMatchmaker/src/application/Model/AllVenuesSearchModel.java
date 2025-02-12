@@ -41,7 +41,7 @@ public class AllVenuesSearchModel extends JDBCHelper{
 				}
 				
 				PreparedStatement query;
-				query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_name = ?;");
+				query = jdbc.prepareStatement("SELECT event_type FROM venues_suitable WHERE venue_id = ?;");
 				query.setString(1, resultSet.getString(1));
 				
 				ResultSet results = query.executeQuery();
