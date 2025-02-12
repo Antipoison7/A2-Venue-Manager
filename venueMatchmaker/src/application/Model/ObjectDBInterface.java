@@ -222,7 +222,6 @@ public class ObjectDBInterface extends JDBCHelper
 		catch(Exception e) 
 		{
 			return bookings;
-		}
-		
+		}	
 	}
 }
