@@ -355,6 +355,7 @@ public class BookingManagerController
     	{
     		if(auto.autoMatch(selectedRequestID)) 
         	{
+    			BookVenueController.setGroupBooking(bookingDiscount.isSelected());
         		Stage stage = (Stage) newBooking.getScene().getWindow();
     	    	
     	    	BookVenueView view = new BookVenueView();
@@ -365,7 +366,7 @@ public class BookingManagerController
         		ErrorGenerator errorThrow = new ErrorGenerator();
     	    	
     	    	errorThrow.setErrorTitle("No Match Found");
-    	    	errorThrow.setErrorBody("Unable to find a match, please add more venue data or try losen up your criteria");
+    	    	errorThrow.setErrorBody("Unable to find a match, please add more venue data.");
     	    	
     	    	errorThrow.throwError();
         	}
