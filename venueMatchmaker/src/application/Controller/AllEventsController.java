@@ -1,14 +1,20 @@
 package application.Controller;
 
+import java.util.ArrayList;
+
+import application.Model.AllEventsSearchModel;
 import application.Model.AllVenuesSearchModel;
 import application.Model.TableListGenerator;
 import application.Model.ObjectClasses.Booking;
 import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.Venue;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
 import application.View.BookingManagerView;
 import application.View.DataSummaryView;
+import application.View.DetailsEventView;
+import application.View.DetailsVenueView;
 import application.View.EmployeeManagerView;
 import application.View.LoginView;
 import application.View.UpdateStaffProfileView;
@@ -20,6 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AllEventsController {
@@ -169,46 +177,31 @@ public class AllEventsController {
     	
     	if(searchBox.getText().length() == 0) 
     	{
-    		tClientName.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-
-    		tCommission.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-    		tCost.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-    		tID.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-    		tStaffName.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
-
-    		tTitle.setCellValueFactory(new PropertyValueFactory<>("type"));
-    		
-    		tVenue.setCellValueFactory(new PropertyValueFactory<>("type"));
+    		tID.setCellValueFactory(new PropertyValueFactory<>("requestID"));
+        	tClientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        	tStaffName.setCellValueFactory(new PropertyValueFactory<>("staff"));
+        	tCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        	tCommission.setCellValueFactory(new PropertyValueFactory<>("commission"));
+        	tTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        	tVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));  
         	
         	    
     		TableListGenerator mm = new TableListGenerator();
-//    		table.setItems(mm.getVenueDump());
+    		table.setItems(mm.getEvents());
     	}
     	else 
     	{
-    		AllVenuesSearchModel mm = new AllVenuesSearchModel();
+    		AllEventsSearchModel mm = new AllEventsSearchModel();
     		
-    		tClientName.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-
-    		tCommission.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-    		tCost.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-    		tID.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-    		tStaffName.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
-
-    		tTitle.setCellValueFactory(new PropertyValueFactory<>("type"));
-    		
-    		tVenue.setCellValueFactory(new PropertyValueFactory<>("type"));
+    		tID.setCellValueFactory(new PropertyValueFactory<>("requestID"));
+        	tClientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        	tStaffName.setCellValueFactory(new PropertyValueFactory<>("staff"));
+        	tCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        	tCommission.setCellValueFactory(new PropertyValueFactory<>("commission"));
+        	tTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        	tVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));  
         	
-    		
-//    		tableData = mm.getVenueDumpArrayList();
-    		
-//    		table.setItems(mm.returnSearch(tableData, searchBox.getText()));
+    		table.setItems(mm.returnSearch(mm.getBookingDumpArrayList(), searchBox.getText()));
     	}
     }
     
@@ -221,22 +214,39 @@ public class AllEventsController {
     		    ddStats.setVisible(false);
     	}
     	
-    	tClientName.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-
-		tCommission.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-		tCost.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-		tID.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-		tStaffName.setCellValueFactory(new PropertyValueFactory<>("hirePrice"));
-
-		tTitle.setCellValueFactory(new PropertyValueFactory<>("type"));
-		
-		tVenue.setCellValueFactory(new PropertyValueFactory<>("type"));
-    	
+    	tID.setCellValueFactory(new PropertyValueFactory<>("requestID"));
+    	tClientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+    	tStaffName.setCellValueFactory(new PropertyValueFactory<>("staff"));
+    	tCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+    	tCommission.setCellValueFactory(new PropertyValueFactory<>("commission"));
+    	tTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+    	tVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));    	
     	    
 		TableListGenerator mm = new TableListGenerator();
-//		table.setItems(mm.getVenueDump());
+		table.setItems(mm.getEvents());
+		
+		table.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getButton().equals(MouseButton.PRIMARY)) {
+	            int index = table.getSelectionModel().getSelectedIndex();
+	            Booking booking = table.getItems().get(index);
+	            DetailsEventController.setID(booking.getRequestID());
+	        }
+			
+	        if(event.getButton().equals(MouseButton.PRIMARY)){
+	            if(event.getClickCount() == 2){
+	                System.out.println("Double clicked");
+	                
+	                int index = table.getSelectionModel().getSelectedIndex();
+		            Booking booking = table.getItems().get(index);
+	               
+	                DetailsEventView dev = new DetailsEventView();
+	                
+	                DetailsEventController.setID(booking.getRequestID());
+	                
+	                dev.openNewEventDetails();
+	                
+	            }
+	        }
+	    });
     }
 }
