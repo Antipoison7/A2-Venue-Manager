@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller.BookVenueController">
+   <children>
+      <Label text="Book Venue">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox>
+         <children>
+            <Label text="Capacity: ">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="compCapacity" text="Value">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox>
+         <children>
+            <Label text="Venue Type: ">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="compType" text="Value">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label text="Suitable Event: ">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="compEvent" text="Value">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label text="Double Booking: ">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="compDoubleBooking" text="Value">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label text="Compatibility Score: ">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="compScore" text="Value">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox spacing="20.0">
+         <children>
+            <Button fx:id="bookVenue" mnemonicParsing="false" onAction="#bookVenue" text="Book Venue">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonDiscard" mnemonicParsing="false" onAction="#discard" text="Discard">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
+   </padding>
+</VBox>
