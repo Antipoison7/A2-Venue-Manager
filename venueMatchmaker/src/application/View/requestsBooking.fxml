@@ -139,17 +139,17 @@
             </HBox>
             <CheckBox fx:id="bookingDiscount" mnemonicParsing="false" text="Group Booking Discount" />
             <Button fx:id="moreVenueDetails" mnemonicParsing="false" onAction="#showMoreVenueDetails" text="Show More Venue Details" />
-            <Button fx:id="bookVenue" mnemonicParsing="false" text="Book Selected Venue">
+            <Button fx:id="bookVenue" mnemonicParsing="false" onAction="#bookVenue" text="Book Selected Venue">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Button>
             <Label text="Current Bookings for Venue #" />
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="eventsTable" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Date" />
-                <TableColumn prefWidth="75.0" text="Time" />
-                  <TableColumn prefWidth="75.0" text="Duration" />
+                <TableColumn fx:id="eventsDate" prefWidth="88.0" text="Date" />
+                <TableColumn fx:id="eventsTime" prefWidth="77.0" text="Time" />
+                  <TableColumn fx:id="eventsDuration" prefWidth="63.0" text="Duration" />
               </columns>
             </TableView>
          </children>
