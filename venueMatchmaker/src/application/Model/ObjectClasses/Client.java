@@ -1,6 +1,6 @@
 package application.Model.ObjectClasses;
 
-public class Client {
+public class Client implements java.io.Serializable {
 	private String name;
 
 	public String getName() {
