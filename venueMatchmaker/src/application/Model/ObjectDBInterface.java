@@ -90,12 +90,14 @@ public class ObjectDBInterface extends JDBCHelper
 			
 			results = query.executeQuery();
 			
+			ArrayList<String> types = new ArrayList<String>();
+			
 			while(results.next())
 			{
-				ArrayList<String> types = new ArrayList<String>();
-				
 				types.add(results.getString(2));
 			}
+			
+			v.setSuitableType(types);
 			
 			jdbc.close();
 			query.close();
@@ -230,6 +232,61 @@ public class ObjectDBInterface extends JDBCHelper
 			System.out.println(e);
 			return null;
 		}
+	}
+	
+	public Booking selectBooking(int bookingID)
+	{
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			query = jdbc.prepareStatement("SELECT * FROM event_bookings WHERE event_id = ?;");
+			query.setInt(1, bookingID);
+			
+			ResultSet results = query.executeQuery();
+			
+			Booking r = new Booking();
+			
+			while(results.next()) 
+			{
+				
+				r.setRequestID(results.getInt(1));
+				r.setClientName(results.getString(2));
+				r.setStaff(results.getString(3));
+				r.setCost(results.getDouble(4));
+				r.setCommission(results.getDouble(5));
+				r.setTitle(results.getString(6));
+				r.setArtist(results.getString(7));
+				r.setDate(results.getString(8));
+				r.setTime(results.getString(9));
+				r.setDuration(results.getDouble(10));
+				r.setAudienceNumber(results.getInt(11));
+				r.setType(results.getString(12));
+				
+				if(results.getInt(13) == 1) 
+				{
+					r.setGroup(true);
+				}
+				else 
+				{
+					r.setGroup(false);
+				}
+				r.setCategory(results.getString(14));
+				
+				r.setVenue(results.getString(15));
+				
+			}
+			
+			jdbc.close();
+			query.close();
+			
+			return r;
+		}
+		catch(Exception e) 
+		{
+			return null;
+		}	
 	}
 	
 	public ArrayList<Booking> getBookings(String venueID)
