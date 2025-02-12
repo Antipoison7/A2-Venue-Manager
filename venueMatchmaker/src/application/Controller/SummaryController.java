@@ -2,6 +2,7 @@ package application.Controller;
 
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.SummaryPerClient;
+import application.Model.ObjectClasses.SummaryPerJob;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
