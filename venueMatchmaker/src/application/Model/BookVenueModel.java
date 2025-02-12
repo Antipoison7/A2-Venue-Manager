@@ -1,5 +1,7 @@
 package application.Model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -88,5 +90,91 @@ public class BookVenueModel extends JDBCHelper
 		}
 		
 		return compScore;
+	}
+	
+	public boolean addBookingToVenue(Booking b) 
+	{
+		boolean isSuccessful = true;
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			
+			query = jdbc.prepareStatement("INSERT INTO event_bookings(client_name, staff_username, cost, commission, title, artist, date, start_time, duration, audience_number, type, group_booking, category, venue) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+			
+			query.setString(1, b.getClientName());
+			query.setString(2, b.getStaff());
+			query.setDouble(3, b.getCost());
+			query.setDouble(4, b.getCommission());
+			query.setString(5, b.getTitle());
+			query.setString(6, b.getArtist());
+			query.setString(7, b.getDate());
+			query.setString(8, b.getTime());
+			query.setDouble(9, b.getDuration());
+			query.setInt(10, b.getAudienceNumber());
+			query.setString(11, b.getType());
+			
+			if(b.getGroup()) 
+			{
+				query.setInt(12, 1);
+			}
+			else 
+			{
+				query.setInt(12, 0);
+			}
+			query.setString(13, b.getCategory());
+			query.setString(14, b.getVenue());
+
+			
+			query.executeUpdate();
+			
+			
+			query.close();
+			
+			jdbc.close();
+			
+			isSuccessful = true;
+			
+		}
+		catch(Exception e) 
+		{
+			return false;
+		}
+		
+		return isSuccessful;
+	}
+	
+	public boolean removeRequest(int i) 
+	{
+boolean isSuccessful = true;
+		
+		try 
+		{
+			Connection jdbc = connectDB();
+			
+			PreparedStatement query;
+			
+			query = jdbc.prepareStatement("DELETE FROM requests WHERE request_id = ?;");
+
+			query.setInt(1, i);
+			
+			query.executeUpdate();
+			
+			
+			query.close();
+			
+			jdbc.close();
+			
+			isSuccessful = true;
+			
+		}
+		catch(Exception e) 
+		{
+			return false;
+		}
+		
+		return isSuccessful;
 	}
 }
