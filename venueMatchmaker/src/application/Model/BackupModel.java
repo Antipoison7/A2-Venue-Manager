@@ -420,12 +420,105 @@ public class BackupModel extends JDBCHelper{
 		}
 	}
 	
+	//Yes, I know this is bad, however I am running out of time.
 	public int importTransactionBackup(File transactionFile) 
 	{
-		int numberOfFailiures = 0;
+		int numberOfUpdates = 0;
+		int totalValues = 0;
 		try 
 		{
-			return numberOfFailiures;
+			FileInputStream file = new FileInputStream(transactionFile);
+            ObjectInputStream in = new ObjectInputStream(file);
+            
+            TransactionBackup backup = (TransactionBackup)in.readObject();
+            
+            Connection jdbc =  connectDB();
+            
+            //Load Venues
+            PreparedStatement query = jdbc.prepareStatement("INSERT OR REPLACE INTO venues (venue_name, hire_price, capacity, category, bookable) VALUES(?,?,?,?,?);");
+            
+			for (int i = 0; i < backup.getVenues().size(); i++) 
+			{
+				totalValues++;
+			}
+			
+			for (Venue v : backup.getVenues()) 
+			{
+				query.setString(1, v.getName());
+				query.setDouble(2, v.getHirePrice());
+				query.setInt(3, v.getCapacity());
+				query.setString(4, v.getCategory());
+				query.setBoolean(5, v.isBookable());
+				
+				numberOfUpdates += query.executeUpdate();
+				
+				PreparedStatement suitableType = jdbc.prepareStatement("INSERT OR REPLACE INTO venues_suitable (venue_id, event_type) VALUES (?,?);");
+				
+				for (String s : v.getSuitableType()) {
+					suitableType.setString(1, v.getName());
+					suitableType.setString(2, s);
+
+					suitableType.executeUpdate();
+				}
+			}
+            
+            //Load Requests
+            query = jdbc.prepareStatement("INSERT OR REPLACE INTO requests (client_name, title, artist, date, time, duration, audience_number, type, category) VALUES (?,?,?,?,?,?,?,?,?);");
+			
+            for(int i = 0; i < backup.getRequests().size(); i++) 
+            {
+            	totalValues++;
+            }
+            
+            for(Request r : backup.getRequests()) 
+            {
+            	query.setString(1, r.getClientName());
+            	query.setString(2, r.getTitle());
+            	query.setString(3, r.getArtist());
+            	query.setString(4, r.getDate());
+            	query.setString(5, r.getTime());
+            	query.setDouble(6, r.getDuration());
+            	query.setInt(7, r.getAudienceNumber());
+            	query.setString(8, r.getType());
+            	query.setString(9, r.getCategory());
+            	
+            	numberOfUpdates += query.executeUpdate();
+            }
+            
+            //Load Bookings
+            
+            query = jdbc.prepareStatement("INSERT OR REPLACE INTO event_bookings (client_name, staff_username, cost, commission, title, artist, date, start_time, duration, audience_number, type, group_booking, category, venue) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+            
+			for (int i = 0; i < backup.getBookings().size(); i++) 
+			{
+				totalValues++;
+			}
+			
+			for(Booking b : backup.getBookings()) 
+			{
+				query.setString(1, b.getClientName());
+				query.setString(2, b.getStaff());
+				query.setDouble(3, b.getCost());
+				query.setDouble(4, b.getCommission());
+				query.setString(5, b.getTitle());
+				query.setString(6, b.getArtist());
+				query.setString(7, b.getDate());
+				query.setString(8, b.getTime());
+				query.setDouble(9, b.getDuration());
+				query.setInt(10, b.getAudienceNumber());
+				query.setString(11, b.getType());
+				query.setBoolean(12, b.getGroup());
+				query.setString(13, b.getCategory());
+				query.setString(14, b.getVenue());				
+
+				numberOfUpdates += query.executeUpdate();
+			}
+            
+            in.close();
+            jdbc.close();
+            query.close();
+            
+			return totalValues - numberOfUpdates;
 		}
 		catch(Exception e)
         {
