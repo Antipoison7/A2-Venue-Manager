@@ -1,14 +1,20 @@
 package application.Model;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import application.Model.ObjectClasses.Booking;
 import application.Model.ObjectClasses.Request;
+import application.Model.ObjectClasses.TransactionBackup;
 import application.Model.ObjectClasses.Venue;
 
 public class BackupModel extends JDBCHelper{
@@ -249,5 +255,145 @@ public class BackupModel extends JDBCHelper{
 		}
 		
 		return numberOfFailiures;
+	}
+	
+	public boolean exportTransactionBackup() 
+	{
+		try 
+		{
+			TransactionBackup backup = new TransactionBackup();
+			
+			//Connect to DB
+			Connection jdbc =  connectDB();
+			Statement statement = jdbc.createStatement();
+			
+			//Get Requests
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM requests;");
+			
+			while (resultSet.next()) {
+				Request req = new Request();
+
+				req.setRequestID(resultSet.getInt(1));
+				req.setClientName(resultSet.getString(2));
+				req.setTitle(resultSet.getString(3));
+				req.setArtist(resultSet.getString(4));
+				req.setDate(resultSet.getString(5));
+				req.setTime(resultSet.getString(6));
+				req.setDuration(resultSet.getDouble(7));
+				req.setAudienceNumber(resultSet.getInt(8));
+				req.setType(resultSet.getString(9));
+				req.setCategory(resultSet.getString(10));
+
+				backup.addRequest(req);
+
+			}
+			
+			//Get Bookings
+			resultSet = statement.executeQuery("SELECT * FROM event_bookings;");
+			
+			while (resultSet.next()) {
+				Booking book = new Booking();
+
+				book.setRequestID(resultSet.getInt(1));
+				book.setClientName(resultSet.getString(2));
+				book.setStaff(resultSet.getString(3));
+				book.setCost(resultSet.getDouble(4));
+				book.setCommission(resultSet.getDouble(5));
+				book.setTitle(resultSet.getString(6));
+				book.setArtist(resultSet.getString(7));
+				book.setDate(resultSet.getString(8));
+				book.setTime(resultSet.getString(9));
+				book.setDuration(resultSet.getDouble(10));
+				book.setAudienceNumber(resultSet.getInt(11));
+				book.setType(resultSet.getString(12));
+				book.setGroup(resultSet.getBoolean(13));
+				book.setCategory(resultSet.getString(14));
+				book.setVenue(resultSet.getString(15));
+				
+				backup.addBooking(book);
+			}
+			
+			//Get Venues
+			resultSet = statement.executeQuery("SELECT * FROM venues;");
+			
+			while (resultSet.next()) {
+				Venue ven = new Venue();
+
+				ven.setName(resultSet.getString(1));
+				ven.setHirePrice(resultSet.getDouble(2));
+				ven.setCapacity(resultSet.getInt(3));
+				ven.setCategory(resultSet.getString(4));
+				ven.setBookable(resultSet.getBoolean(5));
+
+				PreparedStatement query = jdbc.prepareStatement("SELECT * FROM venues_suitable WHERE venue_id = ?;");
+				query.setString(1, ven.getName());
+				
+				ResultSet suitableEvents = query.executeQuery();
+				
+				while (suitableEvents.next()) {
+					ven.addToType(suitableEvents.getString(2));
+				}
+				
+				query.close();
+				
+				backup.addVenue(ven);
+			}
+			
+			jdbc.close();
+			statement.close();
+			
+			FileOutputStream file = new FileOutputStream("transactiondata.lmvm");
+	        ObjectOutputStream out = new ObjectOutputStream(file);
+	        
+	        out.writeObject(backup);
+	        
+	        out.close();
+	        file.close();
+	        
+	        return true;
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	public boolean exportMasterBackup() 
+	{
+		try 
+		{
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public int importTransactionBackup(File transactionFile) 
+	{
+		int numberOfFailiures = 0;
+		try 
+		{
+			return numberOfFailiures;
+		}
+		catch(Exception e)
+        {
+            return -1;
+        }
+	}
+	
+	public int importMasterBackup(File masterFile) 
+	{
+		int numberOfFailiures = 0;
+		try 
+		{
+			return numberOfFailiures;
+		}
+		catch(Exception e)
+        {
+            return -1;
+        }
 	}
 }
