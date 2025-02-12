@@ -16,7 +16,7 @@ public class DetailsVenueView{
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("moreVenueDetails.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setTitle("Event Manager Login");
+			stage.setTitle("More Venue Details");
 			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
