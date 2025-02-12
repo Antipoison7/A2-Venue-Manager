@@ -3,6 +3,8 @@ package application.Model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -132,6 +134,89 @@ public class SummaryModel extends JDBCHelper
 		catch(Exception e) 
 		{
 			return charts;
+		}
+	}
+	
+	public HashMap<String, Double> getPieChart()
+	{
+		HashMap<String, Double> slices = new HashMap<String, Double>();
+		
+		try 
+		{
+			Connection jdbc =  connectDB();
+			
+			Statement statement = jdbc.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT date, start_time, duration FROM event_bookings;");
+			
+			long earliestEpoch = -1;
+			long latestEpoch = -1;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy ha");
+			
+			while(resultSet.next()) 
+			{
+				long epoch = LocalDateTime.parse((resultSet.getString(1) + " " + resultSet.getString(2)), formatter).atZone(java.time.ZoneId.systemDefault()).toEpochSecond();
+				if(earliestEpoch == -1) 
+				{
+					earliestEpoch = epoch;
+				}
+				else if(epoch < earliestEpoch)
+				{
+					earliestEpoch = epoch;
+				}
+				
+				if(latestEpoch == -1) 
+				{
+					latestEpoch = epoch + (3600 * resultSet.getInt(3));
+				}
+				else if((epoch + (3600 * resultSet.getInt(3))) > latestEpoch) 
+				{
+					latestEpoch = epoch + (3600 * resultSet.getInt(3));
+				}
+			}
+			
+			
+			resultSet = statement.executeQuery("SELECT venue FROM event_bookings GROUP BY(venue);");
+			
+			ArrayList<String> venuesBooked = new ArrayList<String>();
+			HashMap<String, Long> sums = new HashMap<String, Long>();
+			
+			while(resultSet.next()) 
+			{
+				venuesBooked.add(resultSet.getString(1));
+			}
+			
+			for(String v : venuesBooked) 
+			{
+				resultSet = statement.executeQuery("SELECT venue, date, start_time, duration FROM event_bookings WHERE venue = '" + v + "';");
+				
+				long venueSum = 0;
+				
+				while(resultSet.next()) 
+				{
+					venueSum = venueSum + (resultSet.getLong(4)*3600);
+				}
+				
+				sums.put(v,venueSum);
+			}
+			
+			
+			long durationEpoch = (latestEpoch - earliestEpoch);
+			
+			
+			for(String v : venuesBooked) 
+			{
+				slices.put(v, (((double) sums.get(v)/durationEpoch) * 100.0));
+			}
+			
+			jdbc.close();
+			statement.close();
+			
+			return slices;
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+			return slices;
 		}
 	}
 }
