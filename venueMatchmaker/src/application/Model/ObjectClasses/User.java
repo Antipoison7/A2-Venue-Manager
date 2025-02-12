@@ -5,6 +5,7 @@ public class User implements java.io.Serializable{
 	private String password;
 	private String realName;
 	private int security;
+	private boolean active = true;
 	
 	public User() 
 	{
@@ -17,6 +18,7 @@ public class User implements java.io.Serializable{
 		this.password = u.getPassword();
 		this.realName = u.getRealName();
 		this.security = u.getSecurity();
+		this.active = u.getActive();
 	}
 
 	public User(int security) {
@@ -53,6 +55,14 @@ public class User implements java.io.Serializable{
 
 	public void setSecurity(int security) {
 		this.security = security;
+	}
+	
+	public boolean getActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

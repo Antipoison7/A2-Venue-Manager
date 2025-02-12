@@ -1,7 +1,9 @@
 package application.Model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +15,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import application.Model.ObjectClasses.Booking;
+import application.Model.ObjectClasses.Client;
+import application.Model.ObjectClasses.MasterBackup;
 import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.TransactionBackup;
+import application.Model.ObjectClasses.User;
 import application.Model.ObjectClasses.Venue;
 
 public class BackupModel extends JDBCHelper{
@@ -364,6 +369,50 @@ public class BackupModel extends JDBCHelper{
 	{
 		try 
 		{
+			MasterBackup backup = new MasterBackup();
+			
+			//Connect to DB
+			Connection jdbc =  connectDB();
+			Statement statement = jdbc.createStatement();
+			
+			//Get Requests
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM requests;");
+			
+			//Get Staff / Users
+			while(resultSet.next()) 
+			{
+				User user = new User();
+				
+				user.setUsername(resultSet.getString(1));
+				user.setPassword(resultSet.getString(2));
+				user.setRealName(resultSet.getString(3));
+				user.setSecurity(resultSet.getInt(4));
+				user.setActive(resultSet.getBoolean(5));
+				
+				backup.addUser(user);
+			}
+			
+			resultSet = statement.executeQuery("SELECT * FROM clients;");
+			
+			while (resultSet.next()) {
+				Client client = new Client();
+				
+				client.setName(resultSet.getString(1));
+				
+				backup.addClient(client);
+			}
+			
+			jdbc.close();
+			statement.close();
+			
+			FileOutputStream file = new FileOutputStream("masterdata.lmvm");
+	        ObjectOutputStream out = new ObjectOutputStream(file);
+	        
+	        out.writeObject(backup);
+	        
+	        out.close();
+	        file.close();
+			
 			return true;
 		}
 		catch (Exception e) {
@@ -386,10 +435,54 @@ public class BackupModel extends JDBCHelper{
 	
 	public int importMasterBackup(File masterFile) 
 	{
-		int numberOfFailiures = 0;
+		int numberOfUpdates = 0;
+		int totalValues = 0;
 		try 
 		{
-			return numberOfFailiures;
+			FileInputStream file = new FileInputStream(masterFile);
+            ObjectInputStream in = new ObjectInputStream(file);
+            
+            MasterBackup backup = (MasterBackup)in.readObject();
+            
+            Connection jdbc =  connectDB();
+            
+            PreparedStatement query = jdbc.prepareStatement("INSERT OR REPLACE INTO users (username, password, real_name, security, active) VALUES (?,?,?,?,?);");
+            
+            for(int i = 0; i < backup.getUsers().size(); i++) 
+            {
+            	totalValues++;
+            }
+            
+			for (User u : backup.getUsers()) {
+
+				query.setString(1, u.getUsername());
+				query.setString(2, u.getPassword());
+				query.setString(3, u.getRealName());
+				query.setInt(4, u.getSecurity());
+				query.setBoolean(5, u.getActive());
+
+				numberOfUpdates += query.executeUpdate();
+			}
+			
+			query = jdbc.prepareStatement("INSERT OR REPLACE INTO clients (name) VALUES (?);");
+			
+			for(int i = 0; i < backup.getClients().size(); i++) 
+            {
+            	totalValues++;
+            }
+			
+			for (Client c : backup.getClients()) {
+				
+				query.setString(1, c.getName());
+
+				numberOfUpdates += query.executeUpdate();
+			}
+			
+			in.close();
+			jdbc.close();
+			query.close();
+			
+			return totalValues - numberOfUpdates ;
 		}
 		catch(Exception e)
         {

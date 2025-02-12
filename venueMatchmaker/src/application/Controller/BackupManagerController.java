@@ -87,6 +87,42 @@ public class BackupManagerController {
     @FXML
     void importMasterdata(ActionEvent event) {
     	BackupModel backup = new BackupModel();
+    	
+    	FileChooser fileChooser = new FileChooser();
+    	
+    	ExtensionFilter extFilter = new FileChooser.ExtensionFilter("*.csv", "*.CSV");
+    	
+    	fileChooser.getExtensionFilters().add(extFilter);
+    	
+    	try 
+    	{
+    		File selectedFile = fileChooser.showOpenDialog((Stage) staffBackupgrid.getScene().getWindow());
+    		
+    		int dupes = backup.importMasterBackup(selectedFile);
+    		
+    		if(dupes == -1) 
+    		{
+    			ErrorGenerator errorThrow = new ErrorGenerator();
+    			
+    			errorThrow.setErrorTitle("Something went wrong with importing");
+    	    	errorThrow.setErrorBody("Check to see if your .lmvm file is the correct one.");
+    	    	
+    	    	errorThrow.throwError();
+    		}
+    		else if(dupes != 0) 
+    		{
+    			ErrorGenerator errorThrow = new ErrorGenerator();
+    			
+    			errorThrow.setErrorTitle("Updates");
+    	    	errorThrow.setErrorBody(dupes + " Rows Updated");
+    	    	
+    	    	errorThrow.throwError();
+    		}
+    	}
+    	catch(Exception e) 
+    	{
+    		e.printStackTrace();
+    	}
     }
     
     @FXML 
