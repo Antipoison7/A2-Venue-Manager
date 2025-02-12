@@ -114,8 +114,9 @@
                   <TableView fx:id="bookedEventsTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
                       <TableColumn fx:id="bookedEventID" prefWidth="95.20007169246674" text="Event ID" />
-                      <TableColumn fx:id="bookedDateTime" prefWidth="300.8000259399414" text="Date / Time" />
-                        <TableColumn fx:id="bookedDuration" prefWidth="125.59994506835938" text="Duration" />
+                      <TableColumn fx:id="bookedDate" prefWidth="157.5999526977539" text="Date" />
+                        <TableColumn fx:id="bookedTime" prefWidth="162.4000244140625" text="Time" />
+                        <TableColumn fx:id="bookedDuration" prefWidth="107.19992065429688" text="Duration" />
                     </columns>
                   </TableView>
                   <Label text="Booked Events" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
