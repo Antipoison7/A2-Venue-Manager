@@ -26,6 +26,20 @@ public class Booking extends Request{
 		this.category = category;
 	}
 	
+	public Booking(Request r) 
+	{
+		this.requestID = r.getRequestID();
+		this.clientName = r.getClientName();
+		this.title = r.getTitle();
+		this.artist = r.getArtist();
+		this.date = r.getDate();
+		this.time = r.getTime();
+		this.duration = r.getDuration();
+		this.audienceNumber = r.getAudienceNumber();
+		this.type = r.getType();
+		this.category = r.getCategory();
+	}
+	
 	public Booking(int requestID, String clientName, String title, String artist, String date, String time,
 			double duration, int audienceNumber, String type, String category, String staff, double cost, double commission, String venue, boolean groupBooking) {
 		this.requestID = requestID;
