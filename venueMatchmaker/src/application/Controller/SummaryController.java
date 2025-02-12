@@ -1,6 +1,7 @@
 package application.Controller;
 
 import application.Model.ObjectClasses.CurrentUser;
+import application.Model.ObjectClasses.SummaryPerClient;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
@@ -32,14 +33,18 @@ public class SummaryController {
     @FXML
     private NumberAxis barchartNumber;
 
+    //Commission per client table
     @FXML
-    private TableColumn<?, ?> clientClient;
+    private TableColumn<SummaryPerClient, String> clientClient;
+    
+    @FXML
+    private TableColumn<SummaryPerClient, String> clientCost;
 
     @FXML
-    private TableColumn<?, ?> clientComm;
+    private TableColumn<SummaryPerClient, String> clientComm;
 
     @FXML
-    private TableColumn<?, ?> clientCost;
+    private TableView<SummaryPerClient> perClientTable;
 
     @FXML
     private MenuItem ddAllEvents;
@@ -65,20 +70,19 @@ public class SummaryController {
     @FXML
     private MenuItem ddLogout;
 
+    //Commission per job table
     @FXML
-    private TableColumn<?, ?> jobCommission;
+    private TableColumn<SummaryPerJob, ?> jobId;
+    
+    @FXML
+    private TableColumn<SummaryPerJob, ?> jobStaff;
+    
+    @FXML
+    private TableColumn<SummaryPerJob, ?> jobCost;
+    
+    @FXML
+    private TableColumn<SummaryPerJob, ?> jobCommission;
 
-    @FXML
-    private TableColumn<?, ?> jobCost;
-
-    @FXML
-    private TableColumn<?, ?> jobId;
-
-    @FXML
-    private TableColumn<?, ?> jobStaff;
-
-    @FXML
-    private TableView<?> perClientTable;
 
     @FXML
     private TableView<?> perJobTable;
