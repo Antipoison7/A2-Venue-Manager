@@ -27,6 +27,9 @@ public class BookVenueController {
 
     @FXML
     private Button buttonDiscard;
+    
+    @FXML
+    private Label Name;
 
     @FXML
     private Label compDoubleBooking;
@@ -123,6 +126,7 @@ public class BookVenueController {
     	BookVenueModel book = new BookVenueModel();
     	
     	HashMap<String, Boolean> compare = book.calculateCompatibility(db.selectRequest(requestID), db.selectVenue(venueName));
+    	Name.setText(venueName);
     	
     	if(compare.get("Capacity")) 
     	{
