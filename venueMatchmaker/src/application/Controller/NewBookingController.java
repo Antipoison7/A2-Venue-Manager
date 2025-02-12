@@ -73,7 +73,16 @@ public class NewBookingController {
 			String newDate = splitDate.get(2) + "-" + splitDate.get(1) + "-" + (splitDate.get(0).substring(2,4));
 			
 			booking.setDate(newDate);
-			booking.setTime((timeHour.getText() + amPM.getValue()).toLowerCase());
+			
+			if(timeHour.getText().length()==1) 
+			{
+				booking.setTime(("0"+timeHour.getText() + amPM.getValue()).toLowerCase());
+			}
+			else 
+			{
+				booking.setTime((timeHour.getText() + amPM.getValue()).toLowerCase());
+			}
+			
 			booking.setDuration(Double.parseDouble(duration.getText()));
 			booking.setAudienceNumber(Integer.parseInt(audienceNumber.getText()));
 			booking.setType(bookingType.getValue());
