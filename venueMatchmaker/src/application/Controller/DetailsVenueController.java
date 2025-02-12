@@ -2,6 +2,7 @@ package application.Controller;
 
 import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
+import application.Model.ObjectClasses.Booking;
 import application.Model.ObjectClasses.Venue;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class DetailsVenueController {
@@ -20,16 +22,19 @@ public class DetailsVenueController {
     private Label bookable;
 
     @FXML
-    private TableColumn<?, ?> bookedDateTime;
+    private TableColumn<Booking, String> bookedDate;
+    
+    @FXML
+    private TableColumn<Booking, String> bookedTime;
 
     @FXML
-    private TableColumn<?, ?> bookedDuration;
+    private TableColumn<Booking, Double> bookedDuration;
 
     @FXML
-    private TableColumn<?, ?> bookedEventID;
+    private TableColumn<Booking, Integer> bookedEventID;
 
     @FXML
-    private TableView<?> bookedEventsTable;
+    private TableView<Booking> bookedEventsTable;
 
     @FXML
     private Label capacity;
@@ -89,7 +94,14 @@ public class DetailsVenueController {
     	suitableEvent.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
 	    
 	    suitableEventTable.setItems(tlg.getVenueTypes(ID));
+	    
     	//Set Booked Table
+	    bookedDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+	    bookedTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+	    bookedDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+	    bookedEventID.setCellValueFactory(new PropertyValueFactory<>("requestID"));
+	   
+	    bookedEventsTable.setItems(tlg.getEventsVenue(ID));
     }
 
 
