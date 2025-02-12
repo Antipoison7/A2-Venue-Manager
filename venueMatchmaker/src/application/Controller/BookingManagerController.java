@@ -2,14 +2,17 @@ package application.Controller;
 
 import java.util.HashMap;
 
+import application.Model.BookVenueModel;
 import application.Model.ObjectDBInterface;
 import application.Model.TableListGenerator;
+import application.Model.ObjectClasses.Booking;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.Venue;
 import application.View.AllEventsView;
 import application.View.AllVenuesView;
 import application.View.BackupManagerView;
+import application.View.BookVenueView;
 import application.View.BookingManagerView;
 import application.View.DataSummaryView;
 import application.View.DetailsRequestView;
@@ -127,7 +130,21 @@ public class BookingManagerController
     @FXML
     private TableView<Request> requestTable;
     
+    //Events Table
+    
+    @FXML
+    private TableColumn<Booking, String> eventsDate;
 
+    @FXML
+    private TableColumn<Booking, Integer> eventsTime;
+
+    @FXML
+    private TableColumn<Booking, String> eventsDuration;
+    
+    @FXML
+    private TableView<Booking> eventsTable;
+
+    
     //Venues Table
     @FXML
     private TableColumn<Venue, Integer> vCapac;
@@ -363,6 +380,38 @@ public class BookingManagerController
     public void bookVenue(ActionEvent e) 
     {
     	System.out.println("Book Venue");
+    	try 
+    	{
+    		if((!selectedVenueID.equals(""))&&(selectedRequestID != -1)) 
+        	{
+    			BookVenueController.setRequestID(selectedRequestID);
+    			BookVenueController.setVenueName(selectedVenueID);
+    			BookVenueController.setGroupBooking(bookingDiscount.isSelected());
+    			
+    			Stage stage = (Stage) newBooking.getScene().getWindow();
+    	    	
+    	    	BookVenueView view = new BookVenueView();
+    	    	view.openBookVenue(stage);
+        	}
+        	else 
+        	{
+        		ErrorGenerator errorThrow = new ErrorGenerator();
+    	    	
+    	    	errorThrow.setErrorTitle("No Venue / Request Selected");
+    	    	errorThrow.setErrorBody("Please select a valid venue and request and try again (Click on table / request row)");
+    	    	
+    	    	errorThrow.throwError();
+        	}
+    	}
+    	catch(Exception f) 
+    	{
+    		ErrorGenerator errorThrow = new ErrorGenerator();
+	    	
+	    	errorThrow.setErrorTitle("Something Went Wrong");
+	    	errorThrow.setErrorBody("Something crashed, please report this to Connor / your local IT person.");
+	    	
+	    	errorThrow.throwError();
+    	}    	
     }
     
     
@@ -406,6 +455,12 @@ public class BookingManagerController
 	            Venue venue = venueTable.getItems().get(index);
 	            selectedVenueID = venue.getName();
 	            venueTitle.setText("Venues | Selected: " + selectedVenueID);
+	            
+	            eventsDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+	            eventsTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+	            eventsDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+	            
+	            eventsTable.setItems(mm.getEventsVenue(selectedVenueID));
 	        }
 	        
 	        if(event.getButton().equals(MouseButton.PRIMARY)){
