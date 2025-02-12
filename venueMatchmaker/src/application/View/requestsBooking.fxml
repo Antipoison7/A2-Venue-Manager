@@ -114,7 +114,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button fx:id="autoMatch" mnemonicParsing="false" text="Auto Match">
+            <Button fx:id="autoMatch" mnemonicParsing="false" onAction="#autoMatch" text="Auto Match">
                <font>
                   <Font size="13.0" />
                </font>
