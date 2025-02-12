@@ -26,7 +26,7 @@ public class BookVenueModel extends JDBCHelper
 			String type = r.getCategory().substring(0, 1).toUpperCase() + r.getCategory().substring(1);
 			compatibility.put("Type", (v.getCategory().equals(type)) );
 			
-			compatibility.put("Event", v.getSuitableType().contains(r.getType()));
+			compatibility.put("Event", v.getSuitableType().contains(r.getType().toLowerCase()));
 //			System.out.println("Event R Type = " + r.getType());
 //			System.out.println("Event V Type = " + v.getSuitableType());
 			
