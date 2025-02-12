@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import application.Controller.BookVenueController;
+import application.Model.ObjectClasses.Booking;
 import application.Model.ObjectClasses.Request;
 import application.Model.ObjectClasses.Venue;
 import application.Model.ObjectClasses.VenueDump;
@@ -22,6 +25,7 @@ public class AutoMatchModel extends JDBCHelper
 			ObjectDBInterface db = new ObjectDBInterface();
 			Request request = db.selectRequest(requestID);
 			AllVenuesSearchModel v = new AllVenuesSearchModel();
+			BookVenueModel compatibility = new BookVenueModel();
 			
 			ArrayList<Venue> venues = getVenues();
 			ArrayList<Integer> matchVal = new ArrayList<Integer>(); 
@@ -29,6 +33,82 @@ public class AutoMatchModel extends JDBCHelper
 			for(int i = 0; i < venues.size(); i++) 
 			{
 				matchVal.add(0);
+			}
+			
+			//Remove venues that have overlaps
+			for(int i = venues.size()-1; i >= 0; i--) 
+			{
+				boolean hasOverlap = false;
+				for(Booking b : db.getBookings(venues.get(i).getName())) 
+				{
+					if(Request.doesOverlap(request.getDate(), request.getTime(), request.getDuration(), b.getDate(), b.getTime(), b.getDuration())) 
+					{
+						hasOverlap = true;
+					}
+				}
+				if(hasOverlap) 
+				{
+					matchVal.remove(i);
+					venues.remove(i);
+				}
+			}
+			
+			//If there are no available venues, return that there are no venues available
+			if(venues.size() == 0) 
+			{
+				return false;
+			}
+			
+			//Calculate Compatibility
+			for(int i = 0; i < venues.size(); i++) 
+			{
+				HashMap<String, Boolean> venueCompat = compatibility.calculateCompatibility(request, venues.get(i));
+				int count = 0;
+				
+				if(venueCompat.get("Capacity")) 
+				{
+					count++;
+				}
+				
+				if(venueCompat.get("Type")) 
+				{
+					count++;
+				}
+				
+				if(venueCompat.get("Event")) 
+				{
+					count++;
+				}
+				
+				matchVal.set(i, count);
+			}
+			
+			int maxCompatibility = 0;
+			//Calculate Max Compatibility
+			for(int i : matchVal) 
+			{
+				if(i > maxCompatibility) 
+				{
+					maxCompatibility = i;
+				}
+			}
+			
+			//Remove Values lower than the max
+			for(int i = venues.size()-1; i >= 0; i--) 
+			{
+				if(matchVal.get(i) < maxCompatibility) 
+				{
+					venues.remove(i);
+					matchVal.remove(i);
+				}
+			}
+			
+			if(venues.size() != 0) 
+			{
+				BookVenueController.setVenueName(venues.get(0).getName());
+				BookVenueController.setRequestID(requestID);
+				
+				return true;
 			}
 			
 		}
