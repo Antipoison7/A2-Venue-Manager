@@ -70,7 +70,7 @@
                           <columns>
                             <TableColumn fx:id="jobId" prefWidth="75.0" text="JobID" />
                             <TableColumn fx:id="jobStaff" prefWidth="436.00006103515625" text="Staff" />
-                              <TableColumn fx:id="jobCost" prefWidth="234.39996337890625" text="Overall Cost" />
+                              <TableColumn fx:id="jobCost" prefWidth="234.39996337890625" text="Income" />
                               <TableColumn fx:id="jobCommission" prefWidth="213.60003662109375" text="Commission" />
                           </columns>
                         </TableView>
@@ -85,11 +85,11 @@
                         <TableView fx:id="perClientTable" prefHeight="320.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="clientClient" prefWidth="513.6000367999077" text="Client" />
-                            <TableColumn fx:id="clientCost" prefWidth="235.199951171875" text="Total Cost" />
+                            <TableColumn fx:id="clientCost" prefWidth="235.199951171875" text="Total Income" />
                               <TableColumn fx:id="clientComm" prefWidth="211.2000732421875" text="Total Commission" />
                           </columns>
                         </TableView>
-                        <Label text="Total Commissions / Cost">
+                        <Label text="Total Commissions / Income">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -121,10 +121,10 @@
                         </Label>
                         <BarChart fx:id="barchart">
                           <xAxis>
-                            <CategoryAxis fx:id="barchartCategory" side="BOTTOM" />
+                            <CategoryAxis fx:id="barchartCategory" label="Event" side="BOTTOM" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis fx:id="barchartNumber" side="LEFT" />
+                            <NumberAxis fx:id="barchartNumber" label="Money" side="LEFT" />
                           </yAxis>
                         </BarChart>
                      </children>
