@@ -1,5 +1,7 @@
 package application.Controller;
 
+import java.util.HashMap;
+
 import application.Model.SummaryModel;
 import application.Model.ObjectClasses.BarchartResult;
 import application.Model.ObjectClasses.CurrentUser;
@@ -15,6 +17,7 @@ import application.View.LoginView;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -25,6 +28,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SummaryController {
@@ -93,7 +97,7 @@ public class SummaryController {
     private TableView<SummaryPerJob> perJobTable;
 
     @FXML
-    private PieChart pieChart;
+    private HBox pieChartBox;
 
     @FXML
     private Label totalCommissions;
@@ -204,7 +208,7 @@ public class SummaryController {
  	    perJobTable.setItems(model.getCommPerJob());
  	    
  	    
- 	 //Set Commissions per client
+ 	    //Set Commissions per client
     	clientClient.setCellValueFactory(new PropertyValueFactory<>("client"));
 
  	    clientCost.setCellValueFactory(new PropertyValueFactory<>("costString"));
@@ -213,10 +217,10 @@ public class SummaryController {
 
  	    perClientTable.setItems(model.getCommPerClient());
  	    
- 	 //Set Total Commissions to date
+ 	    //Set Total Commissions to date
  	    totalCommissions.setText(model.getTotalCommissions());
  	    
- 	 //Set The Barchart Values
+ 	    //Set The Barchart Values
  	    
  	    XYChart.Series<String,Double> seriesIncome = new XYChart.Series<String,Double>();
  	    seriesIncome.setName("Income $");
@@ -232,6 +236,25 @@ public class SummaryController {
 	    
 	    barchart.getData().add(seriesIncome);
 	    barchart.getData().add(seriesCommission);
+	    
+	    //Set Pie Chart Values
+	    PieChart pieChart = new PieChart();
+	    HashMap<String, Double> slices = model.getPieChart();
+//	    System.out.println(slices);
+	    
+	    for(String s :	slices.keySet()) 
+	    {
+	    	PieChart.Data slice = new PieChart.Data(s, slices.get(s));
+	    	pieChart.getData().add(slice);
+	    }
+	    
+	    pieChart.setPrefWidth(600);
+	    pieChart.setMaxWidth(600);
+	    pieChart.setPrefHeight(400);
+	    pieChart.setMaxHeight(400);
+	    
+	    pieChartBox.getChildren().add(pieChart);
+	    
     }
 
 }
