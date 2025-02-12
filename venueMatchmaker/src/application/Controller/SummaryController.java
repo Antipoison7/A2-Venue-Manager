@@ -1,5 +1,6 @@
 package application.Controller;
 
+import application.Model.SummaryModel;
 import application.Model.ObjectClasses.CurrentUser;
 import application.Model.ObjectClasses.SummaryPerClient;
 import application.Model.ObjectClasses.SummaryPerJob;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class SummaryController {
@@ -73,20 +75,20 @@ public class SummaryController {
 
     //Commission per job table
     @FXML
-    private TableColumn<SummaryPerJob, ?> jobId;
+    private TableColumn<SummaryPerJob, Integer> jobId;
     
     @FXML
-    private TableColumn<SummaryPerJob, ?> jobStaff;
+    private TableColumn<SummaryPerJob, String> jobStaff;
     
     @FXML
-    private TableColumn<SummaryPerJob, ?> jobCost;
+    private TableColumn<SummaryPerJob, String> jobCost;
     
     @FXML
-    private TableColumn<SummaryPerJob, ?> jobCommission;
+    private TableColumn<SummaryPerJob, String> jobCommission;
 
 
     @FXML
-    private TableView<?> perJobTable;
+    private TableView<SummaryPerJob> perJobTable;
 
     @FXML
     private PieChart pieChart;
@@ -185,6 +187,32 @@ public class SummaryController {
 
     		    ddStats.setVisible(false);
     	}
+    	
+    	SummaryModel model = new SummaryModel();
+    	
+    	//Set Commissions per job
+    	jobId.setCellValueFactory(new PropertyValueFactory<>("jobID"));
+
+ 	    jobStaff.setCellValueFactory(new PropertyValueFactory<>("staff"));
+
+ 	    jobCost.setCellValueFactory(new PropertyValueFactory<>("costString"));
+
+ 	    jobCommission.setCellValueFactory(new PropertyValueFactory<>("costString"));
+ 	    
+ 	    perJobTable.setItems(model.getCommPerJob());
+ 	    
+ 	    
+ 	 //Set Commissions per client
+    	clientClient.setCellValueFactory(new PropertyValueFactory<>("client"));
+
+ 	    clientCost.setCellValueFactory(new PropertyValueFactory<>("costString"));
+
+ 	    clientComm.setCellValueFactory(new PropertyValueFactory<>("commissionString"));
+
+ 	    perClientTable.setItems(model.getCommPerClient());
+ 	    
+ 	 //Set Total Commissions to date
+ 	    totalCommissions.setText(model.getTotalCommissions());
     }
 
 }
