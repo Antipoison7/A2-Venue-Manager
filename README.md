@@ -46,3 +46,14 @@ These steps are for Eclipse on windows:
   <p>to the Program arguments and VM arguments</p>
   <li>It should now run in eclipse, that is all I have time to explain, this might be updated later.</li>
 </ol>
+
+## Users
+#### Manager
+<b>Username: </b>manager<br>
+<b>Password: </b>manager
+#### Staff1
+<b>Username: </b>staff1<br>
+<b>Password: </b>staff1
+#### Staff2
+<b>Username: </b>staff2<br>
+<b>Password: </b>staff2
