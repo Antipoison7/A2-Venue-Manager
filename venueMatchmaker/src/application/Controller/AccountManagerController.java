@@ -308,13 +308,17 @@ public class AccountManagerController
     	    
     	    table.setOnMouseClicked((MouseEvent event) -> {
     	        if (event.getButton().equals(MouseButton.PRIMARY)) {
-    	            int index = table.getSelectionModel().getSelectedIndex();
-    	            User user = table.getItems().get(index);
-    	            selectedAccountUsername = user.getUsername();
-    	            selectedUserDelete.setText("Selected: " + selectedAccountUsername);
-    	            selectedUserUpdate.setText("Selected: " + selectedAccountUsername);
-    	            updateFullName.setText(user.getRealName());
-    	            updateSecurity.setText("" + user.getSecurity());
+    	        	try 
+    	        	{
+    	        		int index = table.getSelectionModel().getSelectedIndex();
+        	            User user = table.getItems().get(index);
+        	            selectedAccountUsername = user.getUsername();
+        	            selectedUserDelete.setText("Selected: " + selectedAccountUsername);
+        	            selectedUserUpdate.setText("Selected: " + selectedAccountUsername);
+        	            updateFullName.setText(user.getRealName());
+        	            updateSecurity.setText("" + user.getSecurity());
+    	        	}
+    	        	catch(Exception e) {}
     	        }
     	    });
     }
