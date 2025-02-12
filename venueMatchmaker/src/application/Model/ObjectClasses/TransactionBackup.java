@@ -35,6 +35,10 @@ public class TransactionBackup implements Serializable {
 	public void setRequests(ArrayList<Request> requests) {
 		this.requests = requests;
 	}
+	
+	public void addRequest(Request request) {
+		requests.add(request);
+	}
 
 	public ArrayList<Booking> getBookings() {
 		return bookings;
@@ -43,6 +47,10 @@ public class TransactionBackup implements Serializable {
 	public void setBookings(ArrayList<Booking> bookings) {
 		this.bookings = bookings;
 	}
+	
+	public void addBooking(Booking booking) {
+		bookings.add(booking);
+	}
 
 	public ArrayList<Venue> getVenues() {
 		return venues;
@@ -50,5 +58,9 @@ public class TransactionBackup implements Serializable {
 
 	public void setVenues(ArrayList<Venue> venues) {
 		this.venues = venues;
+	}
+	
+	public void addVenue(Venue venue) {
+		venues.add(venue);
 	}
 }
