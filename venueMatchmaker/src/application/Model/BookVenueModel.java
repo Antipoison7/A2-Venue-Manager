@@ -21,9 +21,12 @@ public class BookVenueModel extends JDBCHelper
 		{
 			compatibility.put("Capacity", (r.getAudienceNumber()<= v.getCapacity()) );
 			
-			compatibility.put("Type", (r.getCategory().equals(v.getCategory())));
+			String type = r.getCategory().substring(0, 1).toUpperCase() + r.getCategory().substring(1);
+			compatibility.put("Type", (v.getCategory().equals(type)) );
 			
 			compatibility.put("Event", v.getSuitableType().contains(r.getType()));
+//			System.out.println("Event R Type = " + r.getType());
+//			System.out.println("Event V Type = " + v.getSuitableType());
 			
 			ObjectDBInterface db = new ObjectDBInterface();
 			ArrayList<Booking> bookings = db.getBookings(v.getName());
@@ -32,11 +35,15 @@ public class BookVenueModel extends JDBCHelper
 			
 			for(Booking b : bookings) 
 			{
+//				System.out.println("Booking: " + b.getTitle());
+				
 				if(Booking.doesOverlap(r.getDate(), r.getTime(), r.getDuration(), b.getDate(), b.getTime(), b.getDuration())) 
 				{
+//					System.out.println("Overlap: " + b.getTitle());
 					compatibility.put("Double", false);
 				}
-			}			
+			}
+//			System.out.println("Double Booking=" + compatibility.get("Double"));
 		}
 		catch(Exception e) 
 		{
@@ -58,21 +65,25 @@ public class BookVenueModel extends JDBCHelper
 		
 		if(compat.get("Capacity")) 
 		{
+			System.out.println("+Capac");
 			compScore++;
 		}
 		
 		if(compat.get("Type")) 
 		{
+			System.out.println("+Type");
 			compScore++;
 		}
 		
 		if(compat.get("Event")) 
 		{
+			System.out.println("+Event");
 			compScore++;
 		}
 		
 		if(compat.get("Double")) 
 		{
+			System.out.println("+Double");
 			compScore++;
 		}
 		
