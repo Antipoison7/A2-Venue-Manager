@@ -89,7 +89,7 @@ public class AllEventsController {
     @FXML
     public void openBookingManager(ActionEvent e) 
     {
-    	System.out.println("Open Booking Manager");
+//    	System.out.println("Open Booking Manager");
     	
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	
@@ -100,7 +100,7 @@ public class AllEventsController {
     @FXML
     public void openCustomiseProfile(ActionEvent e) 
     {
-    	System.out.println("Open Customise Profile");
+//    	System.out.println("Open Customise Profile");
     	
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	
@@ -110,7 +110,7 @@ public class AllEventsController {
     
     @FXML
     public void openAllVenues(ActionEvent event) {
-    	System.out.println("Open All Venues Menu");
+//    	System.out.println("Open All Venues Menu");
     	
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	
@@ -121,7 +121,7 @@ public class AllEventsController {
     @FXML
     public void openAllEvents(ActionEvent event) 
     {
-    	System.out.println("Open All Events Menu");
+//    	System.out.println("Open All Events Menu");
     	
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	
@@ -132,7 +132,7 @@ public class AllEventsController {
     @FXML
     public void openBackupManager(ActionEvent e) 
     {
-    	System.out.println("Open Backup Manager");
+//    	System.out.println("Open Backup Manager");
     	
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	
@@ -143,7 +143,7 @@ public class AllEventsController {
     @FXML
     public void openManagerStats(ActionEvent e) 
     {
-    	System.out.println("Open Manager Stats");
+//    	System.out.println("Open Manager Stats");
     	
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	
@@ -154,7 +154,7 @@ public class AllEventsController {
     @FXML
     public void openAddEmployees(ActionEvent e) 
     {
-    	System.out.println("Open Add Employees");
+//    	System.out.println("Open Add Employees");
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	EmployeeManagerView empl = new EmployeeManagerView();
     	empl.openManagerView(stage);
@@ -163,7 +163,7 @@ public class AllEventsController {
     @FXML
     public void logOut(ActionEvent e) 
     {
-    	System.out.println("Log Out");
+//    	System.out.println("Log Out");
     	Stage stage = (Stage) searchButton.getScene().getWindow();
     	LoginView logOut = new LoginView();
     	logOut.start(stage);
