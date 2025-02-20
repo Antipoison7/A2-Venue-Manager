@@ -12,6 +12,7 @@ import application.View.DataSummaryView;
 import application.View.EmployeeManagerView;
 import application.View.ErrorGenerator;
 import application.View.LoginView;
+import application.View.SuccessGenerator;
 import application.View.UpdateStaffProfileView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,12 +112,12 @@ public class BackupManagerController {
     		}
     		else if(dupes != 0) 
     		{
-    			ErrorGenerator errorThrow = new ErrorGenerator();
+    			SuccessGenerator successThrow = new SuccessGenerator();
     			
-    			errorThrow.setErrorTitle("Updates");
-    	    	errorThrow.setErrorBody(dupes + " Rows Updated");
+    			successThrow.setSuccessTitle("Updates");
+    	    	successThrow.setSuccessBody(dupes + " Rows Updated");
     	    	
-    	    	errorThrow.throwError();
+    	    	successThrow.throwSuccess();
     		}
     	}
     	catch(Exception e) 
@@ -152,12 +153,12 @@ public class BackupManagerController {
     		}
     		else if(dupes != 0) 
     		{
-    			ErrorGenerator errorThrow = new ErrorGenerator();
+    			SuccessGenerator successThrow = new SuccessGenerator();
     			
-    			errorThrow.setErrorTitle("Updates");
-    	    	errorThrow.setErrorBody(dupes + " Rows Updated");
+    			successThrow.setSuccessTitle("Updates");
+    	    	successThrow.setSuccessBody(dupes + " Rows Updated");
     	    	
-    	    	errorThrow.throwError();
+    	    	successThrow.throwSuccess();
     		}
     	}
     	catch(Exception e) 
@@ -201,6 +202,15 @@ public class BackupManagerController {
     	    	errorThrow.setErrorBody(dupes + " Number of Duplicate Entries");
     	    	
     	    	errorThrow.throwError();
+    		}
+    		else 
+    		{
+    			SuccessGenerator successThrow = new SuccessGenerator();
+    			
+    			successThrow.setSuccessTitle("Requests Imported");
+    	    	successThrow.setSuccessBody(dupes + " Duplicates");
+    	    	
+    	    	successThrow.throwSuccess();
     		}
     	}
     	catch(Exception e) 
@@ -247,6 +257,15 @@ public class BackupManagerController {
     	    	errorThrow.setErrorBody(dupes + " Number of Duplicate Entries");
     	    	
     	    	errorThrow.throwError();
+    		}
+    		else 
+    		{
+    			SuccessGenerator successThrow = new SuccessGenerator();
+    			
+    			successThrow.setSuccessTitle("Requests Imported");
+    	    	successThrow.setSuccessBody(dupes + " Duplicates");
+    	    	
+    	    	successThrow.throwSuccess();
     		}
     	}
     	catch(Exception e) 
