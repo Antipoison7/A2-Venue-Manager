@@ -376,7 +376,7 @@ public class BackupModel extends JDBCHelper{
 			Statement statement = jdbc.createStatement();
 			
 			//Get Requests
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM requests;");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
 			
 			//Get Staff / Users
 			while(resultSet.next()) 
