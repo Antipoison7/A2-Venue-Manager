@@ -424,7 +424,6 @@ public class BackupModel extends JDBCHelper{
 	public int importTransactionBackup(File transactionFile) 
 	{
 		int numberOfUpdates = 0;
-		int totalValues = 0;
 		try 
 		{
 			FileInputStream file = new FileInputStream(transactionFile);
@@ -437,11 +436,6 @@ public class BackupModel extends JDBCHelper{
             //Load Venues
             PreparedStatement query = jdbc.prepareStatement("INSERT OR REPLACE INTO venues (venue_name, hire_price, capacity, category, bookable) VALUES(?,?,?,?,?);");
             
-			for (int i = 0; i < backup.getVenues().size(); i++) 
-			{
-				totalValues++;
-			}
-			
 			for (Venue v : backup.getVenues()) 
 			{
 				query.setString(1, v.getName());
@@ -458,49 +452,44 @@ public class BackupModel extends JDBCHelper{
 					suitableType.setString(1, v.getName());
 					suitableType.setString(2, s);
 
-					suitableType.executeUpdate();
+					numberOfUpdates += suitableType.executeUpdate();
 				}
 			}
-            
+			
             //Load Requests
             query = jdbc.prepareStatement("INSERT OR REPLACE INTO requests (client_name, title, artist, date, time, duration, audience_number, type, category) VALUES (?,?,?,?,?,?,?,?,?);");
-			
-            for(int i = 0; i < backup.getRequests().size(); i++) 
-            {
-            	totalValues++;
-            }
             
             for(Request r : backup.getRequests()) 
             {
-            	PreparedStatement clientQuery = jdbc.prepareStatement("INSERT INTO clients(name) SELECT ? WHERE NOT EXISTS (SELECT name FROM clients WHERE name = ?);");
+            	RequestManagerModel nrm = new RequestManagerModel();
             	
-            	clientQuery.setString(1, r.getClientName());
-            	clientQuery.setString(2, r.getClientName());
-            	
-            	clientQuery.executeUpdate();
-            	
-            	query.setString(1, r.getClientName());
-            	query.setString(2, r.getTitle());
-            	query.setString(3, r.getArtist());
-            	query.setString(4, r.getDate());
-            	query.setString(5, r.getTime());
-            	query.setDouble(6, r.getDuration());
-            	query.setInt(7, r.getAudienceNumber());
-            	query.setString(8, r.getType());
-            	query.setString(9, r.getCategory());
-            	
-            	numberOfUpdates += query.executeUpdate();
+            	if(!nrm.isDuplicateRequest(r.getClientName(), r.getTitle(), r.getArtist(), r.getDate(), r.getTime())) 
+            	{
+            		PreparedStatement clientQuery = jdbc.prepareStatement("INSERT INTO clients(name) SELECT ? WHERE NOT EXISTS (SELECT name FROM clients WHERE name = ?);");
+                	
+                	clientQuery.setString(1, r.getClientName());
+                	clientQuery.setString(2, r.getClientName());
+                	
+                	numberOfUpdates += clientQuery.executeUpdate();
+                	
+                	query.setString(1, r.getClientName());
+                	query.setString(2, r.getTitle());
+                	query.setString(3, r.getArtist());
+                	query.setString(4, r.getDate());
+                	query.setString(5, r.getTime());
+                	query.setDouble(6, r.getDuration());
+                	query.setInt(7, r.getAudienceNumber());
+                	query.setString(8, r.getType());
+                	query.setString(9, r.getCategory());
+                	
+                	numberOfUpdates += query.executeUpdate();
+            	}
             }
             
             //Load Bookings
             
             query = jdbc.prepareStatement("INSERT OR REPLACE INTO event_bookings (client_name, staff_username, cost, commission, title, artist, date, start_time, duration, audience_number, type, group_booking, category, venue) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
             
-			for (int i = 0; i < backup.getBookings().size(); i++) 
-			{
-				totalValues++;
-			}
-			
 			for(Booking b : backup.getBookings()) 
 			{
 				PreparedStatement clientQuery = jdbc.prepareStatement("INSERT INTO clients(name) SELECT ? WHERE NOT EXISTS (SELECT name FROM clients WHERE name = ?);");
@@ -508,14 +497,14 @@ public class BackupModel extends JDBCHelper{
             	clientQuery.setString(1, b.getClientName());
             	clientQuery.setString(2, b.getClientName());
             	
-            	clientQuery.executeUpdate();
+            	numberOfUpdates += clientQuery.executeUpdate();
             	
             	clientQuery = jdbc.prepareStatement("INSERT INTO users(username, password, real_name, security, active) SELECT ?,'samplePassword','sampleRealName',0,0 WHERE NOT EXISTS (SELECT username FROM users WHERE username = ?);");
             	
             	clientQuery.setString(1, b.getStaff());
             	clientQuery.setString(2, b.getStaff());
             	
-            	clientQuery.executeUpdate();
+            	numberOfUpdates += clientQuery.executeUpdate();
 				
 				query.setString(1, b.getClientName());
 				query.setString(2, b.getStaff());
@@ -539,7 +528,7 @@ public class BackupModel extends JDBCHelper{
             jdbc.close();
             query.close();
             
-			return totalValues - numberOfUpdates;
+			return numberOfUpdates;
 		}
 		catch(Exception e)
         {
@@ -550,7 +539,6 @@ public class BackupModel extends JDBCHelper{
 	public int importMasterBackup(File masterFile) 
 	{
 		int numberOfUpdates = 0;
-		int totalValues = 0;
 		try 
 		{
 			FileInputStream file = new FileInputStream(masterFile);
@@ -561,11 +549,6 @@ public class BackupModel extends JDBCHelper{
             Connection jdbc =  connectDB();
             
             PreparedStatement query = jdbc.prepareStatement("INSERT OR REPLACE INTO users (username, password, real_name, security, active) VALUES (?,?,?,?,?);");
-            
-            for(int i = 0; i < backup.getUsers().size(); i++) 
-            {
-            	totalValues++;
-            }
             
 			for (User u : backup.getUsers()) {
 
@@ -580,11 +563,6 @@ public class BackupModel extends JDBCHelper{
 			
 			query = jdbc.prepareStatement("INSERT OR REPLACE INTO clients (name) VALUES (?);");
 			
-			for(int i = 0; i < backup.getClients().size(); i++) 
-            {
-            	totalValues++;
-            }
-			
 			for (Client c : backup.getClients()) {
 				
 				query.setString(1, c.getName());
@@ -596,7 +574,7 @@ public class BackupModel extends JDBCHelper{
 			jdbc.close();
 			query.close();
 			
-			return totalValues - numberOfUpdates ;
+			return numberOfUpdates;
 		}
 		catch(Exception e)
         {
