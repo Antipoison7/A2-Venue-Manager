@@ -472,6 +472,13 @@ public class BackupModel extends JDBCHelper{
             
             for(Request r : backup.getRequests()) 
             {
+            	PreparedStatement clientQuery = jdbc.prepareStatement("INSERT INTO clients(name) SELECT ? WHERE NOT EXISTS (SELECT name FROM clients WHERE name = ?);");
+            	
+            	clientQuery.setString(1, r.getClientName());
+            	clientQuery.setString(2, r.getClientName());
+            	
+            	clientQuery.executeUpdate();
+            	
             	query.setString(1, r.getClientName());
             	query.setString(2, r.getTitle());
             	query.setString(3, r.getArtist());
@@ -496,6 +503,20 @@ public class BackupModel extends JDBCHelper{
 			
 			for(Booking b : backup.getBookings()) 
 			{
+				PreparedStatement clientQuery = jdbc.prepareStatement("INSERT INTO clients(name) SELECT ? WHERE NOT EXISTS (SELECT name FROM clients WHERE name = ?);");
+            	
+            	clientQuery.setString(1, b.getClientName());
+            	clientQuery.setString(2, b.getClientName());
+            	
+            	clientQuery.executeUpdate();
+            	
+            	clientQuery = jdbc.prepareStatement("INSERT INTO users(username, password, real_name, security, active) SELECT ?,'samplePassword','sampleRealName',0,0 WHERE NOT EXISTS (SELECT username FROM users WHERE username = ?);");
+            	
+            	clientQuery.setString(1, b.getStaff());
+            	clientQuery.setString(2, b.getStaff());
+            	
+            	clientQuery.executeUpdate();
+				
 				query.setString(1, b.getClientName());
 				query.setString(2, b.getStaff());
 				query.setDouble(3, b.getCost());
